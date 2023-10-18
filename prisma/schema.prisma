@@ -10,94 +10,127 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model notice_table{
-  notice_id Int @id
-  title String
-  context String
-  start_date DateTime
-  end_date  DateTime
-  updated_date DateTime
+model user_table {
+  user_id   String @id
+  user_type String
+
+  student student_table?
+  admin   admin_table?
 }
 
-model action_table{
-  action_id Int @id
-  action_name String
+model student_table {
+  student_id      String   @id
+  name            String
+  furigana        String
+  gender          String
+  is_enrolled     Boolean
+  grade           Int
+  graduation_year Int
+  face_photo      String
+  updated_at      DateTime @updatedAt
+  cource_id       Int
+  contact1        Int
+  contact2        Int
+
+  user      user_table    @relation(fields: [student_id], references: [user_id])
+  cource    cource_table  @relation(fields: [cource_id], references: [cource_id])
+  contact_1 contact_table @relation(name: "Contact1", fields: [contact1], references: [contact_id])
+  contact_2 contact_table @relation(name: "Contact2", fields: [contact2], references: [contact_id])
+
+  instruction         instruction_table[]
+  contact             contact_table[]
+  career_action_table career_action_table[]
 }
 
-model  career_action_table{
-  career_action_id Int @id
-  user_id_f String 
-  action_date DateTime
-  notes String?
-  updated_date DateTime
-  career_path_id_f Int
-  action_id_f Int
-  
-  career_path_id career_path_table @relation(fields: [career_path_id_f], references: [career_path_id])
-  action_id action_table @relation(fields: [action_id_f], references: [action_id])
-  user_id user_table @relation(fields: [user_id_f], references: [user_id])
-}
-
-model career_path_table{
-  career_path_id Int @id
-  career_path_name String
+model admin_table {
+  admin_id String @id
+  name     String
   furigana String
-  website String
+
+  user user_table @relation(fields: [admin_id], references: [user_id])
+
+  instruction instruction_table[]
 }
 
-model contact_table{
-  contact_user_id String @id
+model instruction_table {
+  subject    String
+  student_id String
+  admin_id   String
+
+  student student_table @relation(fields: [student_id], references: [student_id])
+  admin   admin_table   @relation(fields: [admin_id], references: [admin_id])
+
+  @@id([subject, student_id, admin_id])
+}
+
+model cource_table {
+  cource_id Int    @id @default(autoincrement())
+  name      String
+
+  student student_table[]
+}
+
+model contact_table {
+  contact_id   Int    @id @default(autoincrement())
   contact_type String
   phone_number Int
-  email String
-  address String
+  email        String
+  address      String
+  student_id   String
 
-  user_id user_table  @relation(fields: [contact_user_id], references: [user_id])
+  student student_table @relation(fields: [student_id], references: [student_id])
+
+  student1 student_table[] @relation(name: "Contact1")
+  student2 student_table[] @relation(name: "Contact2")
 }
 
-model cource_table{
-  cource_id Int @id
-  course_name String
+model career_action_table {
+  career_action_id Int      @id @default(autoincrement())
+  student_id       String
+  action_date      DateTime
+  notes            String?
+  updated_at       DateTime @updatedAt
+  career_path_id   Int
+  action_id        Int
+
+  student     student_table     @relation(fields: [student_id], references: [student_id])
+  career_path career_path_table @relation(fields: [career_action_id], references: [career_path_id])
+  action      action_table      @relation(fields: [action_id], references: [action_id])
 }
 
-model job_listing_table{
-  job_listing_id Int @id
-  application_format String 
-  submission_date DateTime
-  visit_date DateTime
-  updated_date DateTime
-  career_path_id_f Int
+model action_table {
+  action_id   Int    @id @default(autoincrement())
+  action_name String
 
-  career_path_id career_path_table @relation(fields: [career_path_id_f], references: [career_path_id])
+  career_action career_action_table[]
 }
 
-model student_table{
-  student_id_f String @id
-  student_name String
-  furigana String
-  gender String
-  is_enrolled Boolean
-  grade Int
-  graduation_year Int
-  face_photo String
-  updated_date DateTime
-  cource_id_f Int
-  teacher_id_f String
+model career_path_table {
+  career_path_id Int    @id @default(autoincrement())
+  name           String
+  furigana       String
+  website        String
 
-  user_id user_table @relation(name: "student_user",fields: [student_id_f], references: [user_id])
-  cource_id cource_table @relation(fields: [cource_id_f],references:[cource_id])
-  teacher_id user_table @relation(name: "teacher_user",fields: [teacher_id_f], references: [user_id])
+  career_action career_action_table[]
+  job_listing   job_listing_table[]
 }
 
-model teacher_table{
-  user_id String @id
-  teacher_name String
-  furigana String
-  subject String
-  user user_table @relation(fields: [user_id], references: [user_id])
+model job_listing_table {
+  job_listing_id     Int      @id @default(autoincrement())
+  application_format String
+  submission_date    DateTime
+  visit_date         DateTime
+  updated_at         DateTime @updatedAt
+  career_path_id     Int
+
+  career_path career_path_table @relation(fields: [career_path_id], references: [career_path_id])
 }
 
-model user_table{
-  user_id String @id
-  user_type String
+model notice_table {
+  notice_id    Int      @id @default(autoincrement())
+  title        String
+  content      String
+  start_date   DateTime
+  end_date     DateTime
+  updated_date DateTime @updatedAt
 }
