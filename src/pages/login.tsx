@@ -17,51 +17,62 @@ import { maxHeaderSize } from 'http';
 import { url } from 'inspector';
 import Image from "next/image";
 import fu_logo from "/public/images/fu_logo.png";
-import ErrorSnackbar from '@/components/molecule/Errorsnackbar';
+import ErrorSnackbar from '@/component/mid/error_snack_bar';
+import { useSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
+
 
 const defaultTheme = createTheme();
 
-
 export default function SignIn() { //サインインページ
 
-    const [uid, setuid] = useState(''); // IDの状態を管理するステート
-    const [password, setpassword] = useState(''); // パスワードの状態を管理するステート
-    const [is_professor, setis_professor] = useState('');//ユーザー属性を管理するステート
-    const token =  process.env.NEXT_PUBLIC_token //福大ダミー認証トークン
-    const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
-    const router = useRouter();
+  const [uid, setuid] = useState(''); // IDの状態を管理するステート
+  const [password, setpassword] = useState(''); // パスワードの状態を管理するステート
+  const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);//スナックバーの状態を管理するステート
+  const [errorMessage, setErrorMessage] = useState('');//エラーメッセージの状態を管理するステート
+  const router = useRouter();
 
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => { //サインイン実行時処理
-    event.preventDefault();
-    try {
-        
-        const response = await fetch('/api/api_mid',{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({uid,password})});
+  // const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => { //サインイン実行時処理
+  //   event.preventDefault();
+  //   try {
+  //       const response = await fetch('/api/api_mid',{
+  //         method: 'POST',
+  //         headers: {
+  //             'Content-Type': 'application/json',
+  //           },
+  //         body: JSON.stringify({uid,password})
+  //       });
       
-        const auth_message = await response.json();
+  //       const auth_message = await response.json();
 
-      if(auth_message.message == '認証成功'){
-        router.push('/joboffer');
-      }
-      else console.log(auth_message.error)
-      setErrorMessage(auth_message.error);
-      setOpenErrorSnackbar(true);
+  //       if(auth_message.message == '認証成功'){
+  //         router.push('/joboffer');
+  //       }
+  //       else console.log(auth_message.error)
+  //         setErrorMessage(auth_message.error);
+  //         setOpenErrorSnackbar(true);
+  //   } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
 
-    } catch (error) {
-        console.error(error);
-    }
+  const handleSubmit = async (event: React.FocusEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const userCredentials = { uid,password };
+    await signIn('credentials',userCredentials);
   };
 
   const handleCloseErrorSnackbar = () => 
    {
     setOpenErrorSnackbar(false);
   };
+
+
+
+
+
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
