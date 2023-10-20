@@ -12,6 +12,8 @@ datasource db {
 
 model user_table {
   user_id   String @id
+  name      String
+  furigana  String
   user_type String
 
   student student_table?
@@ -20,8 +22,6 @@ model user_table {
 
 model student_table {
   student_id      String   @id
-  name            String
-  furigana        String
   gender          String
   is_enrolled     Boolean
   grade           Int
@@ -29,13 +29,13 @@ model student_table {
   face_photo      String
   updated_at      DateTime @updatedAt
   cource_id       Int
-  contact1        Int
-  contact2        Int
+  contact1        Int?
+  contact2        Int?
 
-  user      user_table    @relation(fields: [student_id], references: [user_id])
-  cource    cource_table  @relation(fields: [cource_id], references: [cource_id])
-  contact_1 contact_table @relation(name: "Contact1", fields: [contact1], references: [contact_id])
-  contact_2 contact_table @relation(name: "Contact2", fields: [contact2], references: [contact_id])
+  user      user_table     @relation(fields: [student_id], references: [user_id])
+  cource    cource_table   @relation(fields: [cource_id], references: [cource_id])
+  contact_1 contact_table? @relation(name: "Contact1", fields: [contact1], references: [contact_id])
+  contact_2 contact_table? @relation(name: "Contact2", fields: [contact2], references: [contact_id])
 
   instruction         instruction_table[]
   contact             contact_table[]
@@ -44,8 +44,6 @@ model student_table {
 
 model admin_table {
   admin_id String @id
-  name     String
-  furigana String
 
   user user_table @relation(fields: [admin_id], references: [user_id])
 
@@ -122,15 +120,16 @@ model job_listing_table {
   visit_date         DateTime
   updated_at         DateTime @updatedAt
   career_path_id     Int
+  notes              String?
 
   career_path career_path_table @relation(fields: [career_path_id], references: [career_path_id])
 }
 
 model notice_table {
-  notice_id    Int      @id @default(autoincrement())
-  title        String
-  content      String
-  start_date   DateTime
-  end_date     DateTime
-  updated_date DateTime @updatedAt
+  notice_id  Int      @id @default(autoincrement())
+  title      String
+  content    String
+  start_date DateTime
+  end_date   DateTime
+  updated_at DateTime @updatedAt
 }

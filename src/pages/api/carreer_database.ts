@@ -1,4 +1,4 @@
-//お知らせデータベースとの接続
+//キャリア活動データベースとの接続
 
 import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
