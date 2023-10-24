@@ -17,7 +17,7 @@ import { maxHeaderSize } from 'http';
 import { url } from 'inspector';
 import Image from "next/image";
 import fu_logo from "/public/images/fu_logo.png";
-import ErrorSnackbar from '@/components/molecule/Errorsnackbar';
+// import ErrorSnackbar from '@/components/molecule/Errorsnackbar';
 
 const defaultTheme = createTheme();
 
@@ -141,11 +141,11 @@ export default function SignIn() { //サインインページ
             >
               サインイン
             </Button>
-            <ErrorSnackbar
+            {/* <ErrorSnackbar
               errorMessage={errorMessage}
               open={openErrorSnackbar}
               handleClose={handleCloseErrorSnackbar}
-            />
+            /> */}
             {/* <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">

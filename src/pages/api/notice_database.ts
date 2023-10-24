@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 
 
-export async function hendler(req: NextApiRequest, res: NextApiResponse) {
+export default async function hendler(req: NextApiRequest, res: NextApiResponse) {
     const prisma = new PrismaClient();
     //データの追加
     if (req.method === "POST") {

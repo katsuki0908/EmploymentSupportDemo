@@ -21,7 +21,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-
+import fu_logo from '../../../public/images/fu_logo'
 
 
 const theme = createTheme({
@@ -128,7 +128,7 @@ export default function Header() {
             </Stack>
           </Toolbar>
         </AppBar> */}
-        <AppBars position="fixed" open={open} sx={{backgroundColor:'secondary.main', display: { xs: 'flex', md: 'none',height:70 } }}>
+        <AppBars position="fixed" open={open} sx={{backgroundColor:'secondary.main', display: { xs: 'flex', md: 'flex',height:70 } }}>
         <Toolbar>
           <Typography variant="h5" noWrap sx={{ flexGrow: 1,mt:2 }} color="primary" component="div">
             ロゴマークが入るよ
