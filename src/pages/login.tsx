@@ -32,7 +32,6 @@ export default function SignIn() { //サインインページ
   const [errorMessage, setErrorMessage] = useState('');//エラーメッセージの状態を管理するステート
   const router = useRouter();
 
-  // const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => { //サインイン実行時処理
   //   event.preventDefault();
   //   try {
   //       const response = await fetch('/api/api_mid',{
@@ -51,15 +50,10 @@ export default function SignIn() { //サインインページ
   //       else console.log(auth_message.error)
   //         setErrorMessage(auth_message.error);
   //         setOpenErrorSnackbar(true);
-  //   } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
+  //   } cat
   const handleSubmit = async (event: React.FocusEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    const userCredentials = { uid,password };
+    const userCredentials = { uid:uid,password:password };
     await signIn('credentials',userCredentials);
   };
 
@@ -68,15 +62,8 @@ export default function SignIn() { //サインインページ
     setOpenErrorSnackbar(false);
   };
 
-
-
-
-
-
-
   return (
     <ThemeProvider theme={defaultTheme}>
-      {/* <Container component="main" maxWidth="xs" > */}
         <CssBaseline />
         <Box
           sx={{
@@ -137,11 +124,6 @@ export default function SignIn() { //サインインページ
               onChange={(e) => setpassword(e.target.value)}
               sx={{borderRadius: 10}}
             />
-
-            {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            /> */}
             <Button
               type="submit"
               fullWidth
@@ -157,21 +139,8 @@ export default function SignIn() { //サインインページ
               open={openErrorSnackbar}
               handleClose={handleCloseErrorSnackbar}
             />
-            {/* <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid> */}
           </Box>
         </Box>
-      {/* </Container> */}
     </ThemeProvider>
   );
 }

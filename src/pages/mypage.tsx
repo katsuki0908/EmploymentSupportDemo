@@ -8,13 +8,13 @@ import { Session } from "inspector";
 
 export default function(){
 
-    const {data:session,status} = useSession();
+    const {data:session} = useSession();
 
-    if (status === 'loading') {
+    if (!session) {
         return <p>Loading...</p>;
       }
 
-    if (status === 'authenticated' && session.user){
+    if (session){
     return(
         <Box
         sx={{
