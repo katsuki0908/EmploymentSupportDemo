@@ -1,28 +1,20 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import AppBar from '@mui/material/AppBar';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import HomeIcon from '@mui/icons-material/Home';
-import { Button, Stack } from '@mui/material';
-import { IconButton } from '@mui/material';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import {Avatar} from '@mui/material';
-import { createTheme,ThemeProvider } from '@mui/material/styles';
-import {Typography} from '@mui/material';
-import { styled, useTheme } from '@mui/material/styles';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import WorkIcon from '@mui/icons-material/Work';
+import EditNoteIcon from '@mui/icons-material/EditNote';
+import { createTheme,ThemeProvider,styled } from '@mui/material/styles';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
-import {Drawer,Divider,List,ListItem} from '@mui/material';
+import {Drawer,Divider,List,ListItem,IconButton,Typography} from '@mui/material';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import  LogoutButton from '../mid/logout_button';
-
 
 
 const theme = createTheme({
@@ -37,9 +29,7 @@ const theme = createTheme({
   },
 });
 
-
 const drawerWidth = 290;
-
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
   open?: boolean;
@@ -60,11 +50,9 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
   }),
 }));
 
-
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
-
 
 const AppBars = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -96,15 +84,21 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function Header() {
 
   const [open, setOpen] = React.useState(false);
+  const side_bar_item = [{ text: 'トップページ', url: '/top',icon: <HomeIcon/> }, //サイドバー表示内容
+  { text: '求人一覧閲覧', url: '/joblist', icon: <WorkIcon/> },
+  { text: 'マイページ', url: '/mypage', icon: <AccountBoxIcon/> },
+  { text: 'キャリア活動編集', url: '/edit_career', icon: <EditNoteIcon/> },
+  { text: 'プロフィール編集', url: '/edit_profile', icon: <EditNoteIcon/> },
+  { text: 'お知らせ編集ページ', url: '/edit_notice', icon: <EditNoteIcon/> },
+  { text: '求人票編集', url: '/edit_joblist', icon: <EditNoteIcon/> },
+];
 
   const handleDrawerOpen = () => {
     setOpen(true);
   };
-
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
     return (
       <ThemeProvider theme={theme}>
          <CssBaseline />
@@ -143,24 +137,25 @@ export default function Header() {
       >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            <ChevronRightIcon />
           </IconButton>
-          サイドバー
+          <Typography>サイドバー</Typography>
         </DrawerHeader>
-
         <Divider />
         <List>
-          {['トップページ', '求人一覧閲覧', 'マイページ', 'キャリア活動編集','プロフィール編集','お知らせ編集ページ','求人票編集','ログアウト',].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton href='/auth/signin'>
+          {side_bar_item.map((item) => ( //サイドバーの内容を表示する
+            <ListItem key={item.text} disablePadding>
+              <ListItemButton href={item.url}>
                 <ListItemIcon>
-                  {index % 1 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {item.icon}
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary={item.text}/>
               </ListItemButton>
-              <LogoutButton/>
             </ListItem>
           ))}
+          <ListItem>
+          <LogoutButton/>
+          </ListItem>
         </List>
       </Drawer>
       </Box>
