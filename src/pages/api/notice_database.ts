@@ -24,7 +24,7 @@ export async function hendler(req: NextApiRequest, res: NextApiResponse) {
             res.status(500).json({ error: "データの追加に失敗しました。" });
         }
     }
-
+    
     //データの取得
     else if (req.method === "GET") {
         try {
