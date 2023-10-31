@@ -4,18 +4,17 @@ import Header from "@/component/big/header";
 import {Button} from "@mui/material";
 import Careerlist from "@/component/big/career";
 import { useSession } from "next-auth/react";
-import { Session } from "inspector";
+import Profilelist from "@/component/big/profile";
 
 export default function(){
 
-    const {data:session} = useSession();
+  const { data:session } = useSession();
 
-    if (!session) {
-        return <p>Loading...</p>;
-      }
+  // if (!session?.user?.user_id) {
+  //     return <p>Loading...</p>;
+  //   }
 
-    if (session){
-    return(
+  return(
         <Box
         sx={{
           width:395,
@@ -28,24 +27,23 @@ export default function(){
       >
             <Header/>
             <Box
-            sx={{
-                width: '80%',
-                height:'30%',
-                mt:2,
-                backgroundColor: 'blue',
-                
-            }}
-            >
-                プロフィール
-            </Box>
+    sx={{
+        width: '90%',
+        height:'30%',
+        mt:2,
+    }}
+>
+    プロフィール
+    <Profilelist/>
+</Box>
+            
             
             <Box
             sx={{
-                width: '80%',
+                width: '90%',
                 height:'30%',
                 mt:10,
                 backgroundColor: 'blue',
-                
             }}
             >
             キャリア活動
@@ -56,6 +54,5 @@ export default function(){
             </Button>
             <Careerlist/>
             </Box>
-    )
-        }
+  )
 }
