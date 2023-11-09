@@ -39,14 +39,13 @@ export async function hendler(req: NextApiRequest, res: NextApiResponse) {
                 });
                 res.status(200).json(user);
             } else {
-                // ユーザーIDが指定されていない場合、全てのユーザーデータを取得
-                const users = await prisma.user_table.findMany();
-                res.status(200).json(users);
+                res.status(200).json('ユーザーidが送信されていません');
             }
         }
         catch (error) {
             res.status(500).json({ error: "データの取得に失敗しました。" });
         }
+
     }
 
     //データの変更

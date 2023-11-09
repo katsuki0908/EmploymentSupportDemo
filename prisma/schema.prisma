@@ -23,14 +23,15 @@ model user_table {
 model student_table {
   student_id      String   @id
   gender          String
-  is_enrolled     Boolean
   grade           Int
   graduation_year Int
-  face_photo      String
-  updated_at      DateTime @updatedAt
+  face_photo      String?
+  updated_at      DateTime @updatedAt @default(now())
   cource_id       Int
   contact1        Int?
   contact2        Int?
+  affiliation     String
+  notes           String?
 
   user      user_table     @relation(fields: [student_id], references: [user_id])
   cource    cource_table   @relation(fields: [cource_id], references: [cource_id])
@@ -51,14 +52,13 @@ model admin_table {
 }
 
 model instruction_table {
-  subject    String
-  student_id String
-  admin_id   String
+  instruction_id Int    @id @default(autoincrement())
+  subject        String
+  student_id     String
+  admin_id       String
 
   student student_table @relation(fields: [student_id], references: [student_id])
   admin   admin_table   @relation(fields: [admin_id], references: [admin_id])
-
-  @@id([subject, student_id, admin_id])
 }
 
 model cource_table {
@@ -69,11 +69,11 @@ model cource_table {
 }
 
 model contact_table {
-  contact_id   Int    @id @default(autoincrement())
+  contact_id   Int     @id @default(autoincrement())
   contact_type String
-  phone_number Int
-  email        String
-  address      String
+  phone_number Int?
+  email        String?
+  address      String?
   student_id   String
 
   student student_table @relation(fields: [student_id], references: [student_id])
@@ -87,7 +87,7 @@ model career_action_table {
   student_id       String
   action_date      DateTime
   notes            String?
-  updated_at       DateTime @updatedAt
+  updated_at       DateTime @updatedAt @default(now())
   career_path_id   Int
   action_id        Int
 
@@ -97,8 +97,8 @@ model career_action_table {
 }
 
 model action_table {
-  action_id   Int    @id @default(autoincrement())
-  action_name String
+  action_id Int    @id @default(autoincrement())
+  name      String
 
   career_action career_action_table[]
 }
@@ -118,7 +118,7 @@ model job_listing_table {
   application_format String
   submission_date    DateTime
   visit_date         DateTime
-  updated_at         DateTime @updatedAt
+  updated_at         DateTime @updatedAt @default(now())
   career_path_id     Int
   notes              String?
 
@@ -131,5 +131,6 @@ model notice_table {
   content    String
   start_date DateTime
   end_date   DateTime
-  updated_at DateTime @updatedAt
+  updated_at DateTime @updatedAt @default(now())
 }
+
