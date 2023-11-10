@@ -8,7 +8,7 @@ import Profilelist from "@/component/big/profile";
 
 export default function(){
 
-  const { data:session } = useSession();
+  //const { data:session } = useSession();
 
   // if (!session?.user?.user_id) {
   //     return <p>Loading...</p>;

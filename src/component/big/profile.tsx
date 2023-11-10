@@ -11,13 +11,13 @@ import Grid from '@mui/material/Unstable_Grid2';
 
 
 export default function Profilelist(){
-  const { data:session } = useSession();
+  //const { data:session } = useSession();
      
   const [profile,SetProfile]  = useState<student_table | null>(null)
 
 //プロフィールデータ取得
   React.useEffect(() => {
-    const userId = session?.user?.user_id;
+    //const userId = session?.user?.user_id;
     
     // セッションのユーザーIDが存在する場合、クエリパラメータとして付与
     const url = userId ? `/api/user_database?user_id=${userId}` : '/api/user_database';
@@ -32,9 +32,9 @@ export default function Profilelist(){
     .then((data) => SetProfile(data));
   }, []);
   
-    if (!session?.user?.user_id) {
-      return <p>Loading...</p>;
-    }
+    // if (!session?.user?.user_id) {
+    //   return <p>Loading...</p>;
+    // }
 
     return (
         <Box>
