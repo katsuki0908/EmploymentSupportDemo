@@ -4,11 +4,13 @@ import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 
 
-export async function hendler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const prisma = new PrismaClient();
+    console.log("/notice_database.tsです")
     //データの追加
     if (req.method === "POST") {
         try {
+            console.log("notice_detabaseです")
             const { title, content, start_date, end_date } = req.body;
             const result = await prisma.notice_table.create({
                 data: {
@@ -18,21 +20,22 @@ export async function hendler(req: NextApiRequest, res: NextApiResponse) {
                     end_date
                 },
             });
-            res.status(200).json(result);
+            return res.status(200).json(result);
         }
         catch (error) {
             res.status(500).json({ error: "データの追加に失敗しました。" });
         }
     }
-
+    
     //データの取得
     else if (req.method === "GET") {
         try {
+            console.log("/notice_database.tsです")
             const notices = await prisma.notice_table.findMany();
-            res.status(200).json(notices);
+            return res.status(200).json(notices);
         }
         catch (error) {
-            res.status(500).json({ error: "データの取得に失敗しました。" });
+            return res.status(500).json({ error: "データの取得に失敗しました。" });
         }
     }
 

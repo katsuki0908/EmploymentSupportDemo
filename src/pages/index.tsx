@@ -6,6 +6,15 @@ import styles from '@/styles/Home.module.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+
+  const test = async() => {
+    const response = await fetch("/api/notice_database", {
+      method: "GET"
+    })
+
+    console.log(response);
+  }
+
   return (
     <>
       <Head>
