@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 
 
-export default async function hendler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const prisma = new PrismaClient();
     //データの追加
     if (req.method === "POST") {
@@ -24,7 +24,7 @@ export default async function hendler(req: NextApiRequest, res: NextApiResponse)
             res.status(500).json({ error: "データの追加に失敗しました。" });
         }
     }
-
+    
     //データの取得
     else if (req.method === "GET") {
         try {
@@ -59,8 +59,12 @@ export default async function hendler(req: NextApiRequest, res: NextApiResponse)
     else if (req.method === "DELETE") {
         try {
             const { notice_id } = req.body;
-            await prisma.notice_table.delete({
-                where: { notice_id },
+            await prisma.notice_table.deleteMany({
+                where: { 
+                    id: {
+                        in: notice_id,
+                    },
+                },
             });
             res.status(200).json({ message: "データを削除しました。" });
         }
