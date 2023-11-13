@@ -131,6 +131,6 @@ model notice_table {
   content    String
   start_date DateTime
   end_date   DateTime
-  updated_at DateTime @updatedAt @default(now())
+  updated_at DateTime  @updatedAt @default(now())
 }
 

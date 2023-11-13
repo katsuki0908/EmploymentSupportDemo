@@ -45,14 +45,14 @@ const NoticesPage = () => {
             gender:"F"
            }
            
-          const response = await fetch("/api/profile", {
-            method: "PUT",
-            body:JSON.stringify(dataToSend5)
-          });
-
-          // const response = await fetch("/api/profile?student_id=TD232000", {
+          // const response = await fetch("/api/notice", {
           //   method: "GET",
+          //   //body:JSON.stringify(dataToSend5)
           // });
+
+          const response = await fetch("/api/career?student_id=TD232000", {
+            method: "GET",
+          });
 
           
           console.log(response.json());
