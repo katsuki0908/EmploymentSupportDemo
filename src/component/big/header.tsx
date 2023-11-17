@@ -1,36 +1,22 @@
 import * as React from 'react';
+import { useTheme, styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
-import HomeIcon from '@mui/icons-material/Home';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import WorkIcon from '@mui/icons-material/Work';
-import EditNoteIcon from '@mui/icons-material/EditNote';
-import { createTheme,ThemeProvider,styled } from '@mui/material/styles';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
 import {Drawer,Divider,List,ListItem,IconButton,Typography} from '@mui/material';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import HomeIcon from '@mui/icons-material/Home';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import WorkIcon from '@mui/icons-material/Work';
+import EditNoteIcon from '@mui/icons-material/EditNote';
 import ListItemText from '@mui/material/ListItemText';
 import  LogoutButton from '../mid/logout_button';
 
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#ffffff',
-      dark: '#ffffff',
-    },
-    secondary:{
-      main: '#b3424a',
-    }
-  },
-});
-
 const drawerWidth = 290;
-
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
   open?: boolean;
 }>(({ theme, open }) => ({
@@ -80,18 +66,18 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-start',
 }));
 
-
 export default function Header() {
 
+  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const side_bar_item = [{ text: 'トップページ', url: '/top',icon: <HomeIcon/> }, //サイドバー表示内容
-  { text: '求人一覧閲覧', url: '/joblist', icon: <WorkIcon/> },
-  { text: 'マイページ', url: '/mypage', icon: <AccountBoxIcon/> },
-  { text: 'キャリア活動編集', url: '/edit_career', icon: <EditNoteIcon/> },
-  { text: 'プロフィール編集', url: '/edit_profile', icon: <EditNoteIcon/> },
-  { text: 'お知らせ編集ページ', url: '/edit_notice', icon: <EditNoteIcon/> },
-  { text: '求人票編集', url: '/edit_joblist', icon: <EditNoteIcon/> },
-];
+    { text: '求人一覧閲覧', url: '/joblist', icon: <WorkIcon/> },
+    { text: 'マイページ', url: '/mypage', icon: <AccountBoxIcon/> },
+    { text: 'キャリア活動編集', url: '/edit_career', icon: <EditNoteIcon/> },
+    { text: 'プロフィール編集', url: '/edit_profile', icon: <EditNoteIcon/> },
+    { text: 'お知らせ編集ページ', url: '/edit_notice', icon: <EditNoteIcon/> },
+    { text: '求人票編集', url: '/edit_joblist', icon: <EditNoteIcon/> },
+  ];
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -99,13 +85,13 @@ export default function Header() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-    return (
-      <ThemeProvider theme={theme}>
+  return (
+    <>
          <CssBaseline />
       <Box sx={{ display: 'flex',backgroundcolor:'secondary.main'}}>
-        <AppBars position="fixed" open={open} sx={{backgroundColor:'secondary.main', display: { xs: 'flex', md: 'none',height:70 } }}>
+        <AppBars position="fixed" open={open} sx={{backgroundColor:theme.palette.primary.main, display: { xs: 'flex', md: 'none',height:55 } }}>
         <Toolbar>
-          <Typography variant="h5" noWrap sx={{ flexGrow: 1,mt:2 }} color="primary" component="div">
+          <Typography variant="h6" noWrap sx={{ flexGrow: 1,mt:2 }} color="primary" component="div">
             ロゴマークが入るよ
           </Typography>
           <IconButton
@@ -151,14 +137,14 @@ export default function Header() {
                 </ListItemIcon>
                 <ListItemText primary={item.text}/>
               </ListItemButton>
+           
             </ListItem>
+            
           ))}
-          <ListItem>
-          <LogoutButton/>
-          </ListItem>
+             <LogoutButton/>
         </List>
       </Drawer>
       </Box>
-      </ThemeProvider>
-    );
-  }
+    </>
+  );
+}

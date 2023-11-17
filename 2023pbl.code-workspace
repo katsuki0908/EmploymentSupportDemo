@@ -1,9 +1,11 @@
 {
 	"folders": [
 		{
+			"name": "2023pbl",
 			"path": "."
 		},
 		{
+			"name": "prototypy-mui",
 			"path": "../pt/prototypy-mui"
 		}
 	],

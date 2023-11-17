@@ -6,12 +6,14 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
 model user_table {
   user_id   String @id
+  name      String
+  furigana  String
   user_type String
 
   student student_table?
@@ -20,8 +22,6 @@ model user_table {
 
 model student_table {
   student_id      String   @id
-  name            String
-  furigana        String
   gender          String
   is_enrolled     Boolean
   grade           Int
@@ -29,23 +29,20 @@ model student_table {
   face_photo      String
   updated_at      DateTime @updatedAt
   cource_id       Int
-  contact1        Int
-  contact2        Int
+  contact1        Int?
+  contact2        Int?
 
-  user      user_table    @relation(fields: [student_id], references: [user_id])
-  cource    cource_table  @relation(fields: [cource_id], references: [cource_id])
-  contact_1 contact_table @relation(name: "Contact1", fields: [contact1], references: [contact_id])
-  contact_2 contact_table @relation(name: "Contact2", fields: [contact2], references: [contact_id])
+  user      user_table     @relation(fields: [student_id], references: [user_id])
+  cource    cource_table   @relation(fields: [cource_id], references: [cource_id])
+  contact_1 contact_table? @relation(name: "Contact1", fields: [contact1], references: [contact_id])
+  contact_2 contact_table? @relation(name: "Contact2", fields: [contact2], references: [contact_id])
 
   instruction         instruction_table[]
-  contact             contact_table[]
   career_action_table career_action_table[]
 }
 
 model admin_table {
   admin_id String @id
-  name     String
-  furigana String
 
   user user_table @relation(fields: [admin_id], references: [user_id])
 
@@ -78,8 +75,6 @@ model contact_table {
   address      String
   student_id   String
 
-  student student_table @relation(fields: [student_id], references: [student_id])
-
   student1 student_table[] @relation(name: "Contact1")
   student2 student_table[] @relation(name: "Contact2")
 }
@@ -94,22 +89,22 @@ model career_action_table {
   action_id        Int
 
   student     student_table     @relation(fields: [student_id], references: [student_id])
-  career_path career_path_table @relation(fields: [career_action_id], references: [career_path_id])
+  career_path career_path_table @relation(fields: [career_path_id], references: [career_path_id])
   action      action_table      @relation(fields: [action_id], references: [action_id])
 }
 
 model action_table {
   action_id   Int    @id @default(autoincrement())
-  action_name String
+  action_name String @unique
 
   career_action career_action_table[]
 }
 
 model career_path_table {
   career_path_id Int    @id @default(autoincrement())
-  name           String
-  furigana       String
-  website        String
+  name           String @unique
+  furigana       String?
+  website        String?
 
   career_action career_action_table[]
   job_listing   job_listing_table[]
@@ -122,15 +117,16 @@ model job_listing_table {
   visit_date         DateTime
   updated_at         DateTime @updatedAt
   career_path_id     Int
+  notes              String?
 
   career_path career_path_table @relation(fields: [career_path_id], references: [career_path_id])
 }
 
 model notice_table {
-  notice_id    Int      @id @default(autoincrement())
-  title        String
-  content      String
-  start_date   DateTime
-  end_date     DateTime
-  updated_date DateTime @updatedAt
+  notice_id  Int      @id @default(autoincrement())
+  title      String
+  content    String
+  start_date DateTime
+  end_date   DateTime
+  updated_at DateTime @updatedAt
 }
