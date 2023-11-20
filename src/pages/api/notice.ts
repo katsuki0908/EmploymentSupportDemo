@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
               gt: currentTimestamp, // $gt: Greater Than
             },
           },
-          take: 50, // 直近50件を取得
+          take: 100, // 直近100件を取得
           orderBy: {
             start_date: 'desc', // start_dateを降順でソートして直近のものを取得
           },

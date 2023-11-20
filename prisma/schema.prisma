@@ -21,25 +21,23 @@ model user_table {
 }
 
 model student_table {
-  student_id      String   @id
-  gender          String
-  grade           Int
-  graduation_year Int
-  face_photo      String?
-  updated_at      DateTime @updatedAt @default(now())
-  cource_id       Int
-  contact1        Int?
-  contact2        Int?
-  affiliation     String
-  notes           String?
+  student_id        String   @id
+  gender            String
+  affiliation       String
+  graduation_year   Int
+  face_photo        String?
+  updated_at        DateTime @default(now()) @updatedAt
+  cource_id         Int
+  personal_address  String?
+  personal_phone    String?
+  personal_email    String?
+  emergency_address String?
+  emergency_phone   String?
 
-  user      user_table     @relation(fields: [student_id], references: [user_id])
-  cource    cource_table   @relation(fields: [cource_id], references: [cource_id])
-  contact_1 contact_table? @relation(name: "Contact1", fields: [contact1], references: [contact_id])
-  contact_2 contact_table? @relation(name: "Contact2", fields: [contact2], references: [contact_id])
+  user   user_table   @relation(fields: [student_id], references: [user_id])
+  cource cource_table @relation(fields: [cource_id], references: [cource_id])
 
   instruction         instruction_table[]
-  contact             contact_table[]
   career_action_table career_action_table[]
 }
 
@@ -68,26 +66,12 @@ model cource_table {
   student student_table[]
 }
 
-model contact_table {
-  contact_id   Int     @id @default(autoincrement())
-  contact_type String
-  phone_number Int?
-  email        String?
-  address      String?
-  student_id   String
-
-  student student_table @relation(fields: [student_id], references: [student_id])
-
-  student1 student_table[] @relation(name: "Contact1")
-  student2 student_table[] @relation(name: "Contact2")
-}
-
 model career_action_table {
   career_action_id Int      @id @default(autoincrement())
   student_id       String
   action_date      DateTime
   notes            String?
-  updated_at       DateTime @updatedAt @default(now())
+  updated_at       DateTime @default(now()) @updatedAt
   career_path_id   Int
   action_id        Int
 
@@ -111,6 +95,16 @@ model career_path_table {
 
   career_action career_action_table[]
   job_listing   job_listing_table[]
+  obog          obog_table[]
+}
+
+model obog_table {
+  oboj_id         Int @id @default(autoincrement())
+  graduation_year Int
+  personal_number Int
+  career_path_id  Int
+
+  career_path career_path_table @relation(fields: [career_path_id], references: [career_path_id])
 }
 
 model job_listing_table {
@@ -118,9 +112,11 @@ model job_listing_table {
   application_format String
   submission_date    DateTime
   visit_date         DateTime
-  updated_at         DateTime @updatedAt @default(now())
+  updated_at         DateTime @default(now()) @updatedAt
   career_path_id     Int
   notes              String?
+  start_date         DateTime
+  end_date           DateTime
 
   career_path career_path_table @relation(fields: [career_path_id], references: [career_path_id])
 }
@@ -131,6 +127,5 @@ model notice_table {
   content    String
   start_date DateTime
   end_date   DateTime
-  updated_at DateTime  @updatedAt @default(now())
+  updated_at DateTime @default(now()) @updatedAt
 }
-

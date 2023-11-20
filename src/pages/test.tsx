@@ -50,11 +50,11 @@ const NoticesPage = () => {
           //   //body:JSON.stringify(dataToSend5)
           // });
 
-          const response = await fetch("/api/career?student_id=TD232000", {
+          const response = await fetch("/api/user?graduation_year=2023&course_id=0", {
             method: "GET",
           });
 
-          
+          console.log(response.status);
           console.log(response.json());
         }
     

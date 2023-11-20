@@ -10,16 +10,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     //学生データの取得（条件として卒業年度を指定する）
     if (req.method === 'GET') {
         //Undefinedを許容し、10進数を指定
-        const graduation_year: number | undefined = req.query.graduation_year ? parseInt(req.query.graduation_year as string, 10) : undefined;
+        const graduation_year: number = parseInt(req.query.graduation_year as string, 10);
+        const course_id: number | undefined = req.query.course_id ? parseInt(req.query.course_id as string, 10) : undefined;
         try {
             const result = await prisma.student_table.findMany(
                 {
-                    where: { graduation_year },
+                    where: { graduation_year,
+                        ...(course_id !== undefined && { cource_id: course_id }),
+                    },
 
                 }
             )
-            console.log(result);
-            res.status(200).json(result);
+
+            if (result.length === 0) {
+                // データが見つからなかった場合は404 Not Foundを返す
+                res.status(404).json({ error: "データが見つかりませんでした。" });
+            } else {
+                console.log(result);
+                res.status(200).json(result);
+            }
+            
         }
         catch {
             console.log("取得失敗")
