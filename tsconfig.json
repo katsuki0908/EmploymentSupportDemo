@@ -28,7 +28,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "../testwsl/my-app2/src/pages/components/header.tsx"  ],
   "exclude": [
     "node_modules"
   ]
