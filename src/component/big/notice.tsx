@@ -14,7 +14,7 @@ const NoticesPage = () => {
   useEffect(() => {
     const fetchNotices = async () => {
       try {
-        const response = await fetch("/api/notice_database", {
+        const response = await fetch("/api/notice", {
           method: 'GET',
         });
         if (response.ok) {

@@ -1,24 +1,33 @@
 import * as React from 'react';
 import { useEffect, useState } from "react";
-import { useRouter } from 'next/router';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Checkbox from '@mui/material/Checkbox';
-import Link from "next/link";
 import Header from "@/component/big/header";
+import AddNewNotice from "@/component/big/add_new_notice"
+import { useRouter } from 'next/router';
+import { Button } from '@mui/material';
+
+interface Notice {
+  id: number;
+  title: string;
+  start_date: Date;
+  end_date: Date;
+  content: string;
+}
 
 const NoticesPage = () => {
-  const [notices, setNotices] = useState([]);
-  const [selectedNotices, setSelectedNotices] = useState<number[]>([]);
+  const [notices, setNotices] = useState<Notice[]>([]);
+  const [selectedNoticeId, setSelectedNoticeId] = useState<number | null>(null);
+  const [openNotices, setOpenNotices] = React.useState<number[]>([]);
   const router = useRouter();
 
   useEffect(() => {
     const fetchNotices = async () => {
       try {
-        const response = await fetch("/api/notice_database", {
+        const response = await fetch("/api/notice", {
           method: 'GET',
         });
         if (response.ok) {
@@ -33,84 +42,65 @@ const NoticesPage = () => {
     fetchNotices();
   }, []);
 
-    const handleCheckboxChange = (id: number) => {
-      const index = selectedNotices.indexOf(id);
-      if (index === -1) {
-        setSelectedNotices([...selectedNotices, id]);
+  const handleDelete = async (noticeId: number) => {
+    try {
+      const response = await fetch(`/api/notice`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ notice_id: noticeId }), // 객체를 JSON 문자열로 변환하여 body에 포함
+      });
+  
+      if (response.ok) {
+        // Remove the deleted notice from the local state
+        setNotices((prevNotices) => prevNotices.filter((notice) => notice.id !== noticeId));
+        // Reset selectedNoticeId after successful deletion
+        setSelectedNoticeId(null);
       } else {
-        setSelectedNotices(selectedNotices.filter((noticeId) => noticeId !== id));
+        console.error('Error while deleting notice');
+        // Handle the error or show a user-friendly message
+        console.log('delete ID : ', noticeId);
+        console.log(typeof noticeId);
       }
-    };
+    } catch (error) {
+      console.error('Error while deleting notice: ', error);
+    }
+  };
   
-    const handleDelete = async () => {
-      try {
-        const response = await fetch('/api/notice_database', {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            notice_id: selectedNotices,
-          }),
-        });
-  
-        if (response.ok) {
-          router.push('/notices'); // Redirect to the notices page after deletion
-        } else {
-          console.error('Error while deleting notices');
-          // Handle the error or show a user-friendly message
-        }
-      } catch (error) {
-        console.error('Error while deleting notices: ', error);
-      }
-    };
-
   return (
     <div>
       <Header />
 
       <h1>お知らせ</h1>
 
-      <Link href={`/new_notice`}>
-        <button>add</button>
-      </Link>
-      
-      {notices.map((notices) => (
+      <AddNewNotice />
 
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-              key={notices.id}
-            >
-            
-            <Checkbox
-              checked={selectedNotices.includes(notices.id)}
-              onChange={() => handleCheckboxChange(notices.id)}
-              inputProps={{ 'aria-label': 'controlled' }}
-            />
-
-              <Typography>
-                <h2><b>{notices.title}</b></h2>
-                <p>{notices.start_date}から{notices.end_date}まで</p>
-              </Typography>
-
-            </AccordionSummary>
-
-            <AccordionDetails>
-                <Typography>
-                  {notices.content}
-                </Typography>
-
-              </AccordionDetails>
-          </Accordion>
-
-
+      {notices.map((notice) => (
+        <Accordion 
+          key={notice.notice_id} >
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls={`panel${notice.id}-content`}
+            id={`panel${notice.id}-header`}
+          >
+            <Typography>
+              <h2><b>{notice.title}</b></h2>
+              <p>{notice.start_date}から{notice.end_date}まで</p>
+              <p>Notice ID: {notice.notice_id}</p> {/* Display the notice ID */}
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              {notice.content}
+              <Button 
+                onClick={() => handleDelete(notice.notice_id)}>
+                DELETE
+              </Button>
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
       ))}
-
-      <button onClick={handleDelete}>Delete Selected Notices</button>
-
     </div>
   );
 };
