@@ -41,7 +41,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   //お知らせ編集ページでの編集
   else if (req.method === 'PUT') {
-    const obj = JSON.parse(req.body)
+    const obj = JSON.parse(JSON.stringify(req.body))
     const { notice_id, title, content, start_date, end_date } = obj;
     //**NULLの時の処理 */
     console.log(obj)
@@ -69,27 +69,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
   }
 
-  // //お知らせ編集ページでの追加
   else if (req.method === 'POST') {
-
-    const obj = JSON.parse(JSON.stringify(req.body)) //requestをJSONに変換
+    const obj = JSON.parse(JSON.stringify(req.body)); // request를 JSON에 변환
     const { title, content, start_date, end_date } = obj;
-
+  
     try {
       const result = await prisma.notice_table.create({
         data: {
           title,
           content,
-          start_date,
-          end_date
+          start_date: new Date(start_date), // Date 형식으로 변환
+          end_date: new Date(end_date), // Date 형식으로 변환
         },
       });
       res.status(200).json(result);
-    }
-    catch (error) {
+    } catch (error) {
+      console.error(error);
       res.status(500).json({ error: "データの追加に失敗しました。" });
     }
   }
+  
 
   // //お知らせ編集ページでの削除
   else if (req.method === 'DELETE') {

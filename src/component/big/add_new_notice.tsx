@@ -10,6 +10,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Alert, TextField, Snackbar } from '@mui/material';
 import DatePicker from 'react-datepicker';
+import MuiAlert from '@mui/material/Alert';
 
 const NewNotice = () => {
   const router = useRouter();
@@ -75,6 +76,7 @@ const NewNotice = () => {
         router.replace(router.asPath); // 예시로 현재 경로를 다시 로드하는 방식을 사용
         }, 3000); // Auto close success message after 3 seconds
         handleClose();
+        window.location.reload();
       } else {
         console.error('Notice creation error');
       }
@@ -145,7 +147,11 @@ const NewNotice = () => {
             />
 
             <label>Start Date:</label>
-            <DatePicker selected={startDate} onChange={handleStartDateChange} />
+            <DatePicker
+              selected={startDate}
+              onChange={handleStartDateChange}
+              dateFormat="yyyy/MM/dd" // Set the desired date format
+            />
 
             <p></p>
 
@@ -153,6 +159,7 @@ const NewNotice = () => {
             <DatePicker
               selected={endDate}
               onChange={handleEndDateChange}
+              dateFormat="yyyy/MM/dd" // Set the desired date format
               className={endDateError ? 'error' : ''}
             />
             {endDateError && (
@@ -165,14 +172,22 @@ const NewNotice = () => {
           </DialogActions>
         </Dialog>
       </React.Fragment>
-
-      <Snackbar
+      
+      {/* Snackbar for success message */}
+      <Snackbar 
         open={!!successMessage}
         autoHideDuration={6000}
         onClose={handleSuccessClose}
         message={successMessage}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      />
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} >
+        <MuiAlert 
+          elevation={6} 
+          variant="filled" 
+          severity="success" 
+          onClose={handleSuccessClose}>
+          Notice deleted successfully!
+        </MuiAlert>
+      </Snackbar>
 
     </>
   );

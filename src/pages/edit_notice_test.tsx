@@ -29,24 +29,33 @@ const NoticesPage = () => {
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [editNotice, setEditNotice] = useState<Notice | null>(null);
   
-  useEffect(() => {     //GET
+  useEffect(() => {
+    //GET
     const fetchNotices = async () => {
       try {
         const response = await fetch("/api/notice", {
           method: 'GET',
         });
+  
         if (response.ok) {
           const data = await response.json();
-          setNotices(data);
+  
+          // Parse date strings into Date objects
+          const noticesWithParsedDates = data.map((notice) => ({
+            ...notice,
+            start_date: new Date(notice.start_date),
+            end_date: new Date(notice.end_date),
+          }));
+  
+          setNotices(noticesWithParsedDates);
         }
       } catch (error) {
         console.error("Error while loading data: ", error);
       }
     };
-
+  
     fetchNotices();
   }, []);
-
   const handleDelete = async (noticeId: number) => {    //DELETE
     try {
       const response = await fetch(`/api/notice`, {
@@ -88,33 +97,48 @@ const NoticesPage = () => {
 
  const handleEditNotice = async (editedNotice: Notice) => {
   try {
-     const response = await fetch(`/api/notice`, {
-        method: 'PUT',
-        headers: {
-           'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(editedNotice),
-     });
+    const response = await fetch(`/api/notice`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(editedNotice),
+    });
 
-     if (response.ok) {
-        // Update the local state with the edited notice
-        setNotices((prevNotices) =>
-           prevNotices.map((notice) =>
-              notice.notice_id === editedNotice.notice_id ? editedNotice : notice
-           )
-        );
-        // Close the edit dialog
-        setEditDialogOpen(false);
-        // Show success message using Snackbar
-        setSnackbarOpen(true);
-     } else {
-        console.error('Error while editing notice');
-        // Handle the error or show a user-friendly message
-     }
+    if (response.ok) {
+      // Update the local state with the edited notice
+      setNotices((prevNotices) =>
+        prevNotices.map((n) =>
+          n.id === editedNotice.id ? editedNotice : n
+        )
+      );
+
+      // Close the edit dialog
+      setEditDialogOpen(false);
+
+      // Show success message using Snackbar
+      setSnackbarOpen(true);
+
+      window.location.reload();
+    } else {
+      console.error('Error while editing notice');
+      // Log the response status and text for debugging
+      console.log('Response status:', response.status);
+      console.log('Response text:', await response.text());
+    }
   } catch (error) {
-     console.error('Error while editing notice: ', error);
+    console.error('Error while editing notice: ', error);
   }
 };
+
+
+  const formatDate = (date) => {
+    if (!date) return ""; // handle the case where date is undefined or null
+  
+    const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+    return new Date(date).toLocaleDateString("ja-JP", options);
+  };
+
   return (
     <div>
       <Header />
@@ -133,7 +157,7 @@ const NoticesPage = () => {
           >
             <Typography>
               <h2><b>{notice.title}</b></h2>
-              <p>{notice.start_date}から{notice.end_date}まで</p>
+              <p>{formatDate(notice.start_date)}から{formatDate(notice.end_date)}まで</p>
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
