@@ -4,37 +4,52 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Image from "next/image";
 import ErrorSnackbar from '@/component/mid/error_snack_bar';
-import { useSession, signIn } from 'next-auth/react';
+import { useSession, signIn, getCsrfToken } from 'next-auth/react';
+import { GetServerSidePropsContext } from 'next';
+import { useRouter } from 'next/router';
 
+interface SignInProps {
+  csrfToken: string;
+}
 
-export default function SignIn() { //サインインページ
+export default function SignIn({csrfToken}: SignInProps) { //サインインページ
   const theme = useTheme();
-  const [uid, setuid] = useState(''); // IDの状態を管理するステート
-  const [password, setpassword] = useState(''); // パスワードの状態を管理するステート
+  // const [uid, setUid] = useState(''); // IDの状態を管理するステート
+  // const [password, setPassword] = useState(''); // パスワードの状態を管理するステート
   const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);//スナックバーの状態を管理するステート
   const [errorMessage, setErrorMessage] = useState('');//エラーメッセージの状態を管理するステート
   const {data: session} = useSession();
+  const router = useRouter();
 
-  const handleSubmit = async (event: React.FocusEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const userCredentials = { uid:uid,password:password };
-    const response = await signIn('credentials',userCredentials);
-    if(session?.user?.name) {
-      setErrorMessage('エラー')
+  // const handleSubmit = async (event: React.FocusEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   const userCredentials = { uid:uid,password:password };
+  //   // const response = await signIn('credentials', {userCredentials, callbackUrl: '/top' });
+  
+  //   // if(!response) {
+  //   //   setErrorMessage(session?.auth_data.message);
+  //   //   setOpenErrorSnackbar(true);
+  //   // }
+  // };
+  React.useEffect(() => {
+    // セッションが存在し、ユーザーがログインしていればトップページに遷移する
+    if (session?.user?.name) {
+      router.push('/top'); // または任意のパス
+    }
+    else if(session?.user){
+      setErrorMessage('ログイン失敗');
       setOpenErrorSnackbar(true);
     }
-  };
+  }, [session, router]);
 
-  const handleCloseErrorSnackbar = () => 
-  {
+
+  const handleCloseErrorSnackbar = () => {
     setOpenErrorSnackbar(false);
   };
-
   return (
     <>
         <CssBaseline />
@@ -45,7 +60,7 @@ export default function SignIn() { //サインインページ
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            backgroundColor: 'white',
+            background: 'white'
           }}
         >
 
@@ -54,25 +69,29 @@ export default function SignIn() { //サインインページ
                 alignItems: 'center',
                 display: 'flex',
                 flexDirection: 'column',
-                backgroundColor: 'blue',
+                height:200,
+                width: 300
              }}>
-              ロゴマーク
-          {/* <Image
-        src={fu_logo}
-        height={200}
-        width={350}
+            
+          <Image
+        src='/Logomarkforjobsearchservices.jpeg'
+        // height={200}
+        // width={350}
         alt="福岡大学"
-      /> */}
+        width={300}
+        height={200}
+      />
           </Box>
 
           <Box 
           component="form" 
-          onSubmit={handleSubmit} 
-          noValidate 
-          sx={{ mt: 25,
+          noValidate method='post' 
+          action="/api/auth/callback/credentials" 
+          sx={{ mt: 20,
                 alignItems: 'center',
                 width:"90%",
           }}>
+            <input name="csrfToken" type='hidden' defaultValue={csrfToken} />
             <TextField
               margin="normal"
               required
@@ -82,9 +101,9 @@ export default function SignIn() { //サインインページ
               name="uid"
               autoComplete="uid"
               autoFocus
-              value={uid}
-              onChange={(e) => setuid(e.target.value)}
-              
+              // value={uid}
+              // onChange={(e) => setUid(e.target.value)}
+
             />
             <TextField
               margin="normal"
@@ -94,9 +113,9 @@ export default function SignIn() { //サインインページ
               label="パスワード"
               type="password"
               id="password"
-              value={password}
+              // value={password}
               variant='outlined'
-              onChange={(e) => setpassword(e.target.value)}
+              // onChange={(e) => setPassword(e.target.value)}
               sx={{borderRadius: 10}}
             />
             <Button
@@ -104,9 +123,9 @@ export default function SignIn() { //サインインページ
               fullWidth
               variant="contained"
               size='large'
-              sx={{ mt: 30, mb: 1 ,borderRadius: 10,backgroundColor: theme.palette.primary.main}}
+              sx={{ mt: 20, mb: 1 ,borderRadius: 10,backgroundColor: theme.palette.primary.main}}
             >
-              サインイン
+              ログイン
             </Button>
             <ErrorSnackbar
               errorMessage={errorMessage}
@@ -116,5 +135,14 @@ export default function SignIn() { //サインインページ
           </Box>
         </Box>
     </>
-  );
-}
+  );}
+
+  export async function getServerSideProps(context:GetServerSidePropsContext) {
+    return {
+      props: {
+        csrfToken: await getCsrfToken(context),
+      },
+    };
+  };
+
+  

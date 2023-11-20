@@ -4,24 +4,24 @@ import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 
 
-export async function hendler(req: NextApiRequest, res: NextApiResponse) {
+export default async function hendler(req: NextApiRequest, res: NextApiResponse) {
     const prisma = new PrismaClient();
     //データの追加
     if (req.method === "POST") {
         try {
-            const { student_id,gender,grade,graduation_year,face_photo,updated_at,cource_id,contact1,contact2,affiliation,notes } = req.body;
+            const { student_id,gender,is_enrolled,grade,graduation_year,face_photo,updated_at,cource_id,contact1,contact2 } = req.body;
             const result = await prisma.student_table.create({
                 data: {
                     student_id,
-                    gender,grade,
+                    gender,
+                    is_enrolled,
+                    grade,
                     graduation_year,
                     face_photo,
                     updated_at,
                     cource_id,
                     contact1,
-                    contact2,
-                    affiliation,
-                    notes
+                    contact2
                 },
             });
             res.status(200).json(result);
@@ -54,20 +54,19 @@ export async function hendler(req: NextApiRequest, res: NextApiResponse) {
     //データの変更
     else if (req.method === "PUT") {
         try {
-            const { student_id,gender,grade,graduation_year,face_photo,updated_at,cource_id,contact1,contact2,affiliation,notes } = req.body;
+            const { student_id,gender,is_enrolled,grade,graduation_year,face_photo,updated_at,cource_id,contact1,contact2 } = req.body;
             const result = await prisma.student_table.update({
                 where: { student_id },
                 data: {
                     gender,
+                    is_enrolled,
                     grade,
                     graduation_year,
                     face_photo,
                     updated_at,
                     cource_id,
                     contact1,
-                    contact2,
-                    affiliation,
-                    notes
+                    contact2
                 },
             });
             res.status(200).json(result);

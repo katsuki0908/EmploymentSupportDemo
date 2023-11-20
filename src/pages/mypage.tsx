@@ -2,17 +2,22 @@
 import { Box } from "@mui/material";
 import Header from "@/component/big/header";
 import {Button} from "@mui/material";
-import Careerlist from "@/component/big/career";
+import Careerlist from "@/component/big/career_list";
 import { useSession } from "next-auth/react";
 import Profilelist from "@/component/big/profile";
 
 export default function(){
 
-  //const { data:session } = useSession();
+  const { data:session } = useSession();
+console.log('セッション情報',session?.user?.name)
 
-  // if (!session?.user?.user_id) {
-  //     return <p>Loading...</p>;
-  //   }
+  if (!session?.user?.name) {
+      return(
+        <Box sx={{backgroundColor:"white",height:900}}> 
+          ログインしてください
+        </Box>
+      )
+    }
 
   return(
         <Box
@@ -22,7 +27,7 @@ export default function(){
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          backgroundImage: 'url("/images/product/background.jpg")',
+          backgroundColor: 'white',
         }}
       >
             <Header/>
@@ -30,29 +35,24 @@ export default function(){
     sx={{
         width: '90%',
         height:'30%',
-        mt:2,
     }}
 >
-    プロフィール
+  
     <Profilelist/>
 </Box>
-            
-            
             <Box
             sx={{
                 width: '90%',
                 height:'30%',
-                mt:10,
-                backgroundColor: 'blue',
+                mt:2,
+                backgroundColor: 'white',
             }}
             >
-            キャリア活動
+              <Careerlist/>
+              {session.user.name}
+              {session.user.user_id}
             </Box>
-            <Button
-            >
-                修正
-            </Button>
-            <Careerlist/>
+            <Button href="/edit_career">修正</Button>
             </Box>
   )
 }

@@ -2,10 +2,9 @@
 
 import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
+import { prisma } from "@/consts/prisma";
 
-
-export async function hendler(req: NextApiRequest, res: NextApiResponse) {
-    const prisma = new PrismaClient();
+export default async function hendler(req: NextApiRequest, res: NextApiResponse) {
 
     //データの追加
     if (req.method === "POST") {
@@ -39,13 +38,14 @@ export async function hendler(req: NextApiRequest, res: NextApiResponse) {
                 });
                 res.status(200).json(user);
             } else {
-                res.status(200).json('ユーザーidが送信されていません');
+                // ユーザーIDが指定されていない場合、全てのユーザーデータを取得
+                const users = await prisma.user_table.findMany();
+                res.status(200).json(users);
             }
         }
         catch (error) {
             res.status(500).json({ error: "データの取得に失敗しました。" });
         }
-
     }
 
     //データの変更

@@ -1,6 +1,6 @@
 //プロフィール
 import * as React from 'react';
-import { Box } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import { Avatar } from "@mui/material"
 import { Chip } from '@mui/material';
 import  { Stack } from "@mui/material";
@@ -20,7 +20,7 @@ export default function Profilelist(){
     //const userId = session?.user?.user_id;
     
     // セッションのユーザーIDが存在する場合、クエリパラメータとして付与
-    const url = userId ? `/api/user_database?user_id=${userId}` : '/api/user_database';
+    const url = userId ? `/api/student_database?user_id=${userId}` : '/api/student_database';
   
     fetch(url, {
       method: 'GET',
@@ -38,11 +38,13 @@ export default function Profilelist(){
 
     return (
         <Box>
+            <Typography>プロフィール</Typography>
             <Grid container spacing={2}>
                 <Grid xs={4}>
                     <Avatar
                         alt={profile?.student_id}
                         src={profile?.face_photo}
+                        sx={{ mt: 5, width: 100, height: 100 }}
                     />
                 </Grid>
                 <Grid xs={4}>
@@ -67,7 +69,7 @@ export default function Profilelist(){
                                 profile?.contact1,
                                 profile?.student_id,  
                                 profile?.student_id,  
-                                "フリガナ",  
+                                "福岡県北九州市若松区",  
                                 "フリガナ"   
                             ].map((label, index) => (
                                 <Chip key={index} label={label} variant="outlined" sx={{ mt: 1 }} />
