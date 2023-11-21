@@ -38,6 +38,21 @@ const EditDialog: React.FC<EditDialogProps> = ({ open, notice, onClose, onEdit }
     }
   };
 
+  const handleStartDateChange = (date: Date | null) => {
+    setEditedNotice((prevNotice) => ({
+      ...prevNotice,
+      start_date: date,
+    }));
+  };
+  
+  const handleEndDateChange = (date: Date | null) => {
+    setEditedNotice((prevNotice) => ({
+      ...prevNotice,
+      end_date: date,
+    }));
+  };
+  
+
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Edit Notice</DialogTitle>
@@ -60,6 +75,22 @@ const EditDialog: React.FC<EditDialogProps> = ({ open, notice, onClose, onEdit }
           rows={4}
           margin="normal"
         />
+        <label>Start Date:</label>
+        <DatePicker
+          selected={editedNotice?.start_date || null}
+          onChange={handleStartDateChange}
+          dateFormat="yyyy/MM/dd" // Set the desired date format
+        />
+
+        <p></p>
+
+          <label>End Date:</label>
+          <DatePicker
+            selected={editedNotice?.end_date || null}
+            onChange={handleEndDateChange}
+            dateFormat="yyyy/MM/dd" // Set the desired date format
+          />
+
         {/* Add other fields as needed */}
       </DialogContent>
       <DialogActions>
