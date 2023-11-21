@@ -1,6 +1,4 @@
 //お知らせ(表示機能、検索機能のみ)（編集機能はない）
-//お知らせ(表示機能、検索機能のみ)（編集機能はない）
-
 import { useEffect, useState } from "react";
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -9,8 +7,6 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { notice_table } from "@prisma/client";
 import { formatDate } from '@/utils/date_utils';//自作関数
-
-
 
 const NoticesPage = () => {
   const [notices, setNotices] = useState<notice_table[]>([]);
@@ -46,7 +42,7 @@ const NoticesPage = () => {
           >
             <Typography>
               <h2><b>{notices.title}</b></h2>
-              <p>{formatDate(notices.start_date)}から{formatDate(notices.end_date)}まで</p>
+              {formatDate(notices.start_date)}から{formatDate(notices.end_date)}まで
             </Typography>
           </AccordionSummary>
 

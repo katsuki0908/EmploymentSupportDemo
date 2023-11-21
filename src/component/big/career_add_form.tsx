@@ -3,49 +3,20 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Select, Menu
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { FormDialogProps } from "@/types/session";
-import { action_table, career_path_table } from "@prisma/client";
+import { FormDialogProps } from "@/types/props";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { Autocomplete } from "@mui/material";
 
 export default function CareerAddFormDialog(props: FormDialogProps) {
   const [open, setOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [selection_action, setSelection_action] = useState<action_table[]>([]);
-  const [selection_career_name, setSelection_career_name] = useState<career_path_table[]>([]);
-
+  // const [selection_action, setSelection_action] = useState<action_table[]>([]);
+  // const [selection_career_name, setSelection_career_name] = useState<career_path_table[]>([]);
   const [formData, setFormData] = useState({
     selection_action: '',//キャリア活動アクション選択
     notes: '',           //備考
     company_name: '',    //会社名選択
   });
-
-  React.useEffect(() => {//会社名・アクション選択肢の取得
-    const fetchData = async () => {
-      try {
-        const action = await fetch("/api/action_database?action_name" + selection_action, {
-          method: 'GET',
-        });
-        if (action.ok) {
-          const action_data = await action.json();
-          setSelection_action(action_data);
-        } else {
-          console.error("Error while loading career data: HTTP status ", action.status);
-        }
-        const career_name = await fetch("/api/career_path_database?name" + selection_career_name, {
-          method: 'GET',
-        });
-        if (action.ok) {
-          const career_data = await career_name.json();
-          setSelection_career_name(career_data);
-        } else {
-          console.error("Error while loading career data: HTTP status ", career_name.status);
-        }
-      } catch (error) {
-        console.error("Error while loading career data: ", error);
-      }
-    };
-    fetchData();
-  }, []);
 
   const handleClickOpen = () => {//ダイアログの開閉
     setOpen(true);
@@ -100,7 +71,7 @@ export default function CareerAddFormDialog(props: FormDialogProps) {
     <div>
       <Container>
       <Button 
-      variant="outlined" 
+      variant="contained" 
       color="primary" 
       onClick={handleClickOpen} 
       endIcon={<AddCircleIcon/>}
@@ -121,19 +92,14 @@ export default function CareerAddFormDialog(props: FormDialogProps) {
       />
     </LocalizationProvider>
           <FormControl fullWidth margin="normal">
-            <InputLabel id="career_select">会社名選択</InputLabel>
-            <Select
-              labelId="career_select"
-              id="career_select"
-              value={formData.company_name}
-              onChange={handleSelectChange}
-              inputProps={{ name: 'company_name' }}
-              label= "会社名選択"
-            >
-              {selection_career_name.map((career) => (
-                <MenuItem key={career.career_path_id} value={career.name}>{career.name}</MenuItem>
-              ))}
-            </Select>
+           <Autocomplete
+            disablePortal
+            id="career_select"
+            options={props.career_path_data}
+            getOptionLabel={(option) => option.name} // ここでオブジェクトからラベル文字列を取得
+            renderInput={(params) => <TextField {...params} label="会社名" />}
+            onChange={(event, value) => setFormData({ ...formData, company_name: value?.name || '' })} // 選択されたオブジェクトの 'name' プロパティを使用
+          />
             </FormControl>
             <FormControl fullWidth margin="normal">
             <InputLabel id="action_select">就活アクション選択</InputLabel>
@@ -145,7 +111,7 @@ export default function CareerAddFormDialog(props: FormDialogProps) {
               inputProps={{ name: 'selection_action' }}
               label= "就活アクション選択"
             >
-              {selection_action.map((action) => (
+              {props.action_data?.map((action) => (
                 <MenuItem key={action.action_id} value={action.action_name}>{action.action_name}</MenuItem>
               ))}
             </Select>

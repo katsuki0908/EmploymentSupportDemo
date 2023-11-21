@@ -1,3 +1,4 @@
+import { action_table,career_path_table } from "@prisma/client";
 
 export type FormDialogProps = {
     initialData: {
@@ -8,5 +9,7 @@ export type FormDialogProps = {
       company_name?: string,
       action_date?: Date,
     };
+    action_data: action_table[];
+    career_path_data: career_path_table[];
   };
   

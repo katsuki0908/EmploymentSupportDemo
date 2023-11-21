@@ -1,11 +1,8 @@
 //学生データベースとの接続
-
-import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
-
-
+import { prisma } from "@/consts/prisma";
 export default async function hendler(req: NextApiRequest, res: NextApiResponse) {
-    const prisma = new PrismaClient();
+
     //データの追加
     if (req.method === "POST") {
         try {
@@ -38,12 +35,20 @@ export default async function hendler(req: NextApiRequest, res: NextApiResponse)
                 const student_id = String(req.query.student_id); // クエリパラメータからユーザーIDを取得
                 const student = await prisma.student_table.findUnique({
                     where: { student_id },
+                    include:{
+                        user: true,
+                        cource: true,
+                        contact_1: true,
+                        contact_2: true,
+                    }
                 });
                 res.status(200).json(student);
+                console.log(student)
             } else {
                 // 学生IDが指定されていない場合、全てのユーザーデータを取得
                 const students = await prisma.student_table.findMany();
                 res.status(200).json(students);
+                console.log(students)
             }
         }
         catch (error) {
