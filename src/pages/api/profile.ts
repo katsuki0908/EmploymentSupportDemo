@@ -31,28 +31,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     //新規追加もここで
     else if (req.method === 'PUT') {
         const obj = JSON.parse(req.body);
-        const { student_id, gender, grade, graduation_year, face_photo, cource_id, contact1, contact2, affiliation, notes } = obj;
+        const { student_id, gender, affiliation, graduation_year, face_photo, cource_id, personal_address, personal_phone, personal_email, emergency_address, emergency_phone } = obj;
         console.log(obj)
         try {
             const result = await prisma.student_table.update({
                 where: { student_id },
                 data: {
                     gender,
-                    grade,
+                    affiliation,
                     graduation_year,
                     face_photo,
                     cource_id,
-                    contact1,
-                    contact2,
-                    affiliation,
-                    notes
+                    personal_address,
+                    personal_phone,
+                    personal_email,
+                    emergency_address,
+                    emergency_phone
                 }
             });
             if (result === null) {
                 res.status(404).json({ message: "データが見つかりませんでした" });
-              } else {
+            } else {
                 res.status(200).json({ message: "データを更新しました。" });
-              }
+            }
 
             res.status(200).json(result)
         }
@@ -61,11 +62,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
     }
 
-    else if(req.method === 'POST'){
+    else if (req.method === 'POST') {
 
     }
 
-    else if(req.method === 'DELETE'){
+    else if (req.method === 'DELETE') {
 
     }
 

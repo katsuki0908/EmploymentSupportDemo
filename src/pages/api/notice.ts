@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
               gt: currentTimestamp, // $gt: Greater Than
             },
           },
-          take: 50, // 直近50件を取得
+          take: 100, // 直近100件を取得
           orderBy: {
             start_date: 'desc', // start_dateを降順でソートして直近のものを取得
           },
@@ -43,6 +43,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   else if (req.method === 'PUT') {
     const obj = JSON.parse(req.body)
     const { notice_id, title, content, start_date, end_date } = obj;
+    
     //**NULLの時の処理 */
     console.log(obj)
     try {
@@ -71,8 +72,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   // //お知らせ編集ページでの追加
   else if (req.method === 'POST') {
-
-
     const obj = JSON.parse(req.body) //requestをJSONに変換
     const { title, content, start_date, end_date } = obj;
 
