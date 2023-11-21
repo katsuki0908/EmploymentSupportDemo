@@ -1,8 +1,13 @@
 //top page
+
 import Head from 'next/head'
-import { Box } from '@mui/material'
+import { Inter } from 'next/font/google'
 import Header from '@/component/big/header'
 import Notices from '@/component/big/notice'
+import { Box } from '@mui/material'
+
+
+const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (

@@ -10,6 +10,23 @@ import WorkIcon from '@mui/icons-material/Work';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import  LogoutButton from '../mid/logout_button';
 import Link from 'next/link';
+import createTheme from '@mui/material/styles';
+//import AppBar from '@mui/material';
+//import fu_logo from '../../../public/images/fu_logo'
+
+
+/*const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#ffffff',
+      dark: '#ffffff',
+    },
+    secondary:{
+      main: '#b3424a',
+    }
+  },
+});*/
+
 
 const drawerWidth = 290;
 
@@ -86,8 +103,28 @@ export default function Header() {
   return (
     <>
          <CssBaseline />
-      <Box sx={{ display: 'flex',backgroundColor:'secondary.main'}}>
-        <AppBar position="fixed" open={open} sx={{backgroundColor:'primary.main', display: { xs: 'flex', md: 'flex',height: '7vh' } }}>
+      <Box sx={{ display: 'flex',backgroundcolor:'secondary.main'}}>
+       
+        {/* <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 ,backgroundColor:'secondary.main', display: { xs: 'none', md: 'flex' } }}>
+          <Toolbar>
+            <Box sx={{ flexGrow: 1,backgroundColor:'secondary.main' }}>
+              <IconButton aria-label="delete">
+                <HomeIcon />
+              </IconButton>
+              <Button color="primary" href='/'>トップページ</Button>
+              <Button color="primary" href='/joboffer'>求人一覧</Button>
+              <Button color="primary" href='/mypage'>マイページ</Button>
+              <Button color="primary">サイトマップ</Button>
+              <Button color="primary" href="auth/signin">ログイン</Button>
+            </Box>
+  
+            <Stack direction="row" spacing={2}>
+            <Avatar alt="hiroto"/>
+            <Button variant='contained' color="inherit">就活状況登録</Button>
+            </Stack>
+          </Toolbar>
+        </AppBar> */}
+        <AppBar position="fixed" open={open} sx={{backgroundColor:'secondary.main', display: { xs: 'flex', md: 'flex',height:70 } }}>
         <Toolbar>
         <IconButton
             color="inherit"

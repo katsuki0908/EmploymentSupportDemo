@@ -1,7 +1,7 @@
 //プロフィール
 import * as React from 'react';
 import { Box,Table,TableRow,TableBody,TableCell } from "@mui/material"
-import { contact_table, cource_table, student_table, user_table } from "@prisma/client";
+import { cource_table, student_table, user_table } from "@prisma/client";
 import { useState } from "react";
 import { useSession } from 'next-auth/react';
 
@@ -10,8 +10,8 @@ import { useSession } from 'next-auth/react';
 type ExtendedProfile = student_table & {
   user?: user_table;
   cource?: cource_table;
-  contact_1?: contact_table;
-  contact_2?: contact_table;
+  //contact_1?: contact_table;
+  //contact_2?: contact_table;
 };
 
 export default function Profilelist(){

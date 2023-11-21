@@ -12,6 +12,8 @@ import { useSession, signIn, getCsrfToken } from 'next-auth/react';
 import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { Palette } from '@mui/icons-material';
+import fu_logo from "/public/images/fu_logo.png";
+// import ErrorSnackbar from '@/components/molecule/Errorsnackbar';
 
 interface SignInProps {
   csrfToken: string;
@@ -129,11 +131,23 @@ export default function SignIn({csrfToken}: SignInProps) { //サインインペ�
             >
               ログイン
             </Button>
-            <ErrorSnackbar
+            {/* <ErrorSnackbar
               errorMessage={errorMessage}
               open={openErrorSnackbar}
               handleClose={handleCloseErrorSnackbar}
-            />
+            /> */}
+            {/* <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="#" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
+            </Grid> */}
           </Box>
         </Box>
     </>
