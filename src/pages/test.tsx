@@ -45,17 +45,17 @@ const NoticesPage = () => {
             gender:"F"
            }
            
-          // const response = await fetch("/api/notice", {
-          //   method: "GET",
-          //   //body:JSON.stringify(dataToSend5)
-          // });
+           //const response1 = await fetch("/api/notice", {
+           //  method: "GET",
+           //  //body:JSON.stringify(dataToSend5)
+           //});
 
-          const response = await fetch("/api/user?graduation_year=2023&course_id=0", {
+          const response2 = await fetch("/api/user?graduation_year=2023", {
             method: "GET",
           });
 
-          console.log(response.status);
-          console.log(response.json());
+          console.log(response2.status);
+          console.log(response2.json());
         }
     
         test(); // test関数をuseEffect内で呼び出す

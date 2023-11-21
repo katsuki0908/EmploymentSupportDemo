@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -21,17 +21,6 @@ model user_table {
 }
 
 model student_table {
-<<<<<<< HEAD
-  student_id      String   @id
-  gender          String
-  grade           Int
-  graduation_year Int
-  face_photo      String?
-  updated_at      DateTime @updatedAt @default(now())
-  cource_id       Int
-  contact1        Int?
-  contact2        Int?
-=======
   student_id        String   @id
   gender            String
   affiliation       String
@@ -44,7 +33,6 @@ model student_table {
   personal_email    String?
   emergency_address String?
   emergency_phone   String?
->>>>>>> f60cb330fbd01de514c1b7b5d04fe7352dc7e95f
 
   user   user_table   @relation(fields: [student_id], references: [user_id])
   cource cource_table @relation(fields: [cource_id], references: [cource_id])
@@ -78,21 +66,6 @@ model cource_table {
   student student_table[]
 }
 
-<<<<<<< HEAD
-model contact_table {
-  contact_id   Int     @id @default(autoincrement())
-  contact_type String
-  phone_number Int?
-  email        String?
-  address      String?
-  student_id   String
-
-  student1 student_table[] @relation(name: "Contact1")
-  student2 student_table[] @relation(name: "Contact2")
-}
-
-=======
->>>>>>> f60cb330fbd01de514c1b7b5d04fe7352dc7e95f
 model career_action_table {
   career_action_id Int      @id @default(autoincrement())
   student_id       String
@@ -103,22 +76,22 @@ model career_action_table {
   action_id        Int
 
   student     student_table     @relation(fields: [student_id], references: [student_id])
-  career_path career_path_table @relation(fields: [career_path_id], references: [career_path_id])
+  career_path career_path_table @relation(fields: [career_action_id], references: [career_path_id])
   action      action_table      @relation(fields: [action_id], references: [action_id])
 }
 
 model action_table {
-  action_id   Int    @id @default(autoincrement())
-  action_name String @unique
+  action_id Int    @id @default(autoincrement())
+  name      String
 
   career_action career_action_table[]
 }
 
 model career_path_table {
   career_path_id Int    @id @default(autoincrement())
-  name           String @unique
-  furigana       String?
-  website        String?
+  name           String
+  furigana       String
+  website        String
 
   career_action career_action_table[]
   job_listing   job_listing_table[]
@@ -149,33 +122,10 @@ model job_listing_table {
 }
 
 model notice_table {
-<<<<<<< HEAD
-<<<<<<< HEAD
-  notice_id    Int      @id @default(autoincrement())
-  title        String
-  content      String
-  start_date   DateTime
-  end_date     DateTime
-  updated_date DateTime @updatedAt
-=======
-=======
->>>>>>> 73d414838881f5a48cfb292be9d6994b8165864c
   notice_id  Int      @id @default(autoincrement())
   title      String
   content    String
   start_date DateTime
   end_date   DateTime
-<<<<<<< HEAD
-<<<<<<< HEAD
-  updated_at DateTime @updatedAt @default(now())
->>>>>>> c47baa344830113b3eb7e1fc4f988af267eb0323
-}
-
-=======
-  updated_at DateTime @updatedAt
-}
->>>>>>> 73d414838881f5a48cfb292be9d6994b8165864c
-=======
   updated_at DateTime @default(now()) @updatedAt
 }
->>>>>>> f60cb330fbd01de514c1b7b5d04fe7352dc7e95f

@@ -9,6 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     //学生データの取得（条件として卒業年度を指定する）
     if (req.method === 'GET') {
+        console.log("接続");
         //Undefinedを許容し、10進数を指定
         const graduation_year: number = parseInt(req.query.graduation_year as string, 10);
         const course_id: number | undefined = req.query.course_id ? parseInt(req.query.course_id as string, 10) : undefined;
