@@ -77,6 +77,7 @@ export default function Header() {
     { text: 'プロフィール編集', url: '/edit_profile', icon: <EditNoteIcon/> },
     { text: 'お知らせ編集ページ', url: '/edit_notice', icon: <EditNoteIcon/> },
     { text: '求人票編集', url: '/edit_joblist', icon: <EditNoteIcon/> },
+    { text: 'ユーザー管理ページ', url: '/usermanage', icon: <EditNoteIcon/> }, //@@@@@
   ];
 
   const handleDrawerOpen = () => {
