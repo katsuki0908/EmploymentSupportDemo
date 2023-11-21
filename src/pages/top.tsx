@@ -1,12 +1,8 @@
 //top page
-
 import Head from 'next/head'
-import { Inter } from 'next/font/google'
+import { Box } from '@mui/material'
 import Header from '@/component/big/header'
 import Notices from '@/component/big/notice'
-
-
-const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
@@ -18,10 +14,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       
-      <main className={`${inter.className}`}>
+      {/* <main className={`${inter.className}`}> */}
+        <Box sx={{backgroundColor:'secondary.main',height: '100vh'}}>
         <Header/>
         <Notices />
-      </main>
+        </Box>
+      {/* </main> */}
     </>
   )
 }

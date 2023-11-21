@@ -11,6 +11,7 @@ import ErrorSnackbar from '@/component/mid/error_snack_bar';
 import { useSession, signIn, getCsrfToken } from 'next-auth/react';
 import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
+import { Palette } from '@mui/icons-material';
 
 interface SignInProps {
   csrfToken: string;
@@ -55,12 +56,13 @@ export default function SignIn({csrfToken}: SignInProps) { //サインインペ�
         <CssBaseline />
         <Box
           sx={{
-            width:395,
-            height:844,
+            width:'100vw',
+            height:'100vh',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            background: 'white'
+            backgroundColor: 'secondary.main'
+            
           }}
         >
 
@@ -123,7 +125,7 @@ export default function SignIn({csrfToken}: SignInProps) { //サインインペ�
               fullWidth
               variant="contained"
               size='large'
-              sx={{ mt: 20, mb: 1 ,borderRadius: 10,backgroundColor: theme.palette.primary.main}}
+              sx={{ mt: 15, mb: 1 ,borderRadius: 10,backgroundColor: theme.palette.primary.main}}
             >
               ログイン
             </Button>

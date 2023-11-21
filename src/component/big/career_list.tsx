@@ -1,28 +1,29 @@
 import * as React from 'react';
-import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import { career_action_table as BaseCareerAction, action_table, career_path_table } from "@prisma/client";
-import { Accordion, AccordionDetails, AccordionSummary, Box, Typography, Container, Divider, Button } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Typography, Divider, Button } from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 import { styled } from '@mui/material/styles';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CareerPutFormDialog from './career_put_dialog';//自作コンポーネント
 import { formatDate } from '@/utils/date_utils';//自作関数
+import { FormDialogProps } from '@/types/props';
 
 type ExtendedCareerAction = BaseCareerAction & {
   action?: action_table;
   career_path?: career_path_table;
 };
 
-export default function Careerlist() {
+export default function Careerlist(props:FormDialogProps) {
   const [career, setCareer] = React.useState<ExtendedCareerAction[]>([]);
   const [openAccordions, setOpenAccordions] = React.useState<number[]>([]);
-  const { data:session } = useSession();
+  const router = useRouter();
  
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/career_database?student_id" + session?.user.user_id, {
+        const response = await fetch("/api/career_database?student_id" + props.initialData.student_id, {
           method: 'GET',
         });
         if (response.ok) {
@@ -36,7 +37,7 @@ export default function Careerlist() {
       }
     };
     fetchData();
-  }, [session]);
+  }, []);
 
   const handleAccordionClick = (careerActionId: number) => {
     setOpenAccordions(prev => {
@@ -78,13 +79,12 @@ export default function Careerlist() {
   if (career.length === 0 ) {
     return (
       <Box>
-        <p>データがありません</p>
+        データがありません
       </Box>
     );
   }
 
   return (
-    <Container>
     <Box sx={{width:'100%'}}>
       {/* キャリア活動表示*/}
       {career.map((career_item) => (
@@ -92,7 +92,7 @@ export default function Careerlist() {
          key={career_item.career_action_id}
          expanded={openAccordions.includes(career_item.career_action_id)}
          onChange={() => handleAccordionClick(career_item.career_action_id)}
-         sx={{mb:1}}
+         sx={{mb:1,width:'100vw'}}
        >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -100,11 +100,11 @@ export default function Careerlist() {
             id="panel1a-header"
           >
            <Typography style={{ display: 'flex', justifyContent: 'space-between', gap: '10px' }}>
-              <span>{career_item.career_path?.name}</span>
+              {career_item.career_path?.name}
               <Divider orientation="vertical" flexItem sx={{backgroundColor:'black'}} />
-              <span>{career_item.action?.action_name}</span>
+              {career_item.action?.action_name}
               <Divider orientation="vertical" flexItem sx={{backgroundColor:'black'}}/>
-              <span>{formatDate(career_item.action_date)}</span>
+              {formatDate(career_item.action_date)}
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
@@ -129,17 +129,24 @@ export default function Careerlist() {
                   {career_item.career_path?.website}
                 </Typography>
               </Grid>
+
+              {router.pathname === '/edit_career' && (//編集ページでのみ表示
             <Grid xs={4}>
               {/* 編集用ダイアログ*/}
               <CareerPutFormDialog initialData={{
-                student_id:session?.user.user_id,
+                student_id:props.initialData.student_id,
                 career_action_id:career_item.career_action_id,
                 selection_action:career_item.action?.action_name,
                 notes:career_item.notes,
                 company_name:career_item.career_path?.name,
                 action_date:career_item.action_date,
-                }}/>
+                }}
+                action_data={props.action_data}
+                career_path_data={props.career_path_data}
+                />
             </Grid>
+              )}
+            {router.pathname === '/edit_career' && (
             <Grid xs={4}>
               {/* 削除ボタン*/}
               <Button 
@@ -151,10 +158,11 @@ export default function Careerlist() {
                 削除
               </Button>
               </Grid>
+            )}
             </Grid>
           </AccordionDetails>
         </CustomAccordion>
       ))}
     </Box>
-    </Container>
+    
   );}

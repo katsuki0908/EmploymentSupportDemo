@@ -20,7 +20,7 @@ export default NextAuth({
         const api = process.env.api;
     
         // データベースからユーザーを検索　福大ダミーapi起動 
-        const url = "http://localhost:3000/api/user_database?user_id=" + uid;
+        const url = "api/user?user_id=" + uid;
         const data = await fetch(url, {
           method: 'GET',
           headers: {
