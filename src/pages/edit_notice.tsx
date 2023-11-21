@@ -96,6 +96,7 @@ const NoticesPage = () => {
  };
 
  const handleEditNotice = async (editedNotice: Notice) => {
+  
   try {
     const response = await fetch(`/api/notice`, {
       method: 'PUT',
@@ -162,7 +163,10 @@ const NoticesPage = () => {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              {notice.content}
+              {/* Replace <p /> with actual newline characters (\n) */}
+              <pre style={{ whiteSpace: 'pre-wrap', margin: 0 }}>
+                {notice.content.replace(/<p \/>/g, '\n')}
+              </pre>
               <Button 
                 variant="outlined"
                 onClick={() => handleDelete(notice.notice_id)}>
