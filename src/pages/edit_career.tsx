@@ -15,7 +15,7 @@ export default function() {
       React.useEffect(() => {//会社名・アクション選択肢の取得
     const fetchData = async () => {
       try {
-        const action = await fetch("/api/action_database?action_name" + selection_action, {
+        const action = await fetch("/api/career_action", {
           method: 'GET',
         });
         if (action.ok) {
@@ -24,10 +24,10 @@ export default function() {
         } else {
           console.error("Error while loading career data: HTTP status ", action.status);
         }
-        const career_name = await fetch("/api/career_path_database?name" + selection_career_name, {
+        const career_name = await fetch("/api/career_path", {
           method: 'GET',
         });
-        if (action.ok) {
+        if (career_name.ok) {
           const career_data = await career_name.json();
           setSelection_career_name(career_data);
         } else {

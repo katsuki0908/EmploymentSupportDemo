@@ -13,3 +13,8 @@ export type FormDialogProps = {
     career_path_data: career_path_table[];
   };
   
+  export type ProfileProps = {
+    Data: {
+    student_id?: string | undefined,
+    };
+  };

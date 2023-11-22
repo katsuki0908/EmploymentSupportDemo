@@ -3,14 +3,10 @@ import { prisma } from "@/consts/prisma";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
-    //選択肢用の進路候補idの取得（条件として会社名を指定する）
+    //選択肢用のキャリアアクションidの取得（条件としてアクション名を指定する）
     if (req.method === 'GET') {
-
-        const name = req.query.student_id as string
         try {
-            const result = await prisma.career_path_table.findMany({
-                    where: { name },
-                })
+            const result = await prisma.action_table.findMany()
             console.log(result);
             res.status(200).json(result);
         }

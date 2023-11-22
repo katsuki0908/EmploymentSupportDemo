@@ -23,7 +23,7 @@ export default function Careerlist(props:FormDialogProps) {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/career_database?student_id" + props.initialData.student_id, {
+        const response = await fetch("/api/career?student_id" + props.initialData.student_id, {
           method: 'GET',
         });
         if (response.ok) {
@@ -51,7 +51,7 @@ export default function Careerlist(props:FormDialogProps) {
 
   const handleDelete = async (careerActionId: number) => {//削除処理
     try {
-      const response = await fetch(`/api/career_database`, {
+      const response = await fetch(`/api/career`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ export default function Careerlist(props:FormDialogProps) {
            <Typography style={{ display: 'flex', justifyContent: 'space-between', gap: '10px' }}>
               {career_item.career_path?.name}
               <Divider orientation="vertical" flexItem sx={{backgroundColor:'black'}} />
-              {career_item.action?.action_name}
+              {career_item.action?.name}
               <Divider orientation="vertical" flexItem sx={{backgroundColor:'black'}}/>
               {formatDate(career_item.action_date)}
             </Typography>
@@ -136,7 +136,7 @@ export default function Careerlist(props:FormDialogProps) {
               <CareerPutFormDialog initialData={{
                 student_id:props.initialData.student_id,
                 career_action_id:career_item.career_action_id,
-                selection_action:career_item.action?.action_name,
+                selection_action:career_item.action?.name,
                 notes:career_item.notes,
                 company_name:career_item.career_path?.name,
                 action_date:career_item.action_date,

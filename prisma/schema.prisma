@@ -82,14 +82,14 @@ model career_action_table {
 
 model action_table {
   action_id Int    @id @default(autoincrement())
-  name      String
+  name      String @unique
 
   career_action career_action_table[]
 }
 
 model career_path_table {
   career_path_id Int    @id @default(autoincrement())
-  name           String
+  name           String @unique
   furigana       String
   website        String
 

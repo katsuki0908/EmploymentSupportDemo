@@ -4,23 +4,20 @@ import { Box,Table,TableRow,TableBody,TableCell } from "@mui/material"
 import { cource_table, student_table, user_table } from "@prisma/client";
 import { useState } from "react";
 import { useSession } from 'next-auth/react';
-
-
+import { ProfileProps } from '@/types/props';
 
 type ExtendedProfile = student_table & {
   user?: user_table;
   cource?: cource_table;
-  //contact_1?: contact_table;
-  //contact_2?: contact_table;
 };
 
-export default function Profilelist(){
+export default function Profilelist(props:ProfileProps){
   const { data:session } = useSession();
   const [profile,SetProfile]  = useState<ExtendedProfile | null>(null)
 
 //プロフィールデータ取得
   React.useEffect(() => {
-    const url =`/api/student_database?student_id=` + session?.user.user_id;
+    const url =`/api/profile?student_id=` + props.Data.student_id;
     fetch(url, {
       method: 'GET',
       headers: {
@@ -56,24 +53,28 @@ export default function Profilelist(){
             <TableCell>{profile?.graduation_year}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>学年</TableCell>
-            <TableCell>{profile?.grade}</TableCell>
-          </TableRow>
-          <TableRow>
             <TableCell>コース</TableCell>
             <TableCell>{profile?.cource?.name}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>住所</TableCell>
-            <TableCell>{profile?.contact_1?.address}</TableCell>
+            <TableCell>{profile?.personal_address}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>電話番号</TableCell>
-            <TableCell>{profile?.contact_1?.phone_number}</TableCell>
+            <TableCell>{profile?.personal_phone}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>メールアドレス</TableCell>
-            <TableCell>{profile?.contact_1?.email}</TableCell>
+            <TableCell>{profile?.personal_email}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>緊急＿住所</TableCell>
+            <TableCell>{profile?.emergency_address}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>緊急電話番号</TableCell>
+            <TableCell>{profile?.emergency_phone}</TableCell>
           </TableRow>
         </TableBody>
       </Table>

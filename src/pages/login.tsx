@@ -1,19 +1,12 @@
 //ログインページ
 import * as React from 'react';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import { useState } from 'react';
+import { Button, CssBaseline, TextField, Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import Image from "next/image";
 import ErrorSnackbar from '@/component/mid/error_snack_bar';
-import { useSession, signIn, getCsrfToken } from 'next-auth/react';
+import { useSession, getCsrfToken } from 'next-auth/react';
 import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
-import { Palette } from '@mui/icons-material';
-import fu_logo from "/public/images/fu_logo.png";
-// import ErrorSnackbar from '@/components/molecule/Errorsnackbar';
 
 interface SignInProps {
   csrfToken: string;
@@ -21,23 +14,11 @@ interface SignInProps {
 
 export default function SignIn({csrfToken}: SignInProps) { //サインインページ
   const theme = useTheme();
-  // const [uid, setUid] = useState(''); // IDの状態を管理するステート
-  // const [password, setPassword] = useState(''); // パスワードの状態を管理するステート
-  const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);//スナックバーの状態を管理するステート
-  const [errorMessage, setErrorMessage] = useState('');//エラーメッセージの状態を管理するステート
+  const [openErrorSnackbar, setOpenErrorSnackbar] = React.useState(false);//スナックバーの状態を管理するステート
+  const [errorMessage, setErrorMessage] = React.useState('');//エラーメッセージの状態を管理するステート
   const {data: session} = useSession();
   const router = useRouter();
 
-  // const handleSubmit = async (event: React.FocusEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   const userCredentials = { uid:uid,password:password };
-  //   // const response = await signIn('credentials', {userCredentials, callbackUrl: '/top' });
-  
-  //   // if(!response) {
-  //   //   setErrorMessage(session?.auth_data.message);
-  //   //   setOpenErrorSnackbar(true);
-  //   // }
-  // };
   React.useEffect(() => {
     // セッションが存在し、ユーザーがログインしていればトップページに遷移する
     if (session?.user?.name) {
@@ -79,8 +60,6 @@ export default function SignIn({csrfToken}: SignInProps) { //サインインペ�
             
           <Image
         src='/Logomarkforjobsearchservices.jpeg'
-        // height={200}
-        // width={350}
         alt="福岡大学"
         width={300}
         height={200}
@@ -105,9 +84,6 @@ export default function SignIn({csrfToken}: SignInProps) { //サインインペ�
               name="uid"
               autoComplete="uid"
               autoFocus
-              // value={uid}
-              // onChange={(e) => setUid(e.target.value)}
-
             />
             <TextField
               margin="normal"
@@ -117,9 +93,7 @@ export default function SignIn({csrfToken}: SignInProps) { //サインインペ�
               label="パスワード"
               type="password"
               id="password"
-              // value={password}
               variant='outlined'
-              // onChange={(e) => setPassword(e.target.value)}
               sx={{borderRadius: 10}}
             />
             <Button
@@ -131,23 +105,11 @@ export default function SignIn({csrfToken}: SignInProps) { //サインインペ�
             >
               ログイン
             </Button>
-            {/* <ErrorSnackbar
+            <ErrorSnackbar
               errorMessage={errorMessage}
               open={openErrorSnackbar}
               handleClose={handleCloseErrorSnackbar}
-            /> */}
-            {/* <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid> */}
+            />
           </Box>
         </Box>
     </>

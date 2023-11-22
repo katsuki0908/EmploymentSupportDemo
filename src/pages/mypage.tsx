@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Box, Tab, Tabs, Typography,Grid, Avatar } from "@mui/material";
-import Header from "@/component/big/header";
-import CareerTabContents from '@/component/big/CareerTabContents';
-import ProfileTabContents from '@/component/big/ProfileTabContents';
+import { Box, Tab, Tabs, Typography } from "@mui/material";
 import { useSession } from "next-auth/react";
 import { action_table, career_path_table } from '@prisma/client';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import WorkIcon from '@mui/icons-material/Work';
+import Header from "@/component/big/header";
+import CareerTabContents from '@/component/big/CareerTabContents';
+import ProfileTabContents from '@/component/big/ProfileTabContents';
 import GoToLogInButton from '@/component/Atoms/go_to_login_button';
 
 export default function MyPage() {
@@ -21,7 +21,7 @@ export default function MyPage() {
   React.useEffect(() => {//会社名・アクション選択肢の取得
     const fetchData = async () => {
       try {
-        const action = await fetch("/api/action_database?action_name" + selection_action, {
+        const action = await fetch("/api/career_action", {
           method: 'GET',
         });
         if (action.ok) {
@@ -30,10 +30,10 @@ export default function MyPage() {
         } else {
           console.error("Error while loading career data: HTTP status ", action.status);
         }
-        const career_name = await fetch("/api/career_path_database?name" + selection_career_name, {
+        const career_name = await fetch("/api/career_path", {
           method: 'GET',
         });
-        if (action.ok) {
+        if (career_name.ok) {
           const career_data = await career_name.json();
           setSelection_career_name(career_data);
         } else {
@@ -68,7 +68,7 @@ export default function MyPage() {
       }}
     >
       <Header />
-      <Typography variant='h5'>
+      <Typography variant='h6'>
         マイページ
       </Typography>
       <Tabs value={selectedTab} onChange={handleTabChange} centered sx={{mb:2}}>
@@ -81,9 +81,11 @@ export default function MyPage() {
           height: '30%',
         }}
       >
-        {selectedTab === 0 && <ProfileTabContents />}
+        {selectedTab === 0 && <ProfileTabContents
+        Data={{student_id:session.user.user_id}}
+        />}
         {selectedTab === 1 && <CareerTabContents
-        initialData={{}}
+        initialData={{student_id:session?.user.user_id}}
         action_data={selection_action}
         career_path_data={selection_career_name}
         />}

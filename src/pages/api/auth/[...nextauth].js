@@ -20,14 +20,13 @@ export default NextAuth({
         const api = process.env.api;
     
         // データベースからユーザーを検索　福大ダミーapi起動 
-        const url = "api/user?user_id=" + uid;
+        const url = "http://localhost:3000/api/auth/auth?user_id=" + uid;
         const data = await fetch(url, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
           },
         })
-         
         const user = await data.json();
         logger.info('ユーザーが正しく認証されました:', user)
         // const response = await fetch(api,{
@@ -55,9 +54,8 @@ export default NextAuth({
           console.log(user.user_id)
           return user;
         } else {
-          router.push('/login');
           // ユーザーが見つからなかった場合、認証を失敗させる
-          return Promise.resolve(null)
+          return null
         }
       },
     })],
@@ -66,6 +64,8 @@ export default NextAuth({
         strategy: "jwt",
         maxAge:36000
       },
+
+      secret:process.env.NEXT_AUTH_SECRET,
       
       pages: {
         signIn: '/login',

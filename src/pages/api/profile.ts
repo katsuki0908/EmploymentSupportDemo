@@ -8,21 +8,28 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const prisma = new PrismaClient();
 
     //プロフィールの取得(student_idを指定)
-    if (req.method === 'GET') {
-
-        const student_id = req.query.student_id as string
+    if (req.method === "GET") {
         try {
-            const result = await prisma.student_table.findMany(
-                {
+            if (req.query.student_id) {
+                // 学生IDが指定された場合、特定のユーザーを取得
+                const student_id = String(req.query.student_id); // クエリパラメータからユーザーIDを取得
+                const student = await prisma.student_table.findUnique({
                     where: { student_id },
-
-                }
-            )
-            console.log(result);
-            res.status(200).json(result);
+                    include:{
+                        user: true,
+                        cource: true,
+                    }
+                });
+                res.status(200).json(student);
+                console.log(student)
+            } else {
+                // 学生IDが指定されていない場合、全てのユーザーデータを取得
+                const students = await prisma.student_table.findMany();
+                res.status(200).json(students);
+                console.log(students)
+            }
         }
-        catch {
-            console.log("取得失敗")
+        catch (error) {
             res.status(500).json({ error: "データの取得に失敗しました。" });
         }
     }

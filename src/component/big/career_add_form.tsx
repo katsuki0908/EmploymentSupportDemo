@@ -10,8 +10,6 @@ import { Autocomplete } from "@mui/material";
 export default function CareerAddFormDialog(props: FormDialogProps) {
   const [open, setOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  // const [selection_action, setSelection_action] = useState<action_table[]>([]);
-  // const [selection_career_name, setSelection_career_name] = useState<career_path_table[]>([]);
   const [formData, setFormData] = useState({
     selection_action: '',//キャリア活動アクション選択
     notes: '',           //備考
@@ -28,11 +26,9 @@ export default function CareerAddFormDialog(props: FormDialogProps) {
 
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {//キャリア活動追加処理
     event.preventDefault();
-    const response = await fetch('/api/career_database',{
+    const response = await fetch('/api/career',{
     method: 'POST',
-    headers: {
-         'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({student_id:props.initialData.student_id,action_date:selectedDate,notes:formData.notes,action_name:formData.selection_action,name:formData.company_name})});
     console.log(formData);
     console.log(response);
@@ -112,7 +108,7 @@ export default function CareerAddFormDialog(props: FormDialogProps) {
               label= "就活アクション選択"
             >
               {props.action_data?.map((action) => (
-                <MenuItem key={action.action_id} value={action.action_name}>{action.action_name}</MenuItem>
+                <MenuItem key={action.action_id} value={action.name}>{action.name}</MenuItem>
               ))}
             </Select>
           </FormControl>

@@ -15,7 +15,10 @@ import {
   FormControl,
   InputLabel,
 } from '@mui/material';
-import Header from '@/component/big/manageheader'
+// import Header from '@/component/big/manageheader'
+import Header from '@/component/big/header';
+import Profilelist from '@/component/big/profilelist';
+import Careerlist from '@/component/big/career_list';
 
 interface User {
   id: number;
@@ -125,6 +128,7 @@ const UserManage: React.FC = () => {
   return (
     <React.Fragment>
       <CssBaseline />
+      <Header/>
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6">ユーザー管理ページ</Typography>
@@ -223,6 +227,8 @@ const UserManage: React.FC = () => {
         <Button variant="contained" onClick={handleExport} sx={{ mb: 2 }}>
           選択したユーザーを出力
         </Button>
+        {/* <Profilelist/>//プロフィール表示コンポーネント・キャリア活動コンポーネント
+        <Careerlist/> */}
       </Container>
     </React.Fragment>
   );

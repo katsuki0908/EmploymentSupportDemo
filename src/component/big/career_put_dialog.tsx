@@ -27,11 +27,9 @@ export default function CareerPutFormDialog(props: FormDialogProps) {
 
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {//キャリア活動追加処理
     event.preventDefault();
-    const response = await fetch('/api/career_database',{
+    const response = await fetch('/api/career',{
     method: 'PUT',
-    headers: {
-         'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({career_action_id:props.initialData.career_action_id,student_id:props.initialData.student_id,action_date:selectedDate,notes:formData.notes,action_name:formData.selection_action,name:formData.company_name})});
     console.log(formData);
     console.log(response);
@@ -87,10 +85,11 @@ export default function CareerPutFormDialog(props: FormDialogProps) {
             disablePortal
             id="career_select"
             options={props.career_path_data}
-            getOptionLabel={(option) => option.name} // ここでオブジェクトからラベル文字列を取得
+            getOptionLabel={(option) => option.name}
+            value={props.career_path_data.find(option => option.name === formData.company_name) || null} // 初期値の設定
             renderInput={(params) => <TextField {...params} label="会社名" />}
-            onChange={(event, value) => setFormData({ ...formData, company_name: value?.name || '' })} // 選択されたオブジェクトの 'name' プロパティを使用
-          />
+            onChange={(event, value) => setFormData({ ...formData, company_name: value?.name || '' })}
+         />
           </FormControl>
             <FormControl fullWidth margin="normal">
             <InputLabel id="action_select">就活アクション選択</InputLabel>
@@ -103,7 +102,7 @@ export default function CareerPutFormDialog(props: FormDialogProps) {
               label= "就活アクション選択"
             >
               {props.action_data.map((action) => (
-                <MenuItem key={action.action_id} value={action.action_name}>{action.action_name}</MenuItem>
+                <MenuItem key={action.action_id} value={action.name}>{action.name}</MenuItem>
               ))}
             </Select>
           </FormControl>

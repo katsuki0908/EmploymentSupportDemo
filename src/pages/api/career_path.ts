@@ -2,30 +2,21 @@
 
 import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from 'next';
+import { prisma } from "@/consts/prisma";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-
-    const prisma = new PrismaClient();
-
-    //追加
+    //取得
     if (req.method === 'GET') {
         try {
-            const result = await prisma.career_path_table.findMany(
-                {
-
-                }
-            )
+            const result = await prisma.career_path_table.findMany()
             console.log(result);
             res.status(200).json(result);
         }
         catch {
             console.log("取得失敗")
             res.status(500).json({ error: "データの取得に失敗しました。" });
-
         }
-
     }
-
     //編集
     else if (req.method === 'PUT') {
         const obj = JSON.parse(req.method);
