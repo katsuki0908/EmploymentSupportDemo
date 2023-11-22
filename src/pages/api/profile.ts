@@ -21,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     }
                 });
                 res.status(200).json(student);
-                console.log(student)
+                // console.log(student)
             } else {
                 // 学生IDが指定されていない場合、全てのユーザーデータを取得
                 const students = await prisma.student_table.findMany();

@@ -1,25 +1,24 @@
-//キャリア活動編集ページ
-import Careerlist from "@/component/big/career_list"
-import CareerAddFormDialog from "@/component/big/career_add_form"
-import { Box, Typography } from "@mui/material"
-import Header from "@/component/big/header"
+//プロフィール編集ページ
 import { useSession } from "next-auth/react"
+import {useState} from "react";
+import {Stack,Button,Box} from '@mui/material';
+// import {ProfileTextField} from '../component/mid/profile_text_field';
+import {EditContact} from '../component/mid/contact_edit';
+import Header from "../component/big/header";
 
-export default function() {
-    const {data:session} = useSession();//セッション情報取得
-    return (
-            <Box sx={{backgroundColor:'white',height:'100vh'}}>
-            <Header/>
-            キャリア活動編集
-            <CareerAddFormDialog
-            initialData={{
-            student_id: session?.user.user_id,
-            }} 
-            />
-            <Typography sx={{mb:2}}>
-            キャリア活動一覧
-            </Typography>
-            <Careerlist/>
-            </Box>
+const EditProfilePage = () => {
+  const {data:session} = useSession();
+
+    return(
+      <div>
+        <Box sx={{backgroundColor:'secondary.main',height:'100vh'}}>
+        <Header />
+          <Stack spacing={3} direction = "column" justifyContent="center" alignItems="center">
+            {session ?<EditContact student_id={session?.user.user_id}/> : null}
+          </Stack>
+        </Box>
+      </div>
     )
-}
+  }
+
+export default EditProfilePage;
