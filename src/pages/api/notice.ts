@@ -41,7 +41,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   //お知らせ編集ページでの編集
   else if (req.method === 'PUT') {
-    const obj = JSON.parse(JSON.stringify(req.body))
+    const obj = JSON.parse(req.body)
     const { notice_id, title, content, start_date, end_date } = obj;
     //**NULLの時の処理 */
     console.log(obj)
@@ -70,7 +70,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   else if (req.method === 'POST') {
-    const obj = JSON.parse(JSON.stringify(req.body)); // request를 JSON에 변환
+    const obj = JSON.parse(req.body); // request를 JSON에 변환
     const { title, content, start_date, end_date } = obj;
   
     try {
@@ -92,22 +92,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   // //お知らせ編集ページでの削除
   else if (req.method === 'DELETE') {
-    const { notice_id } = req.body; // req.body는 이미 JSON 객체로 파싱된 상태
-    console.log(req.body);
-    console.log(typeof req.body);
-  
+    const obj = JSON.parse(req.body)
+    const { notice_id } = obj;
+    console.log(obj)
+
     try {
       const result = await prisma.notice_table.delete({
         where: { notice_id },
       });
-  
+
       if (result === null) {
+        //notice_idが見つからないときはerrorにいくため実行されない
         res.status(404).json({ message: "データが見つかりませんでした" });
       } else {
         res.status(200).json({ message: "データを削除しました。" });
       }
-    } catch (error) {
+    }
+    catch (error) {
       res.status(500).json({ error: "データの削除に失敗しました。" });
     }
+
   }
 }
