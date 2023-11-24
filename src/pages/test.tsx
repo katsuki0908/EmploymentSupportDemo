@@ -42,17 +42,17 @@ const NoticesPage = () => {
 
            const dataToSend5 = {
             student_id:"TD232000",
-            gender:"F"
+            gender:"M"
            }
            
-          // const response = await fetch("/api/notice", {
-          //   method: "GET",
-          //   //body:JSON.stringify(dataToSend5)
-          // });
-
-          const response = await fetch("/api/user?graduation_year=2023&course_id=0", {
-            method: "GET",
+          const response = await fetch("/api/profile", {
+            method: "PUT",
+            body:JSON.stringify(dataToSend5)
           });
+
+          // const response = await fetch("/api/user?graduation_year=2023&course_id=0", {
+          //   method: "GET",
+          // });
 
           console.log(response.status);
           console.log(response.json());
