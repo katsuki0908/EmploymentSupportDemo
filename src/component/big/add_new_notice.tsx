@@ -57,12 +57,6 @@ const NewNotice = () => {
 
       const response = await fetch('/api/notice', {
         method: 'POST',
-<<<<<<< HEAD
-=======
-        // headers: {
-        //   'Content-Type': 'application/json',
-        // },
->>>>>>> aae6eba7b6e26d591adceb10058f671c775f2163
         body: JSON.stringify({
           title,
           content,
