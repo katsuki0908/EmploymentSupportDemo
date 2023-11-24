@@ -77,10 +77,10 @@ const NoticesPage = () => {
         // Reload the page
         window.location.reload();
       } else {
-        console.error('Error while deleting notice');
+        // console.error('Error while deleting notice');
         // Handle the error or show a user-friendly message
-        console.log('delete ID : ', noticeId);
-        console.log(typeof noticeId);
+        // console.log('delete ID : ', noticeId);
+        // console.log(typeof noticeId);
       }
     } catch (error) {
       console.error('Error while deleting notice: ', error);
