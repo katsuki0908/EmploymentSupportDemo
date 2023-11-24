@@ -76,7 +76,7 @@ model career_action_table {
   action_id        Int
 
   student     student_table     @relation(fields: [student_id], references: [student_id])
-  career_path career_path_table @relation(fields: [career_action_id], references: [career_path_id])
+  career_path career_path_table @relation(fields: [career_path_id], references: [career_path_id])
   action      action_table      @relation(fields: [action_id], references: [action_id])
 }
 

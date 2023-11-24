@@ -72,11 +72,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   // //お知らせ編集ページでの追加
   else if (req.method === 'POST') {
-<<<<<<< HEAD
-    const obj = JSON.parse(req.body) //requestをJSONに変換
-=======
     const obj = JSON.parse(req.body); // request를 JSON에 변환
->>>>>>> aae6eba7b6e26d591adceb10058f671c775f2163
     const { title, content, start_date, end_date } = obj;
 
     try {
