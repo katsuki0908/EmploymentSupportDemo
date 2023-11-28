@@ -49,7 +49,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     //編集
     else if (req.method === 'PUT') {
-        const obj = JSON.parse(req.method);
+        const obj = JSON.parse(req.body);
         const { job_listing_id, application_format, submission_date, visit_date, career_path_id, notes, start_date, end_date } = obj;
         try {
             const result = await prisma.job_listing_table.update({
