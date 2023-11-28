@@ -50,7 +50,7 @@ const NoticesPage = () => {
            //  //body:JSON.stringify(dataToSend5)
            //});
 
-          const response2 = await fetch("/api/user?graduation_year=2023", {
+          const response2 = await fetch("/api/user?graduation_year=2025", {
             method: "GET",
           });
 

@@ -19,7 +19,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     where: { graduation_year,
                         ...(course_id !== undefined && { cource_id: course_id }),
                     },
-
+                    include: {
+                        // includeを使用してuser_tableからnameを取得
+                        user: {
+                          select: {
+                            name: true,
+                          }
+                        }
+                    }
                 }
             )
 
