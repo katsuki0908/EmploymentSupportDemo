@@ -23,10 +23,12 @@ export default function Joblists(options) {
         const fetchJoblists = async () => {
             try {
                 const response = await fetch(
-                    "api/joblist_database", 
-                    {method: 'GET'}
-                    );
-
+                    "api/joblist", 
+                    {
+                        method: 'GET',
+                    }
+                );
+                    console.log(response);
                 if (response.ok) {
                     const data = await response.json();
                     setJoblists(data);
@@ -42,10 +44,15 @@ export default function Joblists(options) {
 
 
     // Nested Listが展開されているかどうか
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState<{ [id: number]: boolean }>({});
 
-    const handleClick = () => {
-        setOpen(!open);
+    const handleClick = (id: number) => {
+        setOpen(
+            {
+                ...open,
+                [id] : !open[id]
+            }
+        );
     };
 
 
@@ -58,9 +65,21 @@ export default function Joblists(options) {
         if (index === -1) {
             const updatedSelectedJoblists = [...selectedJoblists, id];
             setSelectedJoblists( updatedSelectedJoblists );
+            setOpen(
+                {
+                    ...open,
+                    [id] : false
+                }
+            );
         } else {    // 求人票が選択されていれば
             const updatedSelectedJoblists = selectedJoblists.filter( (joblistId) => joblistId !== id );
             setSelectedJoblists( updatedSelectedJoblists );
+            setOpen(
+                {
+                    ...open,
+                    [id] : false
+                }
+            );
         }
     };
 
@@ -70,21 +89,22 @@ export default function Joblists(options) {
         <div>
             <h1>求人票</h1>
 
-            {/* 全ての求人票をNested Listに表示する */}
+            {/* 掲載期間内の求人票をNested Listに表示する(掲載期間内かどうかはapiで判断) */}
             {joblists.map((joblist) => (
                 <List
+                    key={joblist.job_listing_id}
                     sx={{ width: '100%', maxWidth: 800, bgcolor: 'background.paper' }}
                     component="nav"
                 >
                     {/* 外側のリスト */}
-                    <ListItemButton onClick={handleClick}>
+                    <ListItemButton onClick={() => handleClick(joblist.job_listing_id)}>
                         {/* チェックボックスありなら */}
                         {
                             options.showCheckbox && 
                             (
                                 <Checkbox 
-                                    checked={selectedJoblists.includes(joblists.id)} 
-                                    onChange={() => handleCheckboxChange(joblists.id)} 
+                                    checked={selectedJoblists.includes(joblist.job_listing_id)} 
+                                    onChange={() => handleCheckboxChange(joblist.job_listing_id)} 
                                     inputProps={{ 'aria-label': 'controlled' }} //要らなそう?
                                 />
                             )
@@ -92,15 +112,15 @@ export default function Joblists(options) {
                         <ListItemIcon>
                             <BusinessIcon />
                         </ListItemIcon>
-                        <ListItemText primary = {joblist.name} />   {/* 進路候補の名前 */}
+                        <ListItemText primary = {joblist.career_path["name"]} />   {/* 進路候補の名前 */}
                         {open ? <ExpandLess /> : <ExpandMore />}
                     </ListItemButton>
 
                     {/* 内側のリスト */}
-                    <Collapse in={open} timeout="auto" unmountOnExit>
+                    <Collapse in={open[joblist.job_listing_id]} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
                             {[
-                                joblist.notes,  // 備考
+                                "備考：" + joblist.notes,  // 備考
                                 "応募形式：" + joblist.application_format, 
                                 "更新日時：" + joblist.updated_at,
                                 "送付日：" + joblist.submission_date, 
