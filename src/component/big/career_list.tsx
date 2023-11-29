@@ -23,7 +23,7 @@ export default function Careerlist(props:FormDialogProps) {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/career?student_id" + props.initialData.student_id, {
+        const response = await fetch("/api/career?student_id=" + props.initialData.student_id, {
           method: 'GET',
         });
         if (response.ok) {
@@ -99,13 +99,15 @@ export default function Careerlist(props:FormDialogProps) {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-           <Typography style={{ display: 'flex', justifyContent: 'space-between', gap: '10px' }}>
-              {career_item.career_path?.name}
-              <Divider orientation="vertical" flexItem sx={{backgroundColor:'black'}} />
-              {career_item.action?.name}
-              <Divider orientation="vertical" flexItem sx={{backgroundColor:'black'}}/>
-              {formatDate(career_item.action_date)}
-            </Typography>
+             <Box sx={{ overflowX: 'auto' }}> {/* 横スクロール可能なコンテナを追加 */}
+              <Typography style={{ display: 'flex', justifyContent: 'space-between', gap: '10px' }}>
+                {career_item.career_path?.name}
+                <Divider orientation="vertical" flexItem sx={{ backgroundColor: 'black' }} />
+                {career_item.action?.name}
+                <Divider orientation="vertical" flexItem sx={{ backgroundColor: 'black' }} />
+                {formatDate(career_item.action_date)}
+              </Typography>
+            </Box>
           </AccordionSummary>
           <AccordionDetails>
             <Grid container spacing={1}>
@@ -113,6 +115,7 @@ export default function Careerlist(props:FormDialogProps) {
                 <Typography>
                   備考
                 </Typography>
+                <Divider sx={{ backgroundColor: 'black' }} />
               </Grid>
               <Grid xs={12}>
                 <Typography>  
@@ -123,6 +126,8 @@ export default function Careerlist(props:FormDialogProps) {
                 <Typography>
                   website
                 </Typography>
+                <Divider sx={{ backgroundColor: 'black' }} />
+
               </Grid>
               <Grid xs={12}>
                 <Typography>  
