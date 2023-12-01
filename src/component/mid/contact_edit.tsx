@@ -55,7 +55,6 @@ export const EditContact = ({student_id}:any) => {
         emergency_phone: "",
     });
     const [editing, setEditing] = useState(false)
-
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setContactData({
             ...contact_data,
@@ -64,8 +63,8 @@ export const EditContact = ({student_id}:any) => {
         // console.log(event.target.name,event.target.value);
     };
 
-    const handleSubmit = async(e:any) => {
-        e.preventDefault();
+    const handleSaveSubmit = async(e:any) => {
+        e.preventDefault(); //ページのリロードをしない
         await editContact(
             student_id,
             contact_data.personal_address,
@@ -75,34 +74,38 @@ export const EditContact = ({student_id}:any) => {
         );
         setEditing(false);
     }
-    useEffect(() => {
-        const getContactId = async() => {
-            try{
-                const response = await fetch(`/api/profile?student_id=${student_id}` ,{
-                    method:'GET',
+    const handleCancelSubmit = async(e:any) => {
+        getContactId();
+        setEditing(false);
+    }
+    const getContactId = async() => {
+        try{
+            const response = await fetch(`/api/profile?student_id=${student_id}` ,{
+                method:'GET',
+            });
+            // console.log(response);
+            if(response.ok){
+                const data = await response.json();
+                const { personal_address, personal_phone, emergency_address, emergency_phone } = data;
+                setContactData({
+                    personal_address: personal_address || "",
+                    personal_phone: personal_phone || "",
+                    emergency_address: emergency_address || "",
+                    emergency_phone: emergency_phone || "",
                 });
-                console.log(response);
-                if(response.ok){
-                    const data = await response.json();
-                    const { personal_address, personal_phone, emergency_address, emergency_phone } = data;
-                    setContactData({
-                        personal_address: personal_address || "",
-                        personal_phone: personal_phone || "",
-                        emergency_address: emergency_address || "",
-                        emergency_phone: emergency_phone || "",
-                    });
-                }
-            }catch (error){
-                console.error("Error:Not Found User!")
             }
-        }        
+        }catch (error){
+            console.error("Error:Not Found User!")
+        }
+    } 
+    useEffect(() => {
         getContactId();
     },[]);
     
     return (
         <div>
-            <Stack spacing={3} direction = "column">
-                <Button onClick={() => {setEditing(true);}} type="submit" variant="contained">編集</Button>
+            <Stack spacing={3} direction = "column" justifyContent="center" alignItems="center">
+                <Button onClick={() => {setEditing(true);}} type="submit" variant="contained" size="large">編集</Button>
                 <FormControl variant="standard">
                     <InputLabel htmlFor="personal_phone">本人-携帯電話番号</InputLabel>
                     <Input
@@ -148,7 +151,10 @@ export const EditContact = ({student_id}:any) => {
                     />
                 </FormControl>
                 <Collapse in={editing}>
-                    <Button onClick={handleSubmit} type="submit" variant="contained">保存</Button>
+                    <Stack direction="row" spacing={2}>
+                        <Button onClick={handleSaveSubmit} type="submit" variant="contained">保存</Button>
+                        <Button onClick={handleCancelSubmit} type="submit" variant="contained">取消</Button>
+                    </Stack>
                 </Collapse>
             </Stack>
         </div>
