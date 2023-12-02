@@ -49,7 +49,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     //編集
     else if (req.method === 'PUT') {
-        const obj = JSON.parse(req.method);
+        const obj = JSON.parse(req.body);
         const { job_listing_id, application_format, submission_date, visit_date, career_path_id, notes, start_date, end_date } = obj;
         try {
             const result = await prisma.job_listing_table.update({
@@ -74,8 +74,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     //追加
     else if (req.method === 'POST') {
+
+        // console.log("req.body = ", req.body);
+        // console.log(typeof req.body)
+
         const obj = JSON.parse(req.body);
         const { application_format, submission_date, visit_date, career_path_id, notes, start_date, end_date } = obj;
+        // const { application_format, submission_date, visit_date, career_path_id, notes, start_date, end_date } = req.body;
 
         try {
             const result = await prisma.job_listing_table.create({
@@ -100,6 +105,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     else if (req.method === 'DELETE') {
         const obj = JSON.parse(req.body);
         const { job_listing_id } = obj;
+        
+        // const { job_listing_id } = req.body;
 
         try {
             const result = await prisma.job_listing_table.delete({

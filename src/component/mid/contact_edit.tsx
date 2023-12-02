@@ -109,7 +109,6 @@ export const EditContact = ({student_id}:any) => {
                 <FormControl variant="standard">
                     <InputLabel htmlFor="personal_phone">本人-携帯電話番号</InputLabel>
                     <Input
-                    id= "personal_phone"
                     value={contact_data.personal_phone}
                     onChange={handleChange}
                     name="personal_phone"
