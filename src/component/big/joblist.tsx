@@ -15,9 +15,11 @@ import Checkbox from '@mui/material/Checkbox';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Button from '@mui/material/Button';
-import EditJoblistDialog from '@/component/big/edit_joblist_dialog'; 
+import JoblistPutFormDialog from "@/component/big/joblist_put_dialog";
+import { formatDate } from '@/utils/date_utils';
+import { TextField, Box} from '@mui/material';
 
-interface Joblist {
+export type Joblist = {
     application_format: string;
     career_path: any; //JSON型の扱い型分からないので、any
     career_path_id: number;
@@ -45,7 +47,7 @@ export default function Joblists(options) {
                         method: 'GET',
                     }
                 );
-                    console.log(response);
+                    // console.log(response);
                 if (response.ok) {
                     const data = await response.json();
                     setJoblists(data);
@@ -60,44 +62,6 @@ export default function Joblists(options) {
         // 求人票が1つも無かったらその旨を通知する
 
     }, []);
-
-
-
-    // ------求人票を修正する(始)------
-    const [editDialogOpen, setEditDialogOpen] = useState(false); //編集ダイアログの表示フラグ
-    const [editJoblist, setEditJoblist] = useState<Joblist | null>(null); //編集する求人票をeditJoblistとする
-
-    const handleEdit = async (joblist: Joblist) => {
-        setEditJoblist(joblist);
-        setEditDialogOpen(true);
-        // 修正用の入力フォームを表示する
-        
-        // 上書きしてよいか確認する
-
-        
-    }
-    // DB上の求人票を新しい内容で上書きするAPIの呼び出し 未完成
-    const handleEditJoblist = async (editedJoblist: Joblist) => {
-        try {
-            const response = await fetch(`/api/joblist`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({joblisting_id:editedJoblist.job_listing_id,application_format:editedJoblist.application_format, submission_date:editedJoblist.submission_date, visit_date:editedJoblist.visit_date, career_path_id:editedJoblist.career_path_id, notes:editedJoblist.notes, start_date:editedJoblist.start_date, end_date:editedJoblist.end_date}),
-            });
-
-            if (response.ok) {
-                window.location.reload();
-            } else {
-                console.error("求人票の修正中にエラーが発生しました。HTTPステータスコード : ", response.status);
-                // console.log('レスポンスのテキスト:', await response.text());
-            }
-        } catch (error) {
-            console.error("求人票の修正中にエラーが発生しました。HTTPステータスコード : ", error);
-        }
-    }
-    // ------求人票を修正する(終)------
 
     // 求人票を削除する
     const handleDelete = async (id: number) => {
@@ -122,9 +86,6 @@ export default function Joblists(options) {
             console.error("求人票の削除中にエラーが発生しました。HTTPステータスコード : ", error);
         }
       };
-
-
-
 
     // Nested Listが展開されているかどうか
     const [open, setOpen] = useState<{ [id: number]: boolean }>({});
@@ -166,14 +127,35 @@ export default function Joblists(options) {
         }
     };
 
+    // 会社名でフィルタリングする
+    const [searchCompany, setSearchCompany] = useState<string>(''); //会社名の検索文字列
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchCompany(e.target.value);
+    };
+    const filterJoblistsByCompany = (companyName: string) => {
+        // joblistsの各要素に対して、career_pathプロパティが存在する　かつ　career_pathのnameプロパティが、companyNameに指定された文字列を含むjoblistを返す
+        return joblists.filter((joblist) =>
+            joblist.career_path && joblist.career_path.name.toLowerCase().includes(companyName.toLowerCase())
+        );
+    };
+    // searchCompany(検索の入力)があるなら、filter関数でjoblistsをフィルタリングしfilterdjoblistとする。
+    // ないなら条件指定なしとして全てのjoblistをfilterdjoblistととする
+    const filteredJoblists = searchCompany ? filterJoblistsByCompany(searchCompany) : joblists;
+
 
     // 表示する内容
     return (
         <div>
             <h1>求人票</h1>
-
+            <Box sx={{ margin: 2 }}>
+            <TextField
+                label="会社名で検索"
+                value={searchCompany}
+                onChange={handleSearch}
+            />
+            </Box>
             {/* 掲載期間内の求人票をNested Listに表示する(掲載期間内かどうかはapiで判断) */}
-            {joblists.map((joblist) => (
+            {filteredJoblists.map((joblist) => (
                 <List
                     key={joblist.job_listing_id}
                     sx={{ width: '100%', maxWidth: 800, bgcolor: 'background.paper' }}
@@ -206,9 +188,9 @@ export default function Joblists(options) {
                             {[
                                 "備考：" + joblist.notes,  // 備考
                                 "応募形式：" + joblist.application_format, 
-                                "更新日時：" + joblist.updated_at,
-                                "送付日：" + joblist.submission_date, 
-                                "来学日：" + joblist.visit_date
+                                "更新日時：" + formatDate(joblist.updated_at),
+                                "送付日：" + formatDate(joblist.submission_date), 
+                                "来学日：" + formatDate(joblist.visit_date)
                             ].map((star, index) => (
                             <ListItem key={index} sx={{ pl: 4 }}>
                                 <ListItemIcon>
@@ -222,14 +204,18 @@ export default function Joblists(options) {
                         {/* Edit and delete buttons */}
                         {options.showEditDeleteButtons && (
                             <ListItem sx={{ pl: 4 }}>
-                                <Button 
-                                    variant='contained'
-                                    color='primary'
-                                    onClick={() => handleEdit(joblist)}
-                                    startIcon={<EditIcon />}
-                                >
-                                    編集
-                                </Button>
+                                <JoblistPutFormDialog 
+                                    application_format = {joblist.application_format}
+                                    career_path = {joblist.career_path}
+                                    career_path_id = {joblist.career_path_id}
+                                    end_date = {joblist.end_date}
+                                    job_listing_id = {joblist.job_listing_id}
+                                    notes = {joblist.notes}
+                                    start_date = {joblist.start_date}
+                                    submission_date = {joblist.submission_date}
+                                    updated_at = {joblist.updated_at}
+                                    visit_date = {joblist.visit_date}                
+                                />
                                 <Button 
                                     variant='contained'
                                     color='error'
@@ -244,13 +230,6 @@ export default function Joblists(options) {
                     </Collapse>
                 </List>
             ))}
-            {/* 編集のダイアログを表示するコンポーネントの呼び出し */}
-            {/* <EditJoblistDialog
-                open={editDialogOpen}
-                joblist={editJoblist}
-                onClose={() => setEditDialogOpen(false)}
-                onEdit={(editedJoblist: Joblist) => handleEditJoblist(editedJoblist)}
-            /> */}
         </div>
     );
 }

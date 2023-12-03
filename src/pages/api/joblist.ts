@@ -48,24 +48,33 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     //編集
+    //12m3d 変更済み(担当:家永) 変更点:bodyに渡すデータを進路先ID→進路先名前にし、その名前に該当するIDを探しDBを更新する
     else if (req.method === 'PUT') {
         const obj = JSON.parse(req.body);
-        const { job_listing_id, application_format, submission_date, visit_date, career_path_id, notes, start_date, end_date } = obj;
+        const { job_listing_id, application_format, submission_date, visit_date, career_path_name, notes, start_date, end_date } = obj;
         try {
+            const [createCareerPath] = await Promise.all([//並列処理
+                prisma.career_path_table.findUnique({ where: {name:career_path_name} })
+            ]);
+            const careerPathId = createCareerPath?.career_path_id;
             const result = await prisma.job_listing_table.update({
                 where: { job_listing_id },
                 data: {
                     application_format,
                     submission_date,
                     visit_date,
-                    career_path_id,
+                    career_path_id: careerPathId,
                     notes,
                     start_date,
                     end_date
                 },
             });
-
-            res.status(200).json(result);
+            if (result === null) {
+                res.status(404).json({ message: "データが見つかりませんでした" });
+            } else {
+                res.status(200).json({ message: "データを更新しました。" });
+            }
+            res.status(200).json(result);   
         }
         catch {
             res.status(500).json({ error: "データの更新に失敗しました。" });

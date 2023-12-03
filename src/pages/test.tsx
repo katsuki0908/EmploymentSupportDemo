@@ -42,7 +42,7 @@ const NoticesPage = () => {
 
            const dataToSend5 = {
             student_id:"TD232000",
-            gender:"F"
+            gender:"M"
            }
            
            //const response1 = await fetch("/api/notice", {
@@ -50,12 +50,23 @@ const NoticesPage = () => {
            //  //body:JSON.stringify(dataToSend5)
            //});
 
-          const response2 = await fetch("/api/user?graduation_year=2023", {
+          const response2 = await fetch("/api/user?graduation_year=2025", {
             method: "GET",
           });
 
           console.log(response2.status);
           console.log(response2.json());
+          const response = await fetch("/api/profile", {
+            method: "PUT",
+            body:JSON.stringify(dataToSend5)
+          });
+
+          // const response = await fetch("/api/user?graduation_year=2023&course_id=0", {
+          //   method: "GET",
+          // });
+
+          console.log(response.status);
+          console.log(response.json());
         }
     
         test(); // test関数をuseEffect内で呼び出す
