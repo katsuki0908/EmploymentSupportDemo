@@ -12,68 +12,68 @@ import { Message } from "@mui/icons-material";
 
 
 const NoticesPage = () => {
-    useEffect(() => {
-        const test = async () => {
-          const startDate = new Date('2023-11-10T12:00:00');
-          const endDate = new Date('2023-11-15T18:30:00');
-          
-          const dataToSend1 = {
-           title:'データ追加テスト2',
-           content:'データの追加テスト2',
-           start_date: startDate,
-           end_date: endDate,
-          };
+  useEffect(() => {
+    const test = async () => {
+      const startDate = new Date('2023-11-10T12:00:00');
+      const endDate = new Date('2023-11-15T18:30:00');
 
-          const dataToSend2 = {
-            notice_id:10,
-            title:'データ追加テスト2→変更',
-            content:'データの追加テスト2→変更',
-            start_date: startDate,
-            end_date: endDate,
-           };
+      const dataToSend1 = {
+        title: 'データ追加テスト2',
+        content: 'データの追加テスト2',
+        start_date: startDate,
+        end_date: endDate,
+      };
 
-           const dataToSend3 = {
-            notice_id:12,
-           }
+      const dataToSend2 = {
+        notice_id: 5,
+        title: 'データ追加テスト2',
+        content: 'データの追加テスト2',
+        start_date: startDate,
+        end_date: endDate,
+      };
 
-           const dataToSend4 = {
-            graduation_year:2023,
-           }
+      const dataToSend3 = {
+        notice_id: 12,
+      }
 
-           const dataToSend5 = {
-            student_id:"TD232000",
-            gender:"M"
-           }
-           
-           //const response1 = await fetch("/api/notice", {
-           //  method: "GET",
-           //  //body:JSON.stringify(dataToSend5)
-           //});
+      const dataToSend4 = {
+        graduation_year: 2023,
+      }
 
-          const response2 = await fetch("/api/user?graduation_year=2025", {
-            method: "GET",
-          });
+      const dataToSend5 = {
+        student_id: "TD232000",
+        gender: "男"
+      }
 
-          console.log(response2.status);
-          console.log(response2.json());
-          const response = await fetch("/api/profile", {
-            method: "PUT",
-            body:JSON.stringify(dataToSend5)
-          });
+      const response = await fetch("/api/notice", {
+        method: "DELETE",
+        body: JSON.stringify(dataToSend2)
+      });
 
-          // const response = await fetch("/api/user?graduation_year=2023&course_id=0", {
-          //   method: "GET",
-          // });
+      // const response2 = await fetch("/api/user?graduation_year=2025", {
+      //   method: "GET",
+      // });
 
-          console.log(response.status);
-          console.log(response.json());
-        }
-    
-        test(); // test関数をuseEffect内で呼び出す
-      }, []); 
+      console.log(response.status);
+      //console.log(response.json());
+      // const response = await fetch("/api/profile", {
+      //   method: "PUT",
+      //   body:JSON.stringify(dataToSend5)
+      // });
+
+      // const response = await fetch("/api/user?graduation_year=2023&course_id=0", {
+      //   method: "GET",
+      // });
+
+      // console.log(response.status);
+      // console.log(response.json());
+    }
+
+    test(); // test関数をuseEffect内で呼び出す
+  }, []);
 
   return (
-   <><></></>
+    <><></></>
   );
 };
 

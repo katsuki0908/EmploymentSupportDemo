@@ -1,6 +1,6 @@
 //求人活動のサーバー
 
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Prisma } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -14,35 +14,47 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         try {
             const result = await prisma.job_listing_table.findMany(
                 {
-                    where: { 
+                    where: {
                         start_date: {
                             lte: currentTimestamp, // $lte: Less Than or Equal
-                          },
-                          end_date: {
+                        },
+                        end_date: {
                             gt: currentTimestamp, // $gt: Greater Than
-                          },
+                        },
                     },
                     take: 500, // 直近100件を取得
-                    orderBy:{
-                        start_date:'desc',
+                    orderBy: {
+                        start_date: 'desc',
                     },
                     include: {
                         // includeを使用してcareer_path_tableからnameを取得
                         career_path: {
-                          select: {
-                            name: true,
-                          }
+                            select: {
+                                name: true,
+                            }
                         }
                     }
                 }
             )
-            console.log(result);
-            res.status(200).json(result);
+            if (result.length === 0) {
+                // データが見つからない場合
+                console.log("データなし");
+                res.status(404).json({ message: "データが見つかりませんでした" });
+            } else {
+                // データがある場合
+                console.log("取得成功");
+                res.status(200).json(result);
+            }
         }
-        catch {
-            console.log("取得失敗")
-            res.status(500).json({ error: "データの取得に失敗しました。" });
-
+        catch (error) {
+            console.log("取得失敗", error);
+            if (error instanceof Prisma.PrismaClientKnownRequestError) {
+                // Prismaが特定のエラーを検知した場合
+                res.status(400).json({ error: "リクエストが無効です。" });
+            } else {
+                // その他のエラーの場合
+                res.status(500).json({ error: "データの取得に失敗しました。" });
+            }
         }
 
     }
@@ -64,11 +76,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     end_date
                 },
             });
+            console.log("更新成功");
+            res.status(200).json({ message: "データを更新しました。", updatedData: result });
 
-            res.status(200).json(result);
         }
-        catch {
-            res.status(500).json({ error: "データの更新に失敗しました。" });
+        catch (error) {
+            console.log("更新失敗", error);
+            if (error instanceof Prisma.PrismaClientKnownRequestError) {
+                res.status(400).json({ error: "リクエストが無効です。" });
+            } else {
+                res.status(500).json({ error: "データの更新に失敗しました。" });
+            }
         }
     }
 
@@ -89,10 +107,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     end_date
                 }
             });
-            res.status(200).json(result);
+            console.log("追加成功");
+            res.status(201).json(result);
         }
-        catch {
-            res.status(500).json({ error: "データの追加に失敗しました。" });
+        catch (error) {
+            console.error("追加失敗", error);
+            if (error instanceof Prisma.PrismaClientKnownRequestError) {
+                res.status(400).json({ error: "リクエストが無効です。" });
+            } else {
+                res.status(500).json({ error: "データの追加に失敗しました。" });
+            }
         }
     }
 
@@ -102,14 +126,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const { job_listing_id } = obj;
 
         try {
-            const result = await prisma.job_listing_table.delete({
+            await prisma.job_listing_table.delete({
                 where: { job_listing_id },
             })
-            res.status(200).json({ message: "データを削除しました。" });
+            console.log("削除成功");
+            res.status(204).end();
         }
-        catch {
-            res.status(500).json({ error: "データの削除に失敗しました。" });
+        catch (error) {
+            console.error("削除失敗", error);
+            if (error instanceof Prisma.PrismaClientKnownRequestError) {
+                res.status(400).json({ error: "リクエストが無効です。" });
+            } else {
+                res.status(500).json({ error: "データの削除に失敗しました。" });
+            }
         }
 
+    }
+
+    else {
+        console.log("サポートエラー");
+        res.status(405).json({ error: "サポートされていないHTTPメソッドです。" });
     }
 }

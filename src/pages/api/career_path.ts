@@ -1,6 +1,6 @@
 //キャリアパスのサーバー
 
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Prisma } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from "@/consts/prisma";
 
@@ -9,8 +9,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method === 'GET') {
         try {
             const result = await prisma.career_path_table.findMany()
-            console.log(result);
-            res.status(200).json(result);
+            if (result.length === 0) {
+                // データが見つからない場合
+                console.log("データなし");
+                res.status(404).json({ message: "データが見つかりませんでした" });
+            } else {
+                // データがある場合
+                console.log("取得成功");
+                res.status(200).json(result);
+            }
         }
         catch {
             console.log("取得失敗")
@@ -31,10 +38,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 },
             });
 
-            res.status(200).json(result);
+            console.log("更新成功");
+            res.status(200).json({ message: "データを更新しました。", updatedData: result });
+
         }
-        catch {
-            res.status(500).json({ error: "データの更新に失敗しました。" });
+        catch (error) {
+            console.log("更新失敗", error);
+            if (error instanceof Prisma.PrismaClientKnownRequestError) {
+                res.status(400).json({ error: "リクエストが無効です。" });
+            } else {
+                res.status(500).json({ error: "データの更新に失敗しました。予期せぬエラーが発生しました。" });
+            }
         }
     }
 
@@ -46,19 +60,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         try {
             const result = await prisma.career_path_table.create({
                 data: {
-                    name, 
-                    furigana, 
+                    name,
+                    furigana,
                     website
                 }
             });
-            res.status(200).json(result);
+            console.log("追加成功");
+            res.status(201).json(result);
         }
-        catch {
-            res.status(500).json({ error: "データの追加に失敗しました。" });
+        catch (error) {
+            console.error("追加失敗", error);
+            if (error instanceof Prisma.PrismaClientKnownRequestError) {
+                res.status(400).json({ error: "リクエストが無効です。" });
+            } else {
+                res.status(500).json({ error: "データの追加に失敗しました。予期せぬエラーが発生しました。" });
+            }
         }
     }
 
-  //削除は実装しない
+    //削除は実装しない
 
+    else {
+        console.log("サポートエラー");
+        res.status(405).json({ error: "サポートされていないHTTPメソッドです。" });
+      }
 
 }
