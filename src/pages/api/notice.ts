@@ -2,6 +2,8 @@
 
 import { PrismaClient, Prisma } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from 'next';
+import logger from "../../../logger";
+import { getSession } from 'next-auth/react';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -67,10 +69,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
       });
       console.log("更新成功");
+      const session = await getSession({ req });
+      if (!session) {
+        // セッションがない場合のエラーハンドリング
+        res.status(401).json({ error: '認証が必要です。' });
+        return;
+      }
+      const userName = session.user?.name || 'unknown';
+      logger.info({userName:userName,message:'お知らせが更新されました',updatedData: result });
       res.status(200).json({ message: "データを更新しました。", updatedData: result });
 
     } catch (error) {
       console.log("更新失敗", error);
+      logger.error('お知らせの更新に失敗しました', { error });
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         res.status(400).json({ error: "リクエストが無効です。" });
       } else {
