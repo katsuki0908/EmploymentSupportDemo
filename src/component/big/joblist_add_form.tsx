@@ -32,7 +32,7 @@ export default function JoblistAddFormDialog() {
         application_format: "",
         submission_date: "",
         visit_date: "",
-        career_path_id: "",
+        career_path_id: -1,
         notes: "",
         start_date: "",
         end_date: ""
@@ -71,7 +71,12 @@ export default function JoblistAddFormDialog() {
     // 求人票を追加する
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-
+        
+        // career_path_id が null の場合にエラーを処理する
+        if (formData.career_path_id === -1) {
+            console.error("求人票を追加する際に会社名を選択してください。");
+            return; // 保存を中止してダイアログを閉じる
+        }
         const response = await fetch('/api/joblist', {
             method: 'POST',
             // headers: { 'Content-Type': 'application/json' },
@@ -155,7 +160,7 @@ export default function JoblistAddFormDialog() {
                             options={selection_career_name}
                             getOptionLabel={(option) => option.name}
                             renderInput={(params) => <TextField {...params} label="会社名" />}
-                            onChange={(event, value) => setFormData({ ...formData, career_path_id: value?.career_path_id || '' })}
+                            onChange={(event, value) => setFormData({ ...formData, career_path_id: value?.career_path_id || -1})}
                         />
                     </FormControl>
 
