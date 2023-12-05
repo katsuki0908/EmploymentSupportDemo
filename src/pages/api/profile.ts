@@ -2,6 +2,7 @@
 
 import { PrismaClient, Prisma } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from 'next';
+import logger from "../../../logger";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -24,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     console.log("データなし");
                     res.status(404).json({ message: "データが見つかりませんでした" });
                 } else {
-                    console.log("取得成功");
+                    logger.info({ message: 'プロフィールを取得しました', getData: student });
                     res.status(200).json(student);
                 }
             } else {
@@ -34,13 +35,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     console.log("データなし");
                     res.status(404).json({ message: "データが見つかりませんでした" });
                 } else {
-                    console.log("取得成功");
+                    logger.info({ message: '全てのプロフィールを取得しました' });
                     res.status(200).json(students);
                 }
             }
         }
         catch (error) {
-            console.log("取得失敗");
+            logger.info({ message: 'プロフィールを取得できませんでした', error: error });
             if (error instanceof Prisma.PrismaClientKnownRequestError) {
                 // Prismaが特定のエラーを検知した場合
                 res.status(400).json({ error: "リクエストが無効です。" });
@@ -72,21 +73,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     emergency_phone
                 }
             });
-                console.log("更新成功");
-                res.status(200).json({ message: "データを更新しました。", updatedData: result });
+            logger.info({ message: 'プロフィールを更新しました', updatedData: result });
+            res.status(200).json({ message: "プロフィールを更新しました。", updatedData: result });
 
         }
         catch (error) {
-            console.log("更新失敗", error);
             if (error instanceof Prisma.PrismaClientKnownRequestError) {
+                logger.error({ message: '構文エラーでプロフィールの更新に失敗しました', error: error });
                 res.status(400).json({ error: "リクエストが無効です。" });
             } else {
-                res.status(500).json({ error: "データの更新に失敗しました。予期せぬエラーが発生しました。" });
+                logger.error({ message: '予期せぬエラーでプロフィールの更新に失敗しました', error: error });
+                res.status(500).json({ error: "プロフィールの更新に失敗しました。予期せぬエラーが発生しました。" });
             }
         }
     }
     else {
-        console.log("サポートエラー");
+        logger.error({ message: 'サポートされていないHTTPメソッドでのリクエストです。', error: req.method });
         res.status(405).json({ error: "サポートされていないHTTPメソッドです。" });
     }
 

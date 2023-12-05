@@ -25,9 +25,9 @@ const NoticesPage = () => {
       };
 
       const dataToSend2 = {
-        notice_id: 3,
-        title: 'データ追加テスト2',
-        content: 'データの追加テスト2',
+        notice_id: 13,
+        title: 'データ追加テスト10',
+        content: 'データの追加テスト10',
         start_date: startDate,
         end_date: endDate,
       };
@@ -46,7 +46,7 @@ const NoticesPage = () => {
       }
 
       const response = await fetch("/api/notice", {
-        method: "PUT",
+        method: "DELETE",
         body: JSON.stringify(dataToSend2)
       });
 

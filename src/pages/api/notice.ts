@@ -12,7 +12,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const currentTimestamp = new Date(); // 現在の日時
     //**取得件数の指定 */
     try {
-
       const result = await prisma.notice_table.findMany(
         {
           where: {
@@ -32,21 +31,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       if (result.length === 0) {
         // データが見つからない場合
         console.log("データなし");
-        res.status(404).json({ message: "データが見つかりませんでした" });
+        res.status(404).json({ message: "お知らせが見つかりませんでした" });
       } else {
         // データがある場合
-        console.log("取得成功");
+        logger.info({ message: 'お知らせを取得しました' });
         res.status(200).json(result);
       }
     }
     catch (error) {
-      console.log("取得失敗", error);
+      logger.info({ message: 'お知らせを取得できませんでした', error: error });
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         // Prismaが特定のエラーを検知した場合
         res.status(400).json({ error: "リクエストが無効です。" });
       } else {
         // その他のエラーの場合
-        res.status(500).json({ error: "データの取得に失敗しました。予期せぬエラーが発生しました。" });
+        res.status(500).json({ error: "お知らせの取得に失敗しました。予期せぬエラーが発生しました。" });
       }
     }
   }
@@ -67,18 +66,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           end_date: end_date,
         },
       });
-      console.log("更新成功");
-
-      logger.info({message:'お知らせが更新されました',updatedData: result });
-      res.status(200).json({ message: "データを更新しました。", updatedData: result });
+      logger.info({ message: 'お知らせを更新しました', updatedData: result });
+      res.status(200).json({ message: "お知らせを更新しました。", updatedData: result });
 
     } catch (error) {
-      console.log("更新失敗", error);
-      logger.error('お知らせの更新に失敗しました', { error });
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        logger.error({ message: '構文エラーでお知らせの更新に失敗しました', error: error });
         res.status(400).json({ error: "リクエストが無効です。" });
       } else {
-        res.status(500).json({ error: "データの更新に失敗しました。予期せぬエラーが発生しました。" });
+        logger.error({ message: '予期せぬエラーでお知らせの更新に失敗しました', error: error });
+        res.status(500).json({ error: "お知らせの更新に失敗しました。予期せぬエラーが発生しました。" });
       }
     }
   }
@@ -97,15 +94,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           end_date
         },
       });
-      console.log("追加成功");
+      logger.info({ message: 'お知らせを追加しました', updatedData: result });
       res.status(201).json(result);
     }
     catch (error) {
-      console.error("追加失敗", error);
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        logger.error({ message: '構文エラーでお知らせの追加に失敗しました', error: error });
         res.status(400).json({ error: "リクエストが無効です。" });
       } else {
-        res.status(500).json({ error: "データの追加に失敗しました。予期せぬエラーが発生しました。" });
+        logger.error({ message: '予期せぬエラーでお知らせの追加に失敗しました', error: error });
+        res.status(500).json({ error: "お知らせの追加に失敗しました。予期せぬエラーが発生しました。" });
       }
     }
   }
@@ -116,24 +114,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { notice_id } = obj;
 
     try {
-      await prisma.notice_table.delete({
+      const result = await prisma.notice_table.delete({
         where: { notice_id },
       });
-      console.log("削除成功");
+      logger.info({ message: 'お知らせを削除しました', updatedData: result });
       res.status(204).end();
     }
     catch (error) {
-      console.error("削除失敗", error);
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        logger.error({ message: '構文エラーでお知らせの削除に失敗しました', error: error });
         res.status(400).json({ error: "リクエストが無効です。" });
       } else {
-        res.status(500).json({ error: "データの削除に失敗しました。予期せぬエラーが発生しました。" });
+        logger.error({ message: '予期せぬエラーでお知らせの削除に失敗しました', error: error });
+        res.status(500).json({ error: "お知らせの削除に失敗しました。予期せぬエラーが発生しました。" });
       }
     }
   }
 
   else {
-    console.log("サポートエラー");
+    logger.error({ message: 'サポートされていないHTTPメソッドでのリクエストです。', error: req.method });
     res.status(405).json({ error: "サポートされていないHTTPメソッドです。" });
   }
 

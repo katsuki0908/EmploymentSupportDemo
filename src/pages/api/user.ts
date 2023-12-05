@@ -2,6 +2,7 @@
 
 import { PrismaClient, Prisma } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from 'next';
+import logger from "../../../logger";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -35,13 +36,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 res.status(404).json({ error: "データが見つかりませんでした。" });
             } else {
                 // データがある場合
-                console.log("取得成功");
+                logger.info({ message: 'ユーザー情報を取得しました' });
                 res.status(200).json(result);
             }
 
         }
         catch (error) {
-            console.log("取得失敗", error);
+            logger.info({ message: 'ユーザー情報を取得できませんでした', error: error });
             if (error instanceof Prisma.PrismaClientKnownRequestError) {
                 // Prismaが特定のエラーを検知した場合
                 res.status(400).json({ error: "リクエストが無効です。" });
@@ -53,7 +54,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     else {
-        console.log("サポートエラー");
+        logger.error({ message: 'サポートされていないHTTPメソッドでのリクエストです。', error: req.method });
         res.status(405).json({ error: "サポートされていないHTTPメソッドです。" });
       }
 

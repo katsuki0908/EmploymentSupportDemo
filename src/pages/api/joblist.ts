@@ -2,6 +2,7 @@
 
 import { PrismaClient, Prisma } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from 'next';
+import logger from "../../../logger";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -42,12 +43,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 res.status(404).json({ message: "データが見つかりませんでした" });
             } else {
                 // データがある場合
-                console.log("取得成功");
+                logger.info({ message: '求人票を取得しました' });
                 res.status(200).json(result);
             }
         }
         catch (error) {
-            console.log("取得失敗", error);
+            logger.info({ message: '求人票を取得できませんでした', error: error });
             if (error instanceof Prisma.PrismaClientKnownRequestError) {
                 // Prismaが特定のエラーを検知した場合
                 res.status(400).json({ error: "リクエストが無効です。" });
@@ -76,16 +77,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     end_date
                 },
             });
-            console.log("更新成功");
+            logger.info({ message: '求人票を更新しました', updatedData: result });
             res.status(200).json({ message: "データを更新しました。", updatedData: result });
 
         }
         catch (error) {
-            console.log("更新失敗", error);
             if (error instanceof Prisma.PrismaClientKnownRequestError) {
+                logger.error({ message: '構文エラーで求人票の更新に失敗しました', error: error });
                 res.status(400).json({ error: "リクエストが無効です。" });
             } else {
-                res.status(500).json({ error: "データの更新に失敗しました。" });
+                logger.error({ message: '構文エラーで求人票の更新に失敗しました', error: error });
+                res.status(500).json({ error: "データの更新に失敗しました。予期せぬエラーが発生しました。" });
             }
         }
     }
@@ -107,15 +109,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     end_date
                 }
             });
-            console.log("追加成功");
+            logger.info({ message: '求人票を追加しました', updatedData: result });
             res.status(201).json(result);
         }
         catch (error) {
-            console.error("追加失敗", error);
             if (error instanceof Prisma.PrismaClientKnownRequestError) {
+                logger.error({ message: '求人票でお知らせの追加に失敗しました', error: error });
                 res.status(400).json({ error: "リクエストが無効です。" });
             } else {
-                res.status(500).json({ error: "データの追加に失敗しました。" });
+                logger.error({ message: '予期せぬエラーで求人票の追加に失敗しました', error: error });
+                res.status(500).json({ error: "求人票の追加に失敗しました。予期せぬエラーが発生しました。" });
             }
         }
     }
@@ -126,25 +129,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const { job_listing_id } = obj;
 
         try {
-            await prisma.job_listing_table.delete({
+            const result = await prisma.job_listing_table.delete({
                 where: { job_listing_id },
             })
-            console.log("削除成功");
+            logger.info({ message: '求人票を削除しました', updatedData: result });
             res.status(204).end();
         }
         catch (error) {
-            console.error("削除失敗", error);
             if (error instanceof Prisma.PrismaClientKnownRequestError) {
+                logger.error({ message: '構文エラーで求人票の削除に失敗しました', error: error });
                 res.status(400).json({ error: "リクエストが無効です。" });
             } else {
-                res.status(500).json({ error: "データの削除に失敗しました。" });
+                logger.error({ message: '予期せぬエラーで求人票の削除に失敗しました', error: error });
+                res.status(500).json({ error: "求人票の削除に失敗しました。予期せぬエラーが発生しました。" });
             }
         }
 
     }
 
     else {
-        console.log("サポートエラー");
+        logger.error({ message: 'サポートされていないHTTPメソッドでのリクエストです。', error: req.method });
         res.status(405).json({ error: "サポートされていないHTTPメソッドです。" });
     }
 }

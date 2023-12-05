@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from "@/consts/prisma";
 import { PrismaClient, Prisma } from "@prisma/client";
-
+import logger from "../../../logger";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -15,7 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 res.status(404).json({ message: "データが見つかりませんでした" });
             } else {
                 // データがある場合
-                console.log("取得成功");
+                //logger.info({ message: 'キャリアアクションを取得しました' });
                 res.status(200).json(result);
             }
         }
