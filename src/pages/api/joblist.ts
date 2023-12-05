@@ -27,7 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         start_date:'desc',
                     },
                     include: {
-                        // includeを使用してcareer_path_tableからnameを取得
+                        // includeを使用してcareer_path_tableからnameを取得.
                         career_path: {
                           select: {
                             name: true,
