@@ -23,7 +23,7 @@ export default function Careerlist(props:FormDialogProps) {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/career?student_id" + props.initialData.student_id, {
+        const response = await fetch("/api/career?student_id=" + props.initialData.student_id, {
           method: 'GET',
         });
         if (response.ok) {

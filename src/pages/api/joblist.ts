@@ -1,7 +1,8 @@
 //求人活動のサーバー
 
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Prisma } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from 'next';
+import logger from "../../../logger";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -14,35 +15,47 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         try {
             const result = await prisma.job_listing_table.findMany(
                 {
-                    where: { 
+                    where: {
                         start_date: {
                             lte: currentTimestamp, // $lte: Less Than or Equal
-                          },
-                          end_date: {
+                        },
+                        end_date: {
                             gt: currentTimestamp, // $gt: Greater Than
-                          },
+                        },
                     },
                     take: 500, // 直近100件を取得
-                    orderBy:{
-                        start_date:'desc',
+                    orderBy: {
+                        start_date: 'desc',
                     },
                     include: {
                         // includeを使用してcareer_path_tableからnameを取得
                         career_path: {
-                          select: {
-                            name: true,
-                          }
+                            select: {
+                                name: true,
+                            }
                         }
                     }
                 }
             )
-            console.log(result);
-            res.status(200).json(result);
+            if (result.length === 0) {
+                // データが見つからない場合
+                console.log("データなし");
+                res.status(404).json({ message: "データが見つかりませんでした" });
+            } else {
+                // データがある場合
+                logger.info({ message: '求人票を取得しました' });
+                res.status(200).json(result);
+            }
         }
-        catch {
-            console.log("取得失敗")
-            res.status(500).json({ error: "データの取得に失敗しました。" });
-
+        catch (error) {
+            logger.info({ message: '求人票を取得できませんでした', error: error });
+            if (error instanceof Prisma.PrismaClientKnownRequestError) {
+                // Prismaが特定のエラーを検知した場合
+                res.status(400).json({ error: "リクエストが無効です。" });
+            } else {
+                // その他のエラーの場合
+                res.status(500).json({ error: "データの取得に失敗しました。" });
+            }
         }
 
     }
@@ -69,15 +82,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     end_date
                 },
             });
-            if (result === null) {
-                res.status(404).json({ message: "データが見つかりませんでした" });
-            } else {
-                res.status(200).json({ message: "データを更新しました。" });
-            }
-            res.status(200).json(result);   
+            logger.info({ message: '求人票を更新しました', updatedData: result });
+            res.status(200).json({ message: "データを更新しました。", updatedData: result });
+
         }
-        catch {
-            res.status(500).json({ error: "データの更新に失敗しました。" });
+        catch (error) {
+            if (error instanceof Prisma.PrismaClientKnownRequestError) {
+                logger.error({ message: '構文エラーで求人票の更新に失敗しました', error: error });
+                res.status(400).json({ error: "リクエストが無効です。" });
+            } else {
+                logger.error({ message: '構文エラーで求人票の更新に失敗しました', error: error });
+                res.status(500).json({ error: "データの更新に失敗しました。予期せぬエラーが発生しました。" });
+            }
         }
     }
 
@@ -103,10 +119,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     end_date
                 }
             });
-            res.status(200).json(result);
+            logger.info({ message: '求人票を追加しました', updatedData: result });
+            res.status(201).json(result);
         }
-        catch {
-            res.status(500).json({ error: "データの追加に失敗しました。" });
+        catch (error) {
+            if (error instanceof Prisma.PrismaClientKnownRequestError) {
+                logger.error({ message: '求人票でお知らせの追加に失敗しました', error: error });
+                res.status(400).json({ error: "リクエストが無効です。" });
+            } else {
+                logger.error({ message: '予期せぬエラーで求人票の追加に失敗しました', error: error });
+                res.status(500).json({ error: "求人票の追加に失敗しました。予期せぬエラーが発生しました。" });
+            }
         }
     }
 
@@ -121,11 +144,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const result = await prisma.job_listing_table.delete({
                 where: { job_listing_id },
             })
-            res.status(200).json({ message: "データを削除しました。" });
+            logger.info({ message: '求人票を削除しました', updatedData: result });
+            res.status(204).end();
         }
-        catch {
-            res.status(500).json({ error: "データの削除に失敗しました。" });
+        catch (error) {
+            if (error instanceof Prisma.PrismaClientKnownRequestError) {
+                logger.error({ message: '構文エラーで求人票の削除に失敗しました', error: error });
+                res.status(400).json({ error: "リクエストが無効です。" });
+            } else {
+                logger.error({ message: '予期せぬエラーで求人票の削除に失敗しました', error: error });
+                res.status(500).json({ error: "求人票の削除に失敗しました。予期せぬエラーが発生しました。" });
+            }
         }
 
+    }
+
+    else {
+        logger.error({ message: 'サポートされていないHTTPメソッドでのリクエストです。', error: req.method });
+        res.status(405).json({ error: "サポートされていないHTTPメソッドです。" });
     }
 }

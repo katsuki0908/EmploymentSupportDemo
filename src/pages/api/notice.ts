@@ -1,7 +1,8 @@
 //お知らせ機能のサーバー側
 
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Prisma } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from 'next';
+import logger from "../../../logger";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -11,8 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const currentTimestamp = new Date(); // 現在の日時
     //**取得件数の指定 */
     try {
-
-      const notices = await prisma.notice_table.findMany(
+      const result = await prisma.notice_table.findMany(
         {
           where: {
             start_date: {
@@ -28,14 +28,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           },
         }
       );
-
-      console.log(notices);
-      res.status(200).json(notices);
-
+      if (result.length === 0) {
+        // データが見つからない場合
+        console.log("データなし");
+        res.status(404).json({ message: "お知らせが見つかりませんでした" });
+      } else {
+        // データがある場合
+        logger.info({ message: 'お知らせを取得しました' });
+        res.status(200).json(result);
+      }
     }
     catch (error) {
-      console.log("取得失敗")
-      res.status(500).json({ error: "データの取得に失敗しました。" });
+      logger.info({ message: 'お知らせを取得できませんでした', error: error });
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        // Prismaが特定のエラーを検知した場合
+        res.status(400).json({ error: "リクエストが無効です。" });
+      } else {
+        // その他のエラーの場合
+        res.status(500).json({ error: "お知らせの取得に失敗しました。予期せぬエラーが発生しました。" });
+      }
     }
   }
 
@@ -43,12 +54,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   else if (req.method === 'PUT') {
     const obj = JSON.parse(req.body)
     const { notice_id, title, content, start_date, end_date } = obj;
-    
-    //**NULLの時の処理 */
-    console.log(obj)
+
     try {
       // notice_idに一致するデータを更新
-      const updatedNotice = await prisma.notice_table.update({
+      const result = await prisma.notice_table.update({
         where: { notice_id: notice_id },
         data: {
           title: title,
@@ -57,22 +66,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           end_date: end_date,
         },
       });
+      logger.info({ message: 'お知らせを更新しました', updatedData: result });
+      res.status(200).json({ message: "お知らせを更新しました。", updatedData: result });
 
-      if (updatedNotice === null) {
-        res.status(404).json({ message: "データが見つかりませんでした" });
-      } else {
-        res.status(200).json({ message: "データを更新しました。" });
-      }
-
-      res.status(200).json(updatedNotice);
     } catch (error) {
-      res.status(500).json({ error: "データの更新に失敗しました。" });
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        logger.error({ message: '構文エラーでお知らせの更新に失敗しました', error: error });
+        res.status(400).json({ error: "リクエストが無効です。" });
+      } else {
+        logger.error({ message: '予期せぬエラーでお知らせの更新に失敗しました', error: error });
+        res.status(500).json({ error: "お知らせの更新に失敗しました。予期せぬエラーが発生しました。" });
+      }
     }
   }
 
-  // //お知らせ編集ページでの追加
+  //お知らせ編集ページでの追加
   else if (req.method === 'POST') {
-    const obj = JSON.parse(req.body); // request를 JSON에 변환
+    const obj = JSON.parse(req.body);
     const { title, content, start_date, end_date } = obj;
 
     try {
@@ -84,10 +94,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           end_date
         },
       });
-      res.status(200).json(result);
+      logger.info({ message: 'お知らせを追加しました', updatedData: result });
+      res.status(201).json(result);
     }
     catch (error) {
-      res.status(500).json({ error: "データの追加に失敗しました。" });
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        logger.error({ message: '構文エラーでお知らせの追加に失敗しました', error: error });
+        res.status(400).json({ error: "リクエストが無効です。" });
+      } else {
+        logger.error({ message: '予期せぬエラーでお知らせの追加に失敗しました', error: error });
+        res.status(500).json({ error: "お知らせの追加に失敗しました。予期せぬエラーが発生しました。" });
+      }
     }
   }
 
@@ -95,23 +112,28 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   else if (req.method === 'DELETE') {
     const obj = JSON.parse(req.body)
     const { notice_id } = obj;
-    console.log(obj)
 
     try {
       const result = await prisma.notice_table.delete({
         where: { notice_id },
       });
-
-      if (result === null) {
-        //notice_idが見つからないときはerrorにいくため実行されない
-        res.status(404).json({ message: "データが見つかりませんでした" });
-      } else {
-        res.status(200).json({ message: "データを削除しました。" });
-      }
+      logger.info({ message: 'お知らせを削除しました', updatedData: result });
+      res.status(204).end();
     }
     catch (error) {
-      res.status(500).json({ error: "データの削除に失敗しました。" });
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        logger.error({ message: '構文エラーでお知らせの削除に失敗しました', error: error });
+        res.status(400).json({ error: "リクエストが無効です。" });
+      } else {
+        logger.error({ message: '予期せぬエラーでお知らせの削除に失敗しました', error: error });
+        res.status(500).json({ error: "お知らせの削除に失敗しました。予期せぬエラーが発生しました。" });
+      }
     }
-
   }
+
+  else {
+    logger.error({ message: 'サポートされていないHTTPメソッドでのリクエストです。', error: req.method });
+    res.status(405).json({ error: "サポートされていないHTTPメソッドです。" });
+  }
+
 }
