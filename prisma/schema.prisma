@@ -91,7 +91,7 @@ model career_path_table {
   career_path_id Int    @id @default(autoincrement())
   name           String @unique
   furigana       String
-  website        String
+  website        String?
 
   career_action career_action_table[]
   job_listing   job_listing_table[]

@@ -1,7 +1,8 @@
 //プロフィール機能のサーバー
 
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Prisma } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from 'next';
+import logger from "../../../logger";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -15,22 +16,39 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 const student_id = String(req.query.student_id); // クエリパラメータからユーザーIDを取得
                 const student = await prisma.student_table.findUnique({
                     where: { student_id },
-                    include:{
+                    include: {
                         user: true,
                         cource: true,
                     }
                 });
-                res.status(200).json(student);
-                // console.log(student)
+                if (!student) {
+                    console.log("データなし");
+                    res.status(404).json({ message: "データが見つかりませんでした" });
+                } else {
+                    logger.info({ message: 'プロフィールを取得しました', getData: student });
+                    res.status(200).json(student);
+                }
             } else {
                 // 学生IDが指定されていない場合、全てのユーザーデータを取得
                 const students = await prisma.student_table.findMany();
-                res.status(200).json(students);
-                console.log(students)
+                if (!students) {
+                    console.log("データなし");
+                    res.status(404).json({ message: "データが見つかりませんでした" });
+                } else {
+                    logger.info({ message: '全てのプロフィールを取得しました' });
+                    res.status(200).json(students);
+                }
             }
         }
         catch (error) {
-            res.status(500).json({ error: "データの取得に失敗しました。" });
+            logger.info({ message: 'プロフィールを取得できませんでした', error: error });
+            if (error instanceof Prisma.PrismaClientKnownRequestError) {
+                // Prismaが特定のエラーを検知した場合
+                res.status(400).json({ error: "リクエストが無効です。" });
+            } else {
+                // その他のエラーの場合
+                res.status(500).json({ error: "データの取得に失敗しました。予期せぬエラーが発生しました。" });
+            }
         }
     }
 
@@ -39,7 +57,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     else if (req.method === 'PUT') {
         const obj = JSON.parse(req.body);
         const { student_id, gender, affiliation, graduation_year, face_photo, cource_id, personal_address, personal_phone, personal_email, emergency_address, emergency_phone } = obj;
-        console.log(obj)
         try {
             const result = await prisma.student_table.update({
                 where: { student_id },
@@ -56,25 +73,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     emergency_phone
                 }
             });
-            if (result === null) {
-                res.status(404).json({ message: "データが見つかりませんでした" });
+            logger.info({ message: 'プロフィールを更新しました', updatedData: result });
+            res.status(200).json({ message: "プロフィールを更新しました。", updatedData: result });
+
+        }
+        catch (error) {
+            if (error instanceof Prisma.PrismaClientKnownRequestError) {
+                logger.error({ message: '構文エラーでプロフィールの更新に失敗しました', error: error });
+                res.status(400).json({ error: "リクエストが無効です。" });
             } else {
-                res.status(200).json({ message: "データを更新しました。" });
+                logger.error({ message: '予期せぬエラーでプロフィールの更新に失敗しました', error: error });
+                res.status(500).json({ error: "プロフィールの更新に失敗しました。予期せぬエラーが発生しました。" });
             }
-
-            res.status(200).json(result)
-        }
-        catch {
-            res.status(500).json({ error: "データの更新に失敗しました。" });
         }
     }
-
-    else if (req.method === 'POST') {
-
-    }
-
-    else if (req.method === 'DELETE') {
-
+    else {
+        logger.error({ message: 'サポートされていないHTTPメソッドでのリクエストです。', error: req.method });
+        res.status(405).json({ error: "サポートされていないHTTPメソッドです。" });
     }
 
 }

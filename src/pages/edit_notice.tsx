@@ -56,14 +56,13 @@ const NoticesPage = () => {
   
     fetchNotices();
   }, []);
-  
   const handleDelete = async (noticeId: number) => {    //DELETE
     try {
       const response = await fetch(`/api/notice`, {
         method: 'DELETE',
-        // headers: {
-        //   'Content-Type': 'application/json',
-        // },
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({ notice_id: noticeId }), // オブジェクトをJSON文字列に変換してbodyに含める
       });
   
@@ -101,9 +100,9 @@ const NoticesPage = () => {
   try {
     const response = await fetch(`/api/notice`, {
       method: 'PUT',
-      // headers: {
-      //   'Content-Type': 'application/json',
-      // },
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(editedNotice),
     });
 
@@ -126,7 +125,7 @@ const NoticesPage = () => {
       console.error('Error while editing notice');
       // Log the response status and text for debugging
       console.log('Response status:', response.status);
-      console.log('Response text:', await response.text());s
+      console.log('Response text:', await response.text());
     }
   } catch (error) {
     console.error('Error while editing notice: ', error);
