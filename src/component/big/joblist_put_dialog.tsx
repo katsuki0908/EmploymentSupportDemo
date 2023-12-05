@@ -10,7 +10,7 @@ import { career_path_table } from "@prisma/client"
 
 export default function JoblistPutFormDialog(props:Joblist) {
     // DBに登録された会社名を取得する
-    const [selection_career_name, setSelection_career_name] = useState<career_path_table[]>([]);
+    const [selection_career_data, setSelection_career_data] = useState<career_path_table[]>([]);
     React.useEffect(() => {
         const fetchData = async () => {
             try {
@@ -19,7 +19,7 @@ export default function JoblistPutFormDialog(props:Joblist) {
             });
             if (career_name.ok) {
                 const career_data = await career_name.json();
-                setSelection_career_name(career_data);
+                setSelection_career_data(career_data);
             } else {
                 console.error("Error while loading career data: HTTP status ", career_name.status);
             }
@@ -41,7 +41,7 @@ export default function JoblistPutFormDialog(props:Joblist) {
     
     const [formData, setFormData] = useState({
         application_format: props.application_format || '',
-        career_path_name: props.career_path["name"] || '',
+        career_path_id: props.career_path_id || '',
         notes: props.notes || '',
     });
     
@@ -50,7 +50,7 @@ export default function JoblistPutFormDialog(props:Joblist) {
         try {
             const response = await fetch('/api/joblist', {
                 method: 'PUT',
-                body: JSON.stringify({job_listing_id:props.job_listing_id, application_format:formData.application_format, career_path_name:formData.career_path_name, notes:formData.notes, submission_date:submission_date, visit_date:visit_date, start_date:start_date, end_date:end_date}),
+                body: JSON.stringify({job_listing_id:props.job_listing_id, application_format:formData.application_format, career_path_id:formData.career_path_id, notes:formData.notes, submission_date:submission_date, visit_date:visit_date, start_date:start_date, end_date:end_date}),
             });
             console.log(response)
             if (response.ok) {
@@ -123,11 +123,11 @@ export default function JoblistPutFormDialog(props:Joblist) {
                 <Autocomplete
                     disablePortal
                     id="career_select"
-                    options={selection_career_name}
+                    options={selection_career_data}
                     getOptionLabel={(option) => option.name}
-                    value={selection_career_name.find(option => option.name === formData.career_path_name) || null} // 初期値の設定
+                    value={selection_career_data.find(option => option.career_path_id === formData.career_path_id) || null} // 初期値の設定
                     renderInput={(params) => <TextField {...params} label="会社名" />}
-                    onChange={(event, value) => setFormData({ ...formData, career_path_name: value?.name || '' })}
+                    onChange={(event, value) => setFormData({ ...formData, career_path_id: value?.career_path_id || 0 })}
                 />
             </FormControl>
             <TextField
