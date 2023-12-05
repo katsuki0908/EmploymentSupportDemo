@@ -41,8 +41,8 @@ export const EditContact = ({student_id}:any) => {
     };
     
     // DBに保存する関数を実行する関数
-    const handleSaveSubmit = async(e:any) => {
-        e.preventDefault(); //ページのリロードをしない
+    const handleSaveSubmit = async(event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault(); //ページのリロードをしない
         if (formError.personal_phone || formError.personal_address || formError.emergency_address || formError.emergency_phone) {
             // 要件を満たさない場合、保存を行わずに関数を終了する
             return;
@@ -58,7 +58,7 @@ export const EditContact = ({student_id}:any) => {
     }
 
     // 変更をキャンセルする場合
-    const handleCancelSubmit = async(e:any) => {
+    const handleCancelSubmit = async() => {
         getContactId();
         setEditing(false);
         resetFormError();
@@ -90,7 +90,6 @@ export const EditContact = ({student_id}:any) => {
 
     const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
-        console.log(name)
         // 携帯電話番号の入力が数字以外の文字を含むかどうか　数字以外ならErrorをtrue
         const regex = new RegExp("^[0-9]+$");
         const isValidError = !regex.test(value)
@@ -107,7 +106,6 @@ export const EditContact = ({student_id}:any) => {
       };
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
-        console.log(value)
         // 住所の入力が文字を含むかどうか　空白ならErrorをtrue
         const isValidError = value.trim() === ""
         setFormData({
