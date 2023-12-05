@@ -75,7 +75,7 @@ export default function JoblistAddFormDialog() {
         // career_path_id が null の場合にエラーを処理する
         if (formData.career_path_id === -1) {
             console.error("求人票を追加する際に会社名を選択してください。");
-            return; // 保存を中止してダイアログを閉じる
+            return; 
         }
         const response = await fetch('/api/joblist', {
             method: 'POST',
