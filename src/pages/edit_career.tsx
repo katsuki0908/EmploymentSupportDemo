@@ -6,6 +6,7 @@ import { Box, Typography } from "@mui/material"
 import Header from "@/component/big/header"
 import { useSession } from "next-auth/react"
 import { action_table, career_path_table } from "@prisma/client";
+import GoToLogInPage from "@/component/Templates/go_to_login_page"
 
 export default function() {
     const {data:session} = useSession();//セッション情報取得
@@ -39,6 +40,12 @@ export default function() {
     };
     fetchData();
   }, []);
+
+  if (!session?.user?.user_id) {
+    return (
+      <GoToLogInPage/>
+    );
+  }
 
     return (
             <Box sx={{backgroundColor:'secondary.main',height:'100vh'}}>

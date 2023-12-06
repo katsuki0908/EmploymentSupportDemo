@@ -9,6 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CareerPutFormDialog from './career_put_dialog';//自作コンポーネント
 import { formatDate } from '@/utils/date_utils';//自作関数
 import { FormDialogProps } from '@/types/props';
+import { ConfirmDialog } from '../mid/confirm_dialog';
 
 type ExtendedCareerAction = BaseCareerAction & {
   action?: action_table;
@@ -19,6 +20,7 @@ export default function Careerlist(props:FormDialogProps) {
   const [career, setCareer] = React.useState<ExtendedCareerAction[]>([]);
   const [openAccordions, setOpenAccordions] = React.useState<number[]>([]);
   const router = useRouter();
+  const [confirm_dialog,setConfirm_dialog] = React.useState(false);
  
   React.useEffect(() => {
     const fetchData = async () => {
@@ -38,6 +40,14 @@ export default function Careerlist(props:FormDialogProps) {
     };
     fetchData();
   }, []);
+
+  const handleConfirmDialogOpen = () => {
+    setConfirm_dialog(true);
+  }
+
+  const handleConfirmDialogClose = () => {
+    setConfirm_dialog(false);
+  }
 
   const handleAccordionClick = (careerActionId: number) => {
     setOpenAccordions(prev => {
@@ -135,7 +145,7 @@ export default function Careerlist(props:FormDialogProps) {
                 </Typography>
               </Grid>
 
-              {router.pathname === '/edit_career' && (//編集ページでのみ表示
+              {(props.initialData.student_id == 'admin' || router.pathname == '/edit_career') && (//編集ページでのみ表示
             <Grid xs={4}>
               {/* 編集用ダイアログ*/}
               <CareerPutFormDialog initialData={{
@@ -145,23 +155,32 @@ export default function Careerlist(props:FormDialogProps) {
                 notes:career_item.notes,
                 company_name:career_item.career_path?.name,
                 action_date:career_item.action_date,
+                action_id:career_item.action_id,
+                career_path_id:career_item.career_path_id,
                 }}
                 action_data={props.action_data}
                 career_path_data={props.career_path_data}
                 />
             </Grid>
               )}
-            {router.pathname === '/edit_career' && (
+            {(props.initialData.student_id == 'admin' || router.pathname == '/edit_career') && (//編集ページでのみ表示
             <Grid xs={4}>
               {/* 削除ボタン*/}
               <Button 
-              onClick={() => handleDelete(career_item.career_action_id)} 
+              onClick={() => handleConfirmDialogOpen()} 
               color="error"
               variant='contained'
               endIcon={<DeleteIcon />}
               >
                 削除
               </Button>
+              <ConfirmDialog
+                  open={confirm_dialog}
+                  onConfirm={() => handleDelete(career_item.career_action_id)} // ここを修正
+                  onCancel={handleConfirmDialogClose}
+                  title="確認"
+                  message="本当に削除しますか？"
+                />
               </Grid>
             )}
             </Grid>

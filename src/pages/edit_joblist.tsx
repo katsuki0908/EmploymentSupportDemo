@@ -4,6 +4,7 @@ import Header from "@/component/big/header";
 import Joblists from "@/component/big/joblist";
 import JoblistAddFormDialog from "@/component/big/joblist_add_form";
 
+
 export default function EditJoblistPage() {
 
     // 追加、編集、削除ボタンの動作

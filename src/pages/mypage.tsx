@@ -7,7 +7,7 @@ import WorkIcon from '@mui/icons-material/Work';
 import Header from "@/component/big/header";
 import CareerTabContents from '@/component/big/CareerTabContents';
 import ProfileTabContents from '@/component/big/ProfileTabContents';
-import GoToLogInButton from '@/component/Atoms/go_to_login_button';
+import GoToLogInPage from '@/component/Templates/go_to_login_page';
 
 export default function MyPage() {
   const { data: session } = useSession();
@@ -50,8 +50,7 @@ export default function MyPage() {
   if (!session?.user?.name) {
     return (
       <Box sx={{ backgroundColor: "white", height: '100vh' }}>
-        ログインしてください
-        <GoToLogInButton/>
+        <GoToLogInPage/>
       </Box>
     );
   }
