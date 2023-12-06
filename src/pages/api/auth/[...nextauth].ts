@@ -40,7 +40,7 @@ export const authOptions = {
           },
         })
         const user = await data.json();
-        const response = await fetch(api,{
+        const response = await fetch(api,{//ダミー認証のコードなので家で作業する人はコメントアウト必須60行目まで
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ export const authOptions = {
           // ユーザーが見つからなかった場合、認証を失敗させる
           return Promise.resolve(null)
         }
-        // if (user) {
+        // if (user) {//代わりにここを使わないと家で作業する場合はだめです。
         //   // ユーザーが見つかった場合、認証を成功させる
         //   // logger.info('認証成功',user)
         //   console.log(user.user_id)
