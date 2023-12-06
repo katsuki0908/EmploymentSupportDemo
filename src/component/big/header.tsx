@@ -10,7 +10,8 @@ import WorkIcon from '@mui/icons-material/Work';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import  LogoutButton from '../mid/logout_button';
 import Link from 'next/link';
-
+import BuildIcon from '@mui/icons-material/Build';
+import { useSession } from 'next-auth/react';
 const drawerWidth = 290;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -68,17 +69,26 @@ export default function Header() {
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const side_bar_item = [{ text: 'トップページ', url: '/top',icon: <HomeIcon/> }, //サイドバー表示内容
+  const {data:session} = useSession();
+  const student_side_bar_item = 
+  [ 
+    { text: 'トップページ', url: '/top',icon: <HomeIcon/> }, //学生用サイドバー表示内容
     { text: '求人一覧閲覧', url: '/joblist', icon: <WorkIcon/> },
     { text: 'マイページ', url: '/mypage', icon: <AccountBoxIcon/> },
     { text: 'キャリア活動編集', url: '/edit_career', icon: <EditNoteIcon/> },
+  ];
+  const admin_side_bar_item = 
+  [ 
+    { text: 'トップページ', url: '/top',icon: <HomeIcon/> }, //管理者用サイドバー表示内容
+    { text: '求人一覧閲覧', url: '/joblist', icon: <WorkIcon/> },
+    { text: 'ユーザー管理', url: '/usermanage3', icon: <EditNoteIcon/> },
     { text: 'プロフィール編集', url: '/edit_profile', icon: <EditNoteIcon/> },
     { text: 'お知らせ編集ページ', url: '/edit_notice', icon: <EditNoteIcon/> },
     { text: '求人票編集', url: '/edit_joblist', icon: <EditNoteIcon/> },
-    { text: 'ユーザー管理', url: '/usermanage1', icon: <EditNoteIcon/> },
-
+    { text: '各種設定', url: '/config', icon: <BuildIcon/> },
   ];
-
+  const side_bar_item = session?.user.user_type === 'student' ? student_side_bar_item : admin_side_bar_item;
+  
   const handleDrawerOpen = () => {
     setOpen(true);
   };
