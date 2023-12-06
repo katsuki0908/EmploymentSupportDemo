@@ -101,7 +101,7 @@ export default function Header() {
     <>
       <CssBaseline />
 
-      <Box>
+      <Box style={{background: '#FFF'}}>
         <AppBar 
           position="fixed" 
           open={open} 
@@ -109,22 +109,26 @@ export default function Header() {
         >
         <Toolbar>
         <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="end"
-            onClick={handleDrawerOpen}
-            size='large'
-            sx={{ ...(open && { display: 'none' }) ,mt:1,mr:1}}
-          >
-            <MenuIcon />
-          </IconButton>
+          color="inherit"
+          aria-label="open drawer"
+          edge="end"
+          onClick={handleDrawerOpen}
+          size='large'
+          sx={{ ...(open && { display: 'none' }) ,mt:1,mr:1}}
+          style={{ display: 'flex', alignItems: 'center', marginTop: '50%', marginBottom: '50%' }}
+        >
+          <MenuIcon />
+        </IconButton>
             <Link href='/top'>
-              <Image 
-                  src="/logo-white-pc.png" 
-                  alt="Logo" 
-                  width={150} // Adjust width as needed
-                  height={40}  // Adjust height as needed
-              />
+              <div style={{ display: 'flex', alignItems: 'center', marginTop: '50%', marginBottom: '50%' }}>
+                <Image 
+                    src="/logo-white-pc.png" 
+                    alt="Logo" 
+                    width={150} // Adjust width as needed
+                    height={40}  // Adjust height as needed
+                    style={{margin:'center'}}
+                />
+              </div>
             </Link>
         </Toolbar>
       </AppBar>
@@ -150,7 +154,7 @@ export default function Header() {
         <DrawerHeader 
           style={{height: '10vh', background: '#9D2328'}}
         >
-          <Typography color='white' sx={{flexGrow:1, ml:2}}>サイドバー</Typography>
+          <Typography color='white' sx={{flexGrow:1,ml:2}}>サイドバー</Typography>
           <IconButton onClick={handleDrawerClose}>
             <ChevronRightIcon />
           </IconButton>

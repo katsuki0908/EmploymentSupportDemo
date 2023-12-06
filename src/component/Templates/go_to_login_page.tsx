@@ -4,13 +4,41 @@ import PageChangeButton from "../Atoms/page_change_button";
 export default function GoToLogInPage() {
 
 return(
-    <Box>
-        <Typography>
-            ログインしてください
-        </Typography>
+    <div 
+            style={{ 
+                display: 'flex', 
+                flexDirection: 'column', 
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                height: '100vh' 
+            }}
+        >
+            <p
+                style={{
+                    color: 'black',
+                    fontFamily: 'Inter',
+                    wordWrap: 'break-word',
+                    marginBottom: '18px', // 조절된 간격
+                }}
+            >
+                ログインが必要なページです
+            </p>
+
+            <p
+                style={{
+                    color: 'black',
+                    fontFamily: 'Inter',
+                    wordWrap: 'break-word',
+                    marginBottom: '36px', // 조절된 간격
+                    marginTop: '18px',
+                }}
+            >
+                ログインしますか？
+            </p>
         <PageChangeButton
         router_path_name="/login"
         />
-    </Box>
+
+    </div>
 )
 }

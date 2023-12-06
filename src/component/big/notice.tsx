@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { notice_table } from "@prisma/client";
 import { formatDate } from '@/utils/date_utils';//自作関数
+import styled from "styled-components";
 
 const NoticesPage = () => {
   const [notices, setNotices] = useState<notice_table[]>([]);
@@ -29,12 +30,20 @@ const NoticesPage = () => {
     fetchNotices();
   }, []);
 
+  if (notices.length === 0) {
+    return (
+      <>
+        データがありません
+      </>
+    );
+  }
+
   return (
-    <div>
-      <h1>お知らせ</h1>
+    <StyledContainer>
+      <h1 style={{marginBottom: '30px'}}>お知らせ</h1>
       
       {notices.map((notices) => (
-        <Accordion>
+        <StyledAccordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
@@ -48,14 +57,39 @@ const NoticesPage = () => {
 
           <AccordionDetails>
               <Typography>
-                {notices.content}
+                {/* Replace <p /> with actual newline characters (\n) */}
+                <pre style={{ whiteSpace: 'pre-wrap', margin: 0 }}>
+                  {notices.content.replace(/<p \/>/g, '\n')}
+                </pre>
               </Typography>
             </AccordionDetails>
-        </Accordion>
+        </StyledAccordion>
       ))}
 
-    </div>
+    </StyledContainer>
   );
 };
+
+const StyledContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #FFF;
+  /* 画面全体の背景色を白に変更 */
+  height: 100vh; /* 画面の高さいっぱいに広がるように */
+  margin: 0; /* マージンを0に設定 */
+`;
+
+const StyledAccordion = styled(Accordion)`
+  width: 60%;
+  margin-bottom: 12px;
+  margin-right: auto;
+  margin-left: auto;
+  background: #F5F5DC;
+
+  @media screen and (max-width: 600px) {
+    width: 80%; /* 가로 폭이 600px 이하일 때 스타일 변경 */
+  }
+`;
 
 export default NoticesPage;

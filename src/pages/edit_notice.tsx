@@ -12,6 +12,7 @@ import AddNewNotice from '@/component/big/add_new_notice';
 import { useRouter } from 'next/router';
 import { Button } from '@mui/material';
 import EditDialog from '@/component/big/edite_notice_dialog'; 
+import { formatDate } from '@/utils/date_utils';//自作関数
 
 interface Notice {
   id: number;
@@ -133,12 +134,12 @@ const NoticesPage = () => {
 };
 
 
-  const formatDate = (date) => {
-    if (!date) return ""; // handle the case where date is undefined or null
+  // const formatDate = (date) => {
+  //   if (!date) return ""; // handle the case where date is undefined or null
   
-    const options = { year: "numeric", month: "2-digit", day: "2-digit" };
-    return new Date(date).toLocaleDateString("ja-JP", options);
-  };
+  //   const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+  //   return new Date(date).toLocaleDateString("ja-JP", options);
+  // };
 
   return (
     <div>
