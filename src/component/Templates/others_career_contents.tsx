@@ -2,14 +2,14 @@ import * as React from 'react';
 import { Box, Typography } from "@mui/material"
 import { useSession } from 'next-auth/react';
 import OthersCareerlist from '../Organisms/others_career_list';
-import { action_table,career_path_table } from '@prisma/client';
+import { action_table, career_path_table } from '@prisma/client';
 
-export default function OthersCareerContents(){
-    const {data:session} = useSession();
-    const [selection_action, setSelection_action] = React.useState<action_table[]>([]);
-    const [selection_career_name, setSelection_career_name] = React.useState<career_path_table[]>([]);
+export default function OthersCareerContents() {
+  const { data: session } = useSession();
+  const [selection_action, setSelection_action] = React.useState<action_table[]>([]);
+  const [selection_career_name, setSelection_career_name] = React.useState<career_path_table[]>([]);
 
-      React.useEffect(() => {//会社名・アクション選択肢の取得
+  React.useEffect(() => {//会社名・アクション選択肢の取得
     const fetchData = async () => {
       try {
         const action = await fetch("/api/career_action", {
@@ -37,16 +37,16 @@ export default function OthersCareerContents(){
     fetchData();
   }, []);
 
-    return (
-        <Box sx={{width:'95%'}}>
-          <Typography>
-            その他を含むキャリア活動表示
-          </Typography>
-            <OthersCareerlist
-            initialData={{student_id: session?.user.user_id}}
-            action_data={selection_action}
-            career_path_data={selection_career_name}
-            />
-        </Box>
-    )
+  return (
+    <Box sx={{ width: '95%' }}>
+      <Typography>
+        その他を含むキャリア活動表示
+      </Typography>
+      <OthersCareerlist
+        initialData={{ student_id: session?.user.user_id }}
+        action_data={selection_action}
+        career_path_data={selection_career_name}
+      />
+    </Box>
+  )
 } 

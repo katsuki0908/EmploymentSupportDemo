@@ -45,44 +45,44 @@ const EditDialog: React.FC<EditDialogProps> = ({ open, notice, onClose, onEdit }
       start_date: date,
     }));
   };
-  
+
   const handleEndDateChange = (date: Date | null) => {
     setEditedNotice((prevNotice) => ({
       ...prevNotice,
       end_date: date,
     }));
   };
-  
+
 
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Edit Notice</DialogTitle>
       <DialogContent>
-      <TextField
-        label="Title"
-        name="title"
-        value={editedNotice?.title || ''}
-        onChange={handleInputChange}
-        fullWidth
-        margin="normal"
-        required // 필수 입력 필드로 지정
-        error={!editedNotice?.title} // title이 비어있을 때 에러 상태로 표시
-        helperText={!editedNotice?.title ? "Title is required" : ""} // title이 비어있을 때 도움말 메시지 표시
-      />
+        <TextField
+          label="Title"
+          name="title"
+          value={editedNotice?.title || ''}
+          onChange={handleInputChange}
+          fullWidth
+          margin="normal"
+          required // 필수 입력 필드로 지정
+          error={!editedNotice?.title} // title이 비어있을 때 에러 상태로 표시
+          helperText={!editedNotice?.title ? "Title is required" : ""} // title이 비어있을 때 도움말 메시지 표시
+        />
 
-      <TextField
-        label="Content"
-        name="content"
-        value={editedNotice?.content || ''}
-        onChange={handleInputChange}
-        fullWidth
-        multiline
-        rows={4}
-        margin="normal"
-        required // 필수 입력 필드로 지정
-        error={!editedNotice?.content} // content가 비어있을 때 에러 상태로 표시
-        helperText={!editedNotice?.content ? "Content is required" : ""} // content가 비어있을 때 도움말 메시지 표시
-      />
+        <TextField
+          label="Content"
+          name="content"
+          value={editedNotice?.content || ''}
+          onChange={handleInputChange}
+          fullWidth
+          multiline
+          rows={4}
+          margin="normal"
+          required // 필수 입력 필드로 지정
+          error={!editedNotice?.content} // content가 비어있을 때 에러 상태로 표시
+          helperText={!editedNotice?.content ? "Content is required" : ""} // content가 비어있을 때 도움말 메시지 표시
+        />
         <label>Start Date:</label>
         <DatePicker
           selected={editedNotice?.start_date || null}
@@ -92,8 +92,8 @@ const EditDialog: React.FC<EditDialogProps> = ({ open, notice, onClose, onEdit }
 
         <p></p>
 
-          <label>End Date:</label>
-          <DatePicker
+        <label>End Date:</label>
+        <DatePicker
           selected={editedNotice?.end_date || null}
           onChange={handleEndDateChange}
           dateFormat="yyyy/MM/dd"

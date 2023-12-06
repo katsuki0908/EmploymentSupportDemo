@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import PageChangeButton from '../Atoms/page_change_button';
@@ -11,7 +11,7 @@ interface ErrorSnackbarProps {
   errorMessage: string;
   open: boolean;
   handleClose: () => void;
-  router_path_name?:string;
+  router_path_name?: string;
 }
 const vertical = 'top'
 const horizontal = 'center'
@@ -23,12 +23,12 @@ const ErrorSnackbar: React.FC<ErrorSnackbarProps> = ({
   router_path_name
 }) => {
   return (
-    <Snackbar open={open} autoHideDuration={null} onClose={handleClose}  anchorOrigin={{ vertical, horizontal}} sx={{width:'100%'}} >
+    <Snackbar open={open} autoHideDuration={null} onClose={handleClose} anchorOrigin={{ vertical, horizontal }} sx={{ width: '100%' }} >
       <div>
-      <Alert onClose={handleClose} severity="error"  sx={{width: '100%'}}>
-        {errorMessage}
-        <PageChangeButton router_path_name={router_path_name}/>
-      </Alert>
+        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+          {errorMessage}
+          <PageChangeButton router_path_name={router_path_name} />
+        </Alert>
       </div>
     </Snackbar>
   );

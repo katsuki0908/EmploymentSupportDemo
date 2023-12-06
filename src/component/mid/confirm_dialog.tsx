@@ -3,7 +3,7 @@ import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, B
 import { ConfirmDialogProps } from '@/types/props';
 
 // カスタム確認ダイアログコンポーネント
-export const ConfirmDialog = (props:ConfirmDialogProps) => {
+export const ConfirmDialog = (props: ConfirmDialogProps) => {
   return (
     <Dialog open={props.open} onClose={props.onCancel}>
       <DialogTitle>{props.title}</DialogTitle>

@@ -70,7 +70,7 @@ const NewNotice = () => {
         setTimeout(() => {
           setSuccessMessage(null);
           // 공지 목록을 갱신하여 표시 (이 부분은 실제 상황에 맞게 API 호출로 변경해야 합니다)
-        router.replace(router.asPath); // 예시로 현재 경로를 다시 로드하는 방식을 사용
+          router.replace(router.asPath); // 예시로 현재 경로를 다시 로드하는 방식을 사용
         }, 3000); // Auto close success message after 3 seconds
         handleClose();
         window.location.reload();
@@ -169,18 +169,18 @@ const NewNotice = () => {
           </DialogActions>
         </Dialog>
       </React.Fragment>
-      
+
       {/* Snackbar for success message */}
-      <Snackbar 
+      <Snackbar
         open={!!successMessage}
         autoHideDuration={6000}
         onClose={handleSuccessClose}
         message={successMessage}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} >
-        <MuiAlert 
-          elevation={6} 
-          variant="filled" 
-          severity="success" 
+        <MuiAlert
+          elevation={6}
+          variant="filled"
+          severity="success"
           onClose={handleSuccessClose}>
           Notice deleted successfully!
         </MuiAlert>

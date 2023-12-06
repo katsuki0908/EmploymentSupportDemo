@@ -1,2 +1,26 @@
 {"level":30,"time":"2023-12-06T04:58:53.785Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
 {"level":30,"time":"2023-12-06T04:58:54.340Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T05:04:12.841Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T05:04:13.230Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T05:04:22.863Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T05:04:23.240Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T05:04:46.826Z","msg":"セッション","user":{"user_id":"admin","name":"田中　教授","furigana":"たなか　きょうじゅ","user_type":"admin"}}
+{"level":30,"time":"2023-12-06T05:04:48.620Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T05:04:48.268Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T05:18:22.012Z","msg":"認証成功"}
+{"level":30,"time":"2023-12-06T05:18:24.797Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T05:18:25.238Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T12:21:24.009Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T12:21:24.626Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T12:21:43.656Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T12:21:44.068Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T12:22:15.845Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T12:22:16.276Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T12:23:07.590Z","message":"お知らせを追加しました","updatedData":{"notice_id":15,"title":"a","content":"a","start_date":"2023-12-06T12:22:15.476Z","end_date":"2023-12-07T12:22:15.000Z","updated_at":"2023-12-06T12:23:07.509Z"}}
+{"level":30,"time":"2023-12-06T12:23:10.113Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T12:23:10.508Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T12:32:55.253Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T12:32:55.629Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T12:32:59.784Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T12:43:27.527Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T12:43:27.912Z","message":"お知らせを取得しました"}

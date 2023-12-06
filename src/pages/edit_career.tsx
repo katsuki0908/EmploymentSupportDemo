@@ -6,14 +6,14 @@ import { Box, Typography } from "@mui/material"
 import Header from "@/component/big/header"
 import { useSession } from "next-auth/react"
 import { action_table, career_path_table } from "@prisma/client";
-import GoToLogInPage from "@/component/Templates/go_to_login_page"
+import GoToLogInPageDialog from "@/component/Molecules/go_to_login_page_dialog"
 
-export default function() {
-    const {data:session} = useSession();//セッション情報取得
-    const [selection_action, setSelection_action] = useState<action_table[]>([]);
-    const [selection_career_name, setSelection_career_name] = useState<career_path_table[]>([]);
+export default function () {
+  const { data: session } = useSession();//セッション情報取得
+  const [selection_action, setSelection_action] = useState<action_table[]>([]);
+  const [selection_career_name, setSelection_career_name] = useState<career_path_table[]>([]);
 
-      React.useEffect(() => {//会社名・アクション選択肢の取得
+  React.useEffect(() => {//会社名・アクション選択肢の取得
     const fetchData = async () => {
       try {
         const action = await fetch("/api/career_action", {
@@ -43,31 +43,31 @@ export default function() {
 
   if (!session?.user?.user_id) {
     return (
-      <GoToLogInPage/>
+      <GoToLogInPageDialog />
     );
   }
 
-    return (
-            <Box sx={{backgroundColor:'secondary.main',height:'100vh'}}>
-            <Header/>
-            キャリア活動編集
-            <Box>
-            <CareerAddFormDialog
-            initialData={{
+  return (
+    <Box sx={{ backgroundColor: 'secondary.main', height: '100vh' }}>
+      <Header />
+      キャリア活動編集
+      <Box>
+        <CareerAddFormDialog
+          initialData={{
             student_id: session?.user.user_id,
-            }} 
-            action_data ={selection_action}
-            career_path_data = {selection_career_name}
-            />
-            <Typography sx={{mb:2}}>
-            キャリア活動一覧
-            </Typography>
-            <Careerlist
-            initialData={{student_id: session?.user.user_id}}
-            action_data={selection_action}
-            career_path_data={selection_career_name}
-            />
-            </Box>
-            </Box>
-    )
+          }}
+          action_data={selection_action}
+          career_path_data={selection_career_name}
+        />
+        <Typography sx={{ mb: 2 }}>
+          キャリア活動一覧
+        </Typography>
+        <Careerlist
+          initialData={{ student_id: session?.user.user_id }}
+          action_data={selection_action}
+          career_path_data={selection_career_name}
+        />
+      </Box>
+    </Box>
+  )
 }

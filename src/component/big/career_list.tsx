@@ -16,12 +16,12 @@ type ExtendedCareerAction = BaseCareerAction & {
   career_path?: career_path_table;
 };
 
-export default function Careerlist(props:FormDialogProps) {
+export default function Careerlist(props: FormDialogProps) {
   const [career, setCareer] = React.useState<ExtendedCareerAction[]>([]);
   const [openAccordions, setOpenAccordions] = React.useState<number[]>([]);
   const router = useRouter();
-  const [confirm_dialog,setConfirm_dialog] = React.useState(false);
- 
+  const [confirm_dialog, setConfirm_dialog] = React.useState(false);
+
   React.useEffect(() => {
     const fetchData = async () => {
       try {
@@ -65,9 +65,10 @@ export default function Careerlist(props:FormDialogProps) {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-     },
-     body: JSON.stringify({career_action_id: careerActionId})});
-      
+        },
+        body: JSON.stringify({ career_action_id: careerActionId })
+      });
+
       if (response.ok) {
         // Remove the deleted career item from the state
         setCareer(prevCareer => prevCareer.filter(careerItem => careerItem.career_action_id !== careerActionId));
@@ -80,13 +81,14 @@ export default function Careerlist(props:FormDialogProps) {
   };
 
   const CustomAccordion = styled(Accordion)({
-    border: '1px solid #000000', 
+    border: '1px solid #000000',
     borderRadius: '4px',
     '&:not(:last-child)': {
       borderBottom: 2,
-    }});
+    }
+  });
 
-  if (career.length === 0 ) {
+  if (career.length === 0) {
     return (
       <Box>
         データがありません
@@ -95,21 +97,21 @@ export default function Careerlist(props:FormDialogProps) {
   }
 
   return (
-    <Box sx={{width:'100%'}}>
+    <Box sx={{ width: '100%' }}>
       {/* キャリア活動表示*/}
       {career.map((career_item) => (
-         <CustomAccordion
-         key={career_item.career_action_id}
-         expanded={openAccordions.includes(career_item.career_action_id)}
-         onChange={() => handleAccordionClick(career_item.career_action_id)}
-         sx={{mb:1,width:'100vw'}}
-       >
+        <CustomAccordion
+          key={career_item.career_action_id}
+          expanded={openAccordions.includes(career_item.career_action_id)}
+          onChange={() => handleAccordionClick(career_item.career_action_id)}
+          sx={{ mb: 1, width: '100vw' }}
+        >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-             <Box sx={{ overflowX: 'auto' }}> {/* 横スクロール可能なコンテナを追加 */}
+            <Box sx={{ overflowX: 'auto' }}> {/* 横スクロール可能なコンテナを追加 */}
               <Typography style={{ display: 'flex', justifyContent: 'space-between', gap: '10px' }}>
                 {career_item.career_path?.name}
                 <Divider orientation="vertical" flexItem sx={{ backgroundColor: 'black' }} />
@@ -128,7 +130,7 @@ export default function Careerlist(props:FormDialogProps) {
                 <Divider sx={{ backgroundColor: 'black' }} />
               </Grid>
               <Grid xs={12}>
-                <Typography>  
+                <Typography>
                   {career_item.notes}
                 </Typography>
               </Grid>
@@ -140,53 +142,54 @@ export default function Careerlist(props:FormDialogProps) {
 
               </Grid>
               <Grid xs={12}>
-                <Typography>  
+                <Typography>
                   {career_item.career_path?.website}
                 </Typography>
               </Grid>
 
               {(props.initialData.student_id == 'admin' || router.pathname == '/edit_career') && (//編集ページでのみ表示
-            <Grid xs={4}>
-              {/* 編集用ダイアログ*/}
-              <CareerPutFormDialog initialData={{
-                student_id:props.initialData.student_id,
-                career_action_id:career_item.career_action_id,
-                selection_action:career_item.action?.name,
-                notes:career_item.notes,
-                company_name:career_item.career_path?.name,
-                action_date:career_item.action_date,
-                action_id:career_item.action_id,
-                career_path_id:career_item.career_path_id,
-                }}
-                action_data={props.action_data}
-                career_path_data={props.career_path_data}
-                />
-            </Grid>
+                <Grid xs={4}>
+                  {/* 編集用ダイアログ*/}
+                  <CareerPutFormDialog initialData={{
+                    student_id: props.initialData.student_id,
+                    career_action_id: career_item.career_action_id,
+                    selection_action: career_item.action?.name,
+                    notes: career_item.notes,
+                    company_name: career_item.career_path?.name,
+                    action_date: career_item.action_date,
+                    action_id: career_item.action_id,
+                    career_path_id: career_item.career_path_id,
+                  }}
+                    action_data={props.action_data}
+                    career_path_data={props.career_path_data}
+                  />
+                </Grid>
               )}
-            {(props.initialData.student_id == 'admin' || router.pathname == '/edit_career') && (//編集ページでのみ表示
-            <Grid xs={4}>
-              {/* 削除ボタン*/}
-              <Button 
-              onClick={() => handleConfirmDialogOpen()} 
-              color="error"
-              variant='contained'
-              endIcon={<DeleteIcon />}
-              >
-                削除
-              </Button>
-              <ConfirmDialog
-                  open={confirm_dialog}
-                  onConfirm={() => handleDelete(career_item.career_action_id)} // ここを修正
-                  onCancel={handleConfirmDialogClose}
-                  title="確認"
-                  message="本当に削除しますか？"
-                />
-              </Grid>
-            )}
+              {(props.initialData.student_id == 'admin' || router.pathname == '/edit_career') && (//編集ページでのみ表示
+                <Grid xs={4}>
+                  {/* 削除ボタン*/}
+                  <Button
+                    onClick={() => handleConfirmDialogOpen()}
+                    color="error"
+                    variant='contained'
+                    endIcon={<DeleteIcon />}
+                  >
+                    削除
+                  </Button>
+                  <ConfirmDialog
+                    open={confirm_dialog}
+                    onConfirm={() => handleDelete(career_item.career_action_id)} // ここを修正
+                    onCancel={handleConfirmDialogClose}
+                    title="確認"
+                    message="本当に削除しますか？"
+                  />
+                </Grid>
+              )}
             </Grid>
           </AccordionDetails>
         </CustomAccordion>
       ))}
     </Box>
-    
-  );}
+
+  );
+}
