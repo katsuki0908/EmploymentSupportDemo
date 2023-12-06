@@ -24,3 +24,14 @@
 {"level":30,"time":"2023-12-06T12:32:59.784Z","message":"お知らせを取得しました"}
 {"level":30,"time":"2023-12-06T12:43:27.527Z","message":"お知らせを取得しました"}
 {"level":30,"time":"2023-12-06T12:43:27.912Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T12:48:33.350Z","msg":"セッション","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"}}
+{"level":30,"time":"2023-12-06T12:48:40.119Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T12:48:40.503Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T12:52:22.314Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T12:52:22.810Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T12:52:23.304Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T12:53:06.679Z","message":"を追加しました","updatedData":{"career_action_id":18,"student_id":"TD232000","action_date":"2023-12-06T15:00:00.000Z","notes":"","updated_at":"2023-12-06T12:53:06.618Z","career_path_id":1,"action_id":1}}
+{"level":30,"time":"2023-12-06T12:53:09.184Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T12:53:09.693Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T12:56:57.907Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T12:56:58.356Z","message":"お知らせを取得しました"}

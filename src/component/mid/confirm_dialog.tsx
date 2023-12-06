@@ -14,10 +14,10 @@ export const ConfirmDialog = (props: ConfirmDialogProps) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={props.onCancel} color="primary">
-          キャンセル
+          いいえ
         </Button>
         <Button onClick={props.onConfirm} color="primary" autoFocus>
-          確認
+          はい
         </Button>
       </DialogActions>
     </Dialog>
