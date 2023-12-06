@@ -25,13 +25,14 @@ export const authOptions = {
         // const { uid,password } = credentials;
         const token = process.env.token;
         const api = process.env.api;
+        const auth_api = process.env.auth_api;
 
         if (!credentials) {
           return null;
         }
     
         // データベースからユーザーを検索　福大ダミーapi起動 
-        const url = "http://localhost:3000/api/auth/auth?user_id=" + credentials.uid;
+        const url = auth_api + credentials.uid;
         const data = await fetch(url, {
           method: 'GET',
           headers: {
