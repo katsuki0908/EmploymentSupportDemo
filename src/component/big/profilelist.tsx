@@ -1,6 +1,6 @@
 //プロフィール
 import * as React from 'react';
-import { Box,Table,TableRow,TableBody,TableCell } from "@mui/material"
+import { Box, Table, TableRow, TableBody, TableCell } from "@mui/material"
 import { cource_table, student_table, user_table } from "@prisma/client";
 import { useState } from "react";
 import { useSession } from 'next-auth/react';
@@ -11,25 +11,25 @@ type ExtendedProfile = student_table & {
   cource?: cource_table;
 };
 
-export default function Profilelist(props:ProfileProps){
-  const { data:session } = useSession();
-  const [profile,SetProfile]  = useState<ExtendedProfile | null>(null)
+export default function Profilelist(props: ProfileProps) {
+  const { data: session } = useSession();
+  const [profile, SetProfile] = useState<ExtendedProfile | null>(null)
 
-//プロフィールデータ取得
+  //プロフィールデータ取得
   React.useEffect(() => {
-    const url =`/api/profile?student_id=` + props.Data.student_id;
+    const url = `/api/profile?student_id=` + props.Data.student_id;
     fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     })
-    .then((response) => response.json())
-    .then((data) => SetProfile(data));
+      .then((response) => response.json())
+      .then((data) => SetProfile(data));
   }, [session]);
-  
-    return (
-        <Box sx={{width:'95vw'}}>
+
+  return (
+    <Box sx={{ width: '95vw' }}>
       <Table>
         <TableBody>
           <TableRow>
@@ -79,5 +79,5 @@ export default function Profilelist(props:ProfileProps){
         </TableBody>
       </Table>
     </Box>
-    )
+  )
 }

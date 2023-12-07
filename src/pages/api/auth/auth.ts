@@ -1,5 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "@/consts/prisma";
+import logger from "../../../../logger";
+
 
 export default async function hendler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -13,12 +15,9 @@ export default async function hendler(req: NextApiRequest, res: NextApiResponse)
                 const user = await prisma.user_table.findUnique({
                     where: { user_id },
                 });
+                logger.info({message:"ログイン情報取得",user_info:user})
                 res.status(200).json(user);
-            } else {
-                // ユーザーIDが指定されていない場合、全てのユーザーデータを取得
-                const users = await prisma.user_table.findMany();
-                res.status(200).json(users);
-            }
+            } 
         }
         catch (error) {
             res.status(500).json({ error: "データの取得に失敗しました。" });

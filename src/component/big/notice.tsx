@@ -32,7 +32,7 @@ const NoticesPage = () => {
   return (
     <div>
       <h1>お知らせ</h1>
-      
+
       {notices.map((notices) => (
         <Accordion>
           <AccordionSummary
@@ -47,10 +47,10 @@ const NoticesPage = () => {
           </AccordionSummary>
 
           <AccordionDetails>
-              <Typography>
-                {notices.content}
-              </Typography>
-            </AccordionDetails>
+            <Typography>
+              {notices.content}
+            </Typography>
+          </AccordionDetails>
         </Accordion>
       ))}
 

@@ -7,7 +7,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Joblist } from "@/component/big/joblist";
 import { career_path_table } from "@prisma/client"
 
-
 export default function JoblistPutFormDialog(props: Joblist) {
     // DBに登録された会社名を取得する
     const [selection_career_data, setSelection_career_data] = useState<career_path_table[]>([]);
@@ -29,7 +28,6 @@ export default function JoblistPutFormDialog(props: Joblist) {
         };
         fetchData();
     }, []);
-
 
     // 応募形式、進路先、備考の設定
     const [formData, setFormData] = useState({

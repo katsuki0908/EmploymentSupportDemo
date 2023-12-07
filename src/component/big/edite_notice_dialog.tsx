@@ -26,10 +26,10 @@ const EditDialog: React.FC<EditDialogProps> = ({ open, notice, onClose, onEdit }
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | { name?: string; value: unknown }>) => {
     const { name, value } = e.target || {};
 
-    setEditedNotice((prevNotice) => ({
-      ...prevNotice,
+    setEditedNotice({
+      ...editedNotice,
       [name as string]: value,
-    }));
+    });
   };
 
   const handleEditClick = () => {
@@ -40,17 +40,17 @@ const EditDialog: React.FC<EditDialogProps> = ({ open, notice, onClose, onEdit }
   };
 
   const handleStartDateChange = (date: Date | null) => {
-    setEditedNotice((prevNotice) => ({
-      ...prevNotice,
+    setEditedNotice({
+      ...editedNotice,
       start_date: date,
-    }));
+    });
   };
   
   const handleEndDateChange = (date: Date | null) => {
-    setEditedNotice((prevNotice) => ({
-      ...prevNotice,
+    setEditedNotice({
+      ...editedNotice,
       end_date: date,
-    }));
+    });
   };
   
 

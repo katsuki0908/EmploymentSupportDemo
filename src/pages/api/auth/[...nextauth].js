@@ -2,9 +2,7 @@
 import NextAuth from 'next-auth';
 //import NextAuth from 'next-auth/next';
 import  CredentialsProvider  from 'next-auth/providers/credentials';
-import { useRouter } from 'next/router';
 import logger from '../../../../logger';
-import { JWT } from 'next-auth/jwt';
 
 export default NextAuth({
   providers: [ 
@@ -28,8 +26,8 @@ export default NextAuth({
           },
         })
         const user = await data.json();
-        logger.info('ユーザーが正しく認証されました:', user)
-        // const response = await fetch(api,{
+        logger.info({msg:'認証中',user:user})
+        // const response = await fetch("api",{
         //   method: 'POST',
         //   headers: {
         //     'Content-Type': 'application/json',
@@ -37,24 +35,20 @@ export default NextAuth({
         //   body: JSON.stringify({uid:uid,password:password,token:token})});
 
         // const auth_data = await response.json();
-    
-        // if (user & auth_data.success == true ) {
+        // logger.info({msg:'認証中',auth_data:auth_data})
+        // if (user && auth_data.success == true ) {
         //   // ユーザーが見つかった場合、認証を成功させる
-        //   logger.info('認証成功',user)
-        //   console.log(user.user_id)
+        //   logger.info({message:'認証成功',user:user.user_id,auth:auth_data})
         //   return user;
         // } else {
-        //   router.push('/login');
         //   // ユーザーが見つからなかった場合、認証を失敗させる
-        //   return Promise.resolve(null)
+        //   logger.info({message:'認証失敗',user:user.user_id,auth:auth_data})
+        //   return null
         // }
-        if (user) {
-          // ユーザーが見つかった場合、認証を成功させる
-          logger.info('認証成功',user)
-          console.log(user.user_id)
-          return user;
-        } else {
-          // ユーザーが見つからなかった場合、認証を失敗させる
+        if(user){
+          return user
+        }
+        else {
           return null
         }
       },
@@ -62,7 +56,7 @@ export default NextAuth({
 
       session: {
         strategy: "jwt",
-        maxAge:36000
+        maxAge:3600
       },
 
       secret:process.env.NEXT_AUTH_SECRET,
@@ -80,8 +74,6 @@ export default NextAuth({
           return token;
         },
         async session({ session, token }) {
-          logger.info('session',session)
-          logger.info('session',token)
           // セッション情報にユーザーIDを追加
           if(token) {
               session.user.user_id = token.user_id,

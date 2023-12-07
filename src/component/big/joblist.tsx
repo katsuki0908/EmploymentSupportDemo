@@ -1,5 +1,4 @@
 //求人票
-
 import { useEffect, useState } from "react";
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -56,7 +55,7 @@ export default function Joblists(props: { showCheckbox: boolean; showEditDeleteB
             }
         };
         fetchJoblists();
-        // 求人票が1つも無かったらその旨を通知する
+        // ＠＠未実装求人票が1つも無かったらその旨を通知する
     }, []);
 
     // 求人票を削除する
@@ -94,7 +93,6 @@ export default function Joblists(props: { showCheckbox: boolean; showEditDeleteB
             }
         );
     };
-
 
     // チェックボックスの動作
     const [selectedJoblists, setSelectedJoblists] = useState<number[]>([]);
@@ -229,8 +227,3 @@ export default function Joblists(props: { showCheckbox: boolean; showEditDeleteB
         </div>
     );
 }
-
-
-
-
-// お知らせが無かった時のやつ

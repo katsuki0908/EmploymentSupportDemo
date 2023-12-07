@@ -7,7 +7,7 @@ import WorkIcon from '@mui/icons-material/Work';
 import Header from "@/component/big/header";
 import CareerTabContents from '@/component/big/CareerTabContents';
 import ProfileTabContents from '@/component/big/ProfileTabContents';
-import GoToLogInButton from '@/component/Atoms/go_to_login_button';
+import GoToLogInPageDialog from '@/component/Molecules/go_to_login_page_dialog';
 
 export default function MyPage() {
   const { data: session } = useSession();
@@ -47,11 +47,10 @@ export default function MyPage() {
   }, []);
 
 
-  if (!session?.user?.name) {
+  if (!session?.user?.user_id) {
     return (
       <Box sx={{ backgroundColor: "white", height: '100vh' }}>
-        ログインしてください
-        <GoToLogInButton/>
+        <GoToLogInPageDialog />
       </Box>
     );
   }
@@ -71,9 +70,9 @@ export default function MyPage() {
       <Typography variant='h6'>
         マイページ
       </Typography>
-      <Tabs value={selectedTab} onChange={handleTabChange} centered sx={{mb:2}}>
-        <Tab icon={<AccountCircleIcon/>} label="プロフィール" iconPosition='end' />
-        <Tab icon={<WorkIcon/>} label="マイキャリア" iconPosition='end' />
+      <Tabs value={selectedTab} onChange={handleTabChange} centered sx={{ mb: 2 }}>
+        <Tab icon={<AccountCircleIcon />} label="プロフィール" iconPosition='end' />
+        <Tab icon={<WorkIcon />} label="マイキャリア" iconPosition='end' />
       </Tabs>
       <Box
         sx={{
@@ -82,12 +81,12 @@ export default function MyPage() {
         }}
       >
         {selectedTab === 0 && <ProfileTabContents
-        Data={{student_id:session.user.user_id}}
+          Data={{ student_id: session.user.user_id }}
         />}
         {selectedTab === 1 && <CareerTabContents
-        initialData={{student_id:session?.user.user_id}}
-        action_data={selection_action}
-        career_path_data={selection_career_name}
+          initialData={{ student_id: session?.user.user_id }}
+          action_data={selection_action}
+          career_path_data={selection_career_name}
         />}
       </Box>
     </Box>
