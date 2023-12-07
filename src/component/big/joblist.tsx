@@ -18,6 +18,7 @@ import Button from '@mui/material/Button';
 import JoblistPutFormDialog from "@/component/big/joblist_put_dialog";
 import { formatDate } from '@/utils/date_utils';
 import { TextField, Box} from '@mui/material';
+import styled from "styled-components";
 
 export type Joblist = {
     application_format: string;
@@ -32,7 +33,7 @@ export type Joblist = {
     visit_date: Date;
   }
 
-export default function Joblists(options) {
+export default function  Joblists(options) {
     // 求人票のデータを管理する変数・関数
     const [joblists, setJoblists] = useState<Joblist[]>([]);
 
@@ -142,13 +143,39 @@ export default function Joblists(options) {
     // ないなら条件指定なしとして全てのjoblistをfilterdjoblistととする
     const filteredJoblists = searchCompany ? filterJoblistsByCompany(searchCompany) : joblists;
 
+    const StyledContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #FFF;
+    /* 画面全体の背景色を白に変更 */
+    height: 100vh; /* 画面の高さいっぱいに広がるように */
+    margin: 0; /* マージンを0に設定 */
+    `;
+
+    const StyledList = styled(List)`
+    width: 60%;
+    margin-bottom: 12px;
+    margin-right: auto;
+    margin-left: auto;
+    background: #F5F5DC;
+    @media screen and (max-width: 600px) {
+        width: 80%; /* 가로 폭이 600px 이하일 때 스타일 변경 */
+    }
+    `;
+
+    const StyledTextfild = styled(TextField)`
+    width: 246px;
+    margin-bottom: 12px;
+    margin-right: auto;
+    margin-left: auto;
+    `;
 
     // 表示する内容
     return (
-        <div>
-            <h1>求人票</h1>
+        <StyledContainer>
             <Box sx={{ margin: 2 }}>
-            <TextField
+            <StyledTextfild
                 label="会社名で検索"
                 value={searchCompany}
                 onChange={handleSearch}
@@ -156,9 +183,8 @@ export default function Joblists(options) {
             </Box>
             {/* 掲載期間内の求人票をNested Listに表示する(掲載期間内かどうかはapiで判断) */}
             {filteredJoblists.map((joblist) => (
-                <List
+                <StyledList
                     key={joblist.job_listing_id}
-                    sx={{ width: '100%', maxWidth: 800, bgcolor: 'background.paper' }}
                     component="nav"
                 >
                     {/* 外側のリスト */}
@@ -217,10 +243,12 @@ export default function Joblists(options) {
                                     visit_date = {joblist.visit_date}                
                                 />
                                 <Button 
-                                    variant='contained'
-                                    color='error'
+                                    variant="outlined"
                                     onClick={() => handleDelete(joblist.job_listing_id)}
                                     startIcon={<DeleteIcon />}
+                                    style={{
+                                        background: '#FFF',  
+                                        width: '101px',}}
                                 >
                                     削除
                                 </Button>
@@ -228,9 +256,9 @@ export default function Joblists(options) {
                         )}
 
                     </Collapse>
-                </List>
+                </StyledList>
             ))}
-        </div>
+        </StyledContainer>
     );
 }
 

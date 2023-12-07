@@ -6,8 +6,13 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { Notice } from '@/pages/edit_notice'; // Update the path based on your actual file structure
-import DatePicker from 'react-datepicker';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import ja from 'date-fns/locale/ja'
 import { addDays } from 'date-fns'; // import addDays from date-fns library
+import { Box } from '@mui/material';
+import styled from 'styled-components';
 
 interface EditDialogProps {
   open: boolean;
@@ -26,7 +31,7 @@ const EditDialog: React.FC<EditDialogProps> = ({ open, notice, onClose, onEdit }
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | { name?: string; value: unknown }>) => {
     const { name, value } = e.target || {};
 
-    setEditedNotice((prevNotice) => ({
+    setEditedNotice((prevNotice:any) => ({
       ...prevNotice,
       [name as string]: value,
     }));
@@ -40,14 +45,14 @@ const EditDialog: React.FC<EditDialogProps> = ({ open, notice, onClose, onEdit }
   };
 
   const handleStartDateChange = (date: Date | null) => {
-    setEditedNotice((prevNotice) => ({
+    setEditedNotice((prevNotice:any) => ({
       ...prevNotice,
       start_date: date,
     }));
   };
   
   const handleEndDateChange = (date: Date | null) => {
-    setEditedNotice((prevNotice) => ({
+    setEditedNotice((prevNotice:any) => ({
       ...prevNotice,
       end_date: date,
     }));
@@ -65,9 +70,9 @@ const EditDialog: React.FC<EditDialogProps> = ({ open, notice, onClose, onEdit }
         onChange={handleInputChange}
         fullWidth
         margin="normal"
-        required // 필수 입력 필드로 지정
-        error={!editedNotice?.title} // title이 비어있을 때 에러 상태로 표시
-        helperText={!editedNotice?.title ? "Title is required" : ""} // title이 비어있을 때 도움말 메시지 표시
+        required 
+        error={!editedNotice?.title} // タイトルが空のときにエラー状態で表示
+        helperText={!editedNotice?.title ? "Title is required" : ""} // タイトルが空のときにヘルプメッセージを表示
       />
 
       <TextField
@@ -79,35 +84,51 @@ const EditDialog: React.FC<EditDialogProps> = ({ open, notice, onClose, onEdit }
         multiline
         rows={4}
         margin="normal"
-        required // 필수 입력 필드로 지정
-        error={!editedNotice?.content} // content가 비어있을 때 에러 상태로 표시
-        helperText={!editedNotice?.content ? "Content is required" : ""} // content가 비어있을 때 도움말 메시지 표시
+        required 
+        error={!editedNotice?.content} // 内容が空のときにエラー状態で表示
+        helperText={!editedNotice?.content ? "Content is required" : ""} // 内容が空のときにヘルプメッセージを表示
       />
-        <label>Start Date:</label>
-        <DatePicker
-          selected={editedNotice?.start_date || null}
-          onChange={handleStartDateChange}
-          dateFormat="yyyy/MM/dd" // Set the desired date format
-        />
 
-        <p></p>
+          <StyledDiv > 
+          <LocalizationProvider dateAdapter={AdapterDateFns}  adapterLocale={ja}>
+              <DatePicker
+                label="開始日"
+                value={editedNotice?.start_date || null}
+                onChange={handleStartDateChange}
+                sx={{ mt: 1 }}
+              />
+          </LocalizationProvider>
 
-          <label>End Date:</label>
-          <DatePicker
-          selected={editedNotice?.end_date || null}
-          onChange={handleEndDateChange}
-          dateFormat="yyyy/MM/dd"
-          minDate={addDays(new Date(), 1)} // Set the minimum date to the current date + 1 day
-        />
-
+          <LocalizationProvider dateAdapter={AdapterDateFns}  adapterLocale={ja}>
+              <DatePicker
+                label="終了日"
+                value={editedNotice?.end_date || null}
+                onChange={handleEndDateChange}
+                sx={{ mt: 1 }}
+                minDate={addDays(new Date(), 1)}
+              />
+          </LocalizationProvider>
+        </StyledDiv>
         {/* Add other fields as needed */}
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={handleEditClick}>Save</Button>
+        <Button onClick={onClose}>戻る</Button>
+        <Button onClick={handleEditClick}>保存</Button>
       </DialogActions>
     </Dialog>
   );
 };
+
+const StyledDiv = styled(Box)`
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  marginTop: 16px;
+  @media screen and (max-width: 600px) {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto; /* 가로 폭이 600px 이하일 때 스타일 변경 */
+  }
+`;
 
 export default EditDialog;

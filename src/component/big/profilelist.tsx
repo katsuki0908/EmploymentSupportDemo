@@ -5,6 +5,7 @@ import { cource_table, student_table, user_table } from "@prisma/client";
 import { useState } from "react";
 import { useSession } from 'next-auth/react';
 import { ProfileProps } from '@/types/props';
+import styled from 'styled-components';
 
 type ExtendedProfile = student_table & {
   user?: user_table;
@@ -28,9 +29,17 @@ export default function Profilelist(props:ProfileProps){
     .then((data) => SetProfile(data));
   }, [session]);
   
+  const StyledTable = styled(Table)`
+  width: 450px;
+  margin-right: auto;
+  margin-left: auto;
+  @media screen and (max-width: 600px) {
+    width: 70%; /* 가로 폭이 600px 이하일 때 스타일 변경 */
+  }
+`;
     return (
         <Box sx={{width:'95vw'}}>
-      <Table>
+      <StyledTable>
         <TableBody>
           <TableRow>
             <TableCell>福大ID</TableCell>
@@ -77,7 +86,7 @@ export default function Profilelist(props:ProfileProps){
             <TableCell>{profile?.emergency_phone}</TableCell>
           </TableRow>
         </TableBody>
-      </Table>
+      </StyledTable>
     </Box>
     )
 }

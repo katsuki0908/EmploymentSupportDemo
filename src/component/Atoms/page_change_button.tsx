@@ -8,7 +8,7 @@ export default function PageChangeButton(props:PageChangeProps) {
         color="primary" 
         variant="contained"
         >
-        ページに移動
+        ログインページに移動
         </Button>
     );
   }

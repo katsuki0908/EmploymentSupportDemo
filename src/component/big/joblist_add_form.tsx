@@ -21,6 +21,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { Autocomplete } from "@mui/material";
 import { career_path_table } from "@prisma/client";
 import { useValueWithTimezone } from "@mui/x-date-pickers/internals/hooks/useValueWithTimezone";
+import styled from "styled-components";
 
 export default function JoblistAddFormDialog() {
     const [selection_career_name, setSelection_career_name] = useState<career_path_table[]>([]);
@@ -152,18 +153,29 @@ export default function JoblistAddFormDialog() {
         });
     };
 
+    const StyledButton = styled(Button)`
+    width: 246px;
+    background: #FFF;
+    color: #9D2328;
+    margin: 10px auto;
+    border: 1px #9D2328 solid;
+    display: flex;
+    align-items: center;
+    @media screen and (max-width: 600px) {
+        width: 70%; /* 가로 폭이 600px 이하일 때 스타일 변경 */
+    }
+    `;
+
     return (
         <div>
             <Container>
-                <Button
-                    variant="contained"
-                    color="primary"
+                <StyledButton
                     onClick={handleClickOpen}
                     endIcon={<AddCircleIcon />}
                     sx={{ margin: 1 }}
                 >
                     追加
-                </Button>
+                </StyledButton>
             </Container>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">求人票入力</DialogTitle>

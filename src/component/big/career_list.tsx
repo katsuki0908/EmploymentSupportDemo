@@ -80,7 +80,7 @@ export default function Careerlist(props:FormDialogProps) {
   };
 
   const CustomAccordion = styled(Accordion)({
-    border: '1px solid #000000', 
+    border: '1px solid #9D2328', 
     borderRadius: '4px',
     '&:not(:last-child)': {
       borderBottom: 2,

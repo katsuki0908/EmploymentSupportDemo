@@ -34,11 +34,11 @@ export default function Home() {
     setOpenErrorSnackbar(false);
   };
 
-  if (!session?.user?.user_id) {
-    return (
-      <GoToLogInPage/>
-    );
-  }
+  // if (!session?.user?.user_id) {
+  //   return (
+  //     <GoToLogInPage/>
+  //   );
+  // }
 
   return (
     <>

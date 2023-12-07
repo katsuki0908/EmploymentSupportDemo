@@ -10,7 +10,7 @@ return(
                 flexDirection: 'column', 
                 alignItems: 'center', 
                 justifyContent: 'center', 
-                height: '100vh' 
+                height: '100vh', 
             }}
         >
             <p
@@ -18,7 +18,8 @@ return(
                     color: 'black',
                     fontFamily: 'Inter',
                     wordWrap: 'break-word',
-                    marginBottom: '18px', // 조절된 간격
+                    marginBottom: '18px', 
+                    fontSize: '1.3em'
                 }}
             >
                 ログインが必要なページです
@@ -29,8 +30,8 @@ return(
                     color: 'black',
                     fontFamily: 'Inter',
                     wordWrap: 'break-word',
-                    marginBottom: '36px', // 조절된 간격
-                    marginTop: '18px',
+                    marginBottom: '36px', 
+                    marginTop: '10px'
                 }}
             >
                 ログインしますか？
