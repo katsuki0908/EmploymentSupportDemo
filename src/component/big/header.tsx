@@ -12,6 +12,8 @@ import LogoutButton from '../mid/logout_button';
 import Link from 'next/link';
 import BuildIcon from '@mui/icons-material/Build';
 import { useSession } from 'next-auth/react';
+import Image from 'next/image';
+
 const drawerWidth = 290;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -69,24 +71,24 @@ export default function Header() {
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const { data: session } = useSession();
-  const student_side_bar_item =
-    [
-      { text: 'トップページ', url: '/top', icon: <HomeIcon /> }, //学生用サイドバー表示内容
-      { text: '求人一覧閲覧', url: '/joblist', icon: <WorkIcon /> },
-      { text: 'マイページ', url: '/mypage', icon: <AccountBoxIcon /> },
-      { text: 'キャリア活動編集', url: '/edit_career', icon: <EditNoteIcon /> },
-    ];
-  const admin_side_bar_item =
-    [
-      { text: 'トップページ', url: '/top', icon: <HomeIcon /> }, //管理者用サイドバー表示内容
-      { text: '求人一覧閲覧', url: '/joblist', icon: <WorkIcon /> },
-      { text: 'ユーザー管理', url: '/usermanage3', icon: <EditNoteIcon /> },
-      { text: 'プロフィール編集', url: '/edit_profile', icon: <EditNoteIcon /> },
-      { text: 'お知らせ編集ページ', url: '/edit_notice', icon: <EditNoteIcon /> },
-      { text: '求人票編集', url: '/edit_joblist', icon: <EditNoteIcon /> },
-      { text: '各種設定', url: '/config', icon: <BuildIcon /> },
-    ];
+  const {data:session} = useSession();
+  const student_side_bar_item = 
+  [ 
+    { text: 'トップページ', url: '/top', icon: <HomeIcon sx={{color: "#FFF"}} /> }, //学生用サイドバー表示内容
+    { text: '求人一覧閲覧', url: '/joblist', icon: <WorkIcon sx={{color: "#FFF"}}/> },
+    { text: 'マイページ', url: '/mypage', icon: <AccountBoxIcon sx={{color: "#FFF"}}/> },
+    { text: 'キャリア活動編集', url: '/edit_career', icon: <EditNoteIcon sx={{color: "#FFF"}}/> },
+  ];
+  const admin_side_bar_item = 
+  [ 
+    { text: 'トップページ', url: '/top', icon: <HomeIcon sx={{color: "#FFF"}}/> }, //管理者用サイドバー表示内容
+    { text: '求人一覧閲覧', url: '/joblist', icon: <WorkIcon sx={{color: "#FFF"}}/> },
+    { text: 'ユーザー管理', url: '/usermanage3', icon: <EditNoteIcon sx={{color: "#FFF"}}/> },
+    { text: 'プロフィール編集', url: '/edit_profile', icon: <EditNoteIcon sx={{color: "#FFF"}}/> },
+    { text: 'お知らせ編集ページ', url: '/edit_notice', icon: <EditNoteIcon sx={{color: "#FFF"}}/> },
+    { text: '求人票編集', url: '/edit_joblist', icon: <EditNoteIcon sx={{color: "#FFF"}}/> },
+    { text: '各種設定', url: '/config', icon: <BuildIcon sx={{color: "#FFF"}}/> },
+  ];
   const side_bar_item = session?.user.user_type === 'student' ? student_side_bar_item : admin_side_bar_item;
 
   const handleDrawerOpen = () => {
@@ -98,23 +100,35 @@ export default function Header() {
   return (
     <>
       <CssBaseline />
-      <Box sx={{ display: 'flex', backgroundColor: 'secondary.main' }}>
-        <AppBar position="fixed" open={open} sx={{ backgroundColor: 'primary.main', display: { xs: 'flex', md: 'flex', height: '7vh' } }}>
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="end"
-              onClick={handleDrawerOpen}
-              size='large'
-              sx={{ ...(open && { display: 'none' }), mt: 1, mr: 1 }}
-            >
-              <MenuIcon />
-            </IconButton>
+
+      <Box style={{background: '#FFF'}}>
+        <AppBar 
+          position="fixed" 
+          open={open} 
+          style={{height: '10vh', background: '#9D2328'}}
+        >
+        <Toolbar>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          edge="end"
+          onClick={handleDrawerOpen}
+          size='large'
+          sx={{ ...(open && { display: 'none' }) ,mt:1,mr:1}}
+          style={{ display: 'flex', alignItems: 'center', marginTop: '50%', marginBottom: '50%' }}
+        >
+          <MenuIcon />
+        </IconButton>
             <Link href='/top'>
-              <Typography variant="h6" noWrap sx={{ mt: 1 }} color="white" component="div">
-                福岡大学就活支援
-              </Typography>
+              <div style={{ display: 'flex', alignItems: 'center', marginTop: '50%', marginBottom: '50%' }}>
+                <Image 
+                    src="/logo-white-pc.png" 
+                    alt="Logo" 
+                    width={150} // Adjust width as needed
+                    height={40}  // Adjust height as needed
+                    style={{margin:'center'}}
+                />
+              </div>
             </Link>
           </Toolbar>
         </AppBar>
@@ -127,8 +141,8 @@ export default function Header() {
             flexShrink: 0,
             '& .MuiDrawer-paper': {
               width: drawerWidth,
-              backgroundColor: 'secondary.main',
-              color: 'primary.main'
+              background: '#9D2328',
+              color: '#FFF',
             },
           }}
           variant="temporary" // Changed from "persistent" to "temporary"
@@ -136,29 +150,32 @@ export default function Header() {
           open={open}
           onClose={handleDrawerClose} // Add this line to handle closing the drawer
         >
-          <DrawerHeader sx={{ backgroundColor: 'primary.main', height: '7vh' }}>
-            <Typography color='white' sx={{ flexGrow: 1, ml: 2 }}>サイドバー</Typography>
-            <IconButton onClick={handleDrawerClose}>
-              <ChevronRightIcon />
-            </IconButton>
-          </DrawerHeader>
-          <Divider />
-          <List>
-            {side_bar_item.map((item) => ( //サイドバーの内容を表示する
-              <ListItem key={item.text} disablePadding>
-                <ListItemButton href={item.url}>
-                  <ListItemIcon>
-                    {item.icon}
-                  </ListItemIcon>
-                  <ListItemText primary={item.text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-          <Box sx={{ display: 'flex', justifyContent: 'center', padding: theme.spacing(2) }}>
-            <LogoutButton />
-          </Box>
-        </Drawer>
+
+        <DrawerHeader 
+          style={{height: '10vh', background: '#9D2328'}}
+        >
+          <Typography color='white' sx={{flexGrow:1,ml:2}}>サイドバー</Typography>
+          <IconButton onClick={handleDrawerClose}>
+            <ChevronRightIcon />
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <List>
+          {side_bar_item.map((item) => ( //サイドバーの内容を表示する
+            <ListItem key={item.text} disablePadding>
+              <ListItemButton href={item.url}>
+                <ListItemIcon>
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText primary={item.text}/>
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Box sx={{ display: 'flex', justifyContent: 'center', padding: theme.spacing(2) }}>
+          <LogoutButton />
+        </Box>
+      </Drawer>
       </Box>
     </>
   );

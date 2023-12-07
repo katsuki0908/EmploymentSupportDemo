@@ -1,15 +1,17 @@
 import { signOut } from "next-auth/react";
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 export default function LogoutButton() {
   return (
-    <Button
-      onClick={() => signOut({ callbackUrl: '/login' })}
-      color="primary"
+      <Button 
+      onClick={() => signOut({callbackUrl: '/login'})} 
       variant="contained"
-      sx={{ mt: 1, width: '60vw' }}
-    >ログアウト
-    </Button>
+      style={{width:'50vw', height: '65', background: 'white', color: '#9D2328', fontSize: '100%'}}
+      >
+        <LogoutIcon />
+        ログアウト
+      </Button>
   );
 }
 

@@ -84,7 +84,11 @@ export default function CareerPutFormDialog(props: FormDialogProps) {
 
   return (
     <div>
-      <Button variant="contained" color="primary" onClick={handleClickOpen} endIcon={<EditIcon />}>
+      <Button 
+        variant="contained" 
+        color="primary" 
+        onClick={handleClickOpen} 
+        startIcon={<EditIcon/>}>
         編集
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

@@ -9,8 +9,16 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Alert, TextField, Snackbar } from '@mui/material';
-import DatePicker from 'react-datepicker';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import ja from 'date-fns/locale/ja'
+import { addDays } from 'date-fns'; // import addDays from date-fns library
 import MuiAlert from '@mui/material/Alert';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import styled from 'styled-components';
+import Box from '@mui/material/Box';
+
 
 const NewNotice = () => {
   const router = useRouter();
@@ -24,17 +32,8 @@ const NewNotice = () => {
   const [maxWidth, setMaxWidth] = React.useState<DialogProps['maxWidth']>('sm');
   const [titleError, setTitleError] = useState(false);
   const [contentError, setContentError] = useState(false);
-  const [endDateError, setEndDateError] = useState(false);
+  // const [endDateError, setEndDateError] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-
-  const handleStartDateChange = (date: Date) => {
-    setStartDate(date);
-  };
-
-  const handleEndDateChange = (date: Date) => {
-    setEndDate(date);
-    setEndDateError(false); // 날짜가 변경되면 에러 상태 초기화
-  };
 
   const handleSuccessClose = () => {
     setSuccessMessage(null);
@@ -49,12 +48,6 @@ const NewNotice = () => {
         return;
       }
 
-      // end_dateが現在の時間より過去であるか確認
-      if (endDate < new Date()) {
-        setEndDateError(true);
-        return;
-      }
-
       const response = await fetch('/api/notice', {
         method: 'POST',
         body: JSON.stringify({
@@ -66,11 +59,10 @@ const NewNotice = () => {
       });
 
       if (response.ok) {
-        setSuccessMessage('Notice successfully created!');
+        setSuccessMessage('お知らせが作成されました！');
         setTimeout(() => {
           setSuccessMessage(null);
-          // 공지 목록을 갱신하여 표시 (이 부분은 실제 상황에 맞게 API 호출로 변경해야 합니다)
-          router.replace(router.asPath); // 예시로 현재 경로를 다시 로드하는 방식을 사용
+        router.replace(router.asPath);
         }, 3000); // Auto close success message after 3 seconds
         handleClose();
         window.location.reload();
@@ -82,6 +74,14 @@ const NewNotice = () => {
     }
   };
 
+  const handleStartDateChange = (date: Date) => {
+    setStartDate(date);
+  };
+
+  const handleEndDateChange = (date: Date) => {
+    setEndDate(date);
+  };
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -90,12 +90,33 @@ const NewNotice = () => {
     setOpen(false);
   };
 
+  const StyledButton = styled(Button)`
+  width: 246px;
+  @media screen and (max-width: 600px) {
+    width: 70%; /* 가로 폭이 600px 이하일 때 스타일 변경 */
+  }
+  `;
+  const StyledDiv = styled(Box)`
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  marginTop: 16px;
+  @media screen and (max-width: 600px) {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto; /* 가로 폭이 600px 이하일 때 스타일 변경 */
+  }
+  `;
   return (
     <>
       <React.Fragment>
-        <Button variant="outlined" onClick={handleClickOpen}>
-          Add notice
-        </Button>
+        <StyledButton
+          variant="outlined" 
+          onClick={handleClickOpen}
+          style={{marginBottom: '20px', fontSize: '1.0em'}}>
+            <AddCircleIcon style={{marginRight:'10px', }}/>
+            お知らせ追加
+        </StyledButton>
         <Dialog
           open={open}
           onClose={handleClose}
@@ -117,11 +138,11 @@ const NewNotice = () => {
               value={title}
               onChange={(e) => {
                 setTitle(e.target.value);
-                setTitleError(false); // 텍스트가 변경되면 에러 상태 초기화
+                setTitleError(false); // テキストが変更されるとエラー状態の初期化
               }}
               margin="normal"
-              error={titleError} // 에러 상태 적용
-              helperText={titleError ? 'This field is required' : ''}
+              error={titleError} // エラー状態の適用
+              helperText={titleError ? 'タイトルは必須入力です。' : ''}
             />
 
             <TextField
@@ -135,37 +156,42 @@ const NewNotice = () => {
               value={content}
               onChange={(e) => {
                 setContent(e.target.value);
-                setContentError(false); // 텍스트가 변경되면 에러 상태 초기화
+                setContentError(false); // テキストが変更されるとエラー状態の初期化
               }}
               margin="normal"
-              error={contentError} // 에러 상태 적용
-              helperText={contentError ? 'This field is required' : ''}
+              error={contentError} // エラー状態の適用
+              helperText={contentError ? '内容は必須入力です。' : ''}
 
             />
 
-            <label>Start Date:</label>
-            <DatePicker
-              selected={startDate}
-              onChange={handleStartDateChange}
-              dateFormat="yyyy/MM/dd" // Set the desired date format
-            />
+            <StyledDiv>
+            <LocalizationProvider dateAdapter={AdapterDateFns}  adapterLocale={ja}>
+                <DatePicker
+                  label="開始日"
+                  value={startDate}
+                  onChange={handleStartDateChange}
+                  sx={{ mt: 1 }}
+                  inputFormat='yyyy年MM月dd日'
+                  mask='____年__月__日'
+                />
+            </LocalizationProvider>
 
-            <p></p>
-
-            <label>End Date:</label>
-            <DatePicker
-              selected={endDate}
-              onChange={handleEndDateChange}
-              dateFormat="yyyy/MM/dd" // Set the desired date format
-              className={endDateError ? 'error' : ''}
-            />
-            {endDateError && (
-              <p style={{ color: 'red' }}>End date cannot be in the past</p>
-            )}
+            <LocalizationProvider dateAdapter={AdapterDateFns}  adapterLocale={ja}>
+                <DatePicker
+                  label="終了日"
+                  value={endDate}
+                  onChange={handleEndDateChange}
+                  sx={{ mt: 1 }}
+                  inputFormat='yyyy年MM月dd日'
+                  mask='____年__月__日'
+                  minDate={addDays(new Date(), 1)}
+                />
+            </LocalizationProvider>
+            </StyledDiv>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleSubmit}>Submit</Button>
+            <Button onClick={handleClose}>戻る</Button>
+            <Button onClick={handleSubmit}>追加</Button>
           </DialogActions>
         </Dialog>
       </React.Fragment>
@@ -182,7 +208,7 @@ const NewNotice = () => {
           variant="filled"
           severity="success"
           onClose={handleSuccessClose}>
-          Notice deleted successfully!
+          お知らせが登録されました！
         </MuiAlert>
       </Snackbar>
 
