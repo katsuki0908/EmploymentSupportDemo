@@ -1,11 +1,11 @@
 {
-	"folders": [
-		{
-			"path": "../.."
-		},
-		{
-			"path": "../../../pt/prototypy-mui"
-		}
-	],
-	"settings": {}
+  "folders": [
+    {
+      "path": "../.."
+    },
+    {
+      "path": "../../../pt/prototypy-mui"
+    }
+  ],
+  "settings": {}
 }

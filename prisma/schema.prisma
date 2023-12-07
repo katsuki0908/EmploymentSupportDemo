@@ -110,8 +110,8 @@ model obog_table {
 model job_listing_table {
   job_listing_id     Int      @id @default(autoincrement())
   application_format String
-  submission_date    DateTime
-  visit_date         DateTime
+  submission_date    DateTime?
+  visit_date         DateTime?
   updated_at         DateTime @default(now()) @updatedAt
   career_path_id     Int
   notes              String?

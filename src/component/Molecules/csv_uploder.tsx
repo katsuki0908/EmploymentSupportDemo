@@ -1,5 +1,5 @@
-import React from 'react';
-import Button from '@mui/material/Button';
+import React from "react";
+import Button from "@mui/material/Button";
 
 interface UploadProps {
   onFileUpload: (file: File) => void;
@@ -20,7 +20,7 @@ export default function CsvUploader({ onFileUpload }: UploadProps) {
         id="contained-button-file"
         multiple
         type="file"
-        style={{ display: 'none' }}
+        style={{ display: "none" }}
         onChange={handleFileChange}
       />
       <label htmlFor="contained-button-file">

@@ -6017,3 +6017,25 @@
 {"level":30,"time":"2023-12-08T02:05:37.986Z","message":"求人票を取得しました"}
 {"level":30,"time":"2023-12-08T02:05:38.706Z","message":"求人票を取得しました"}
 >>>>>>> Kang_desgin
+{"level":30,"time":"2023-12-07T16:51:26.931Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-07T16:51:27.418Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-07T16:52:11.624Z","message":"キャリアを更新しました","updatedData":{"career_action_id":20,"student_id":"TD232000","action_date":"2023-12-08T15:00:00.000Z","notes":"","updated_at":"2023-12-07T16:52:11.550Z","career_path_id":2,"action_id":1}}
+{"level":30,"time":"2023-12-07T16:52:13.750Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-07T16:52:14.231Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-07T16:55:40.967Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-07T15:19:25.771Z","cource_id":3,"personal_address":"福岡","personal_phone":"090123456789","personal_email":null,"emergency_address":"大分","emergency_phone":"090987654321","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-07T16:55:41.472Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-07T15:19:25.771Z","cource_id":3,"personal_address":"福岡","personal_phone":"090123456789","personal_email":null,"emergency_address":"大分","emergency_phone":"090987654321","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-07T16:55:41.927Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-07T15:19:25.771Z","cource_id":3,"personal_address":"福岡","personal_phone":"090123456789","personal_email":null,"emergency_address":"大分","emergency_phone":"090987654321","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-07T16:55:45.114Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-07T16:55:45.596Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-07T16:55:46.069Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-07T15:19:25.771Z","cource_id":3,"personal_address":"福岡","personal_phone":"090123456789","personal_email":null,"emergency_address":"大分","emergency_phone":"090987654321","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-07T16:55:46.516Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-07T15:19:25.771Z","cource_id":3,"personal_address":"福岡","personal_phone":"090123456789","personal_email":null,"emergency_address":"大分","emergency_phone":"090987654321","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-07T16:55:50.086Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-07T16:55:50.754Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-07T16:55:55.638Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-07T16:55:56.131Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-07T17:05:10.137Z","message":"ログイン情報取得","user_info":{"user_id":"admin","name":"田中　教授","furigana":"たなか　きょうじゅ","user_type":"admin"}}
+{"level":30,"time":"2023-12-07T17:05:10.140Z","msg":"認証中","user":{"user_id":"admin","name":"田中　教授","furigana":"たなか　きょうじゅ","user_type":"admin"}}
+{"level":30,"time":"2023-12-07T17:05:15.470Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-07T17:05:15.815Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-07T17:05:24.812Z","message":"求人票を取得しました"}
+{"level":30,"time":"2023-12-07T17:05:25.226Z","message":"求人票を取得しました"}

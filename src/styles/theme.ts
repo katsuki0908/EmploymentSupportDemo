@@ -1,16 +1,15 @@
 // theme.js
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#9D2328',
-      dark: '',
-      light: '#E57373',
+      main: "#9D2328",
+      dark: "",
+      light: "#E57373",
     },
     secondary: {
-      main: '#F5F5DC',
-      
+      main: "#F5F5DC",
     },
   },
   // 他のカスタム設定...

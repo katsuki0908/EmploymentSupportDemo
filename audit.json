@@ -1,16 +1,16 @@
 {
-    "keepSettings": {
-        "type": 2,
-        "amount": 10
-    },
-    "auditFilename": "/home/td232009/next/2023pbl/main/2023pbl/audit.json",
-    "hashType": "md5",
-    "extension": ".log",
-    "files": [
-        {
-            "date": 1701870399336,
-            "name": "/home/td232009/next/2023pbl/main/2023pbl/File-2023-12-06.0.log",
-            "hash": "c410a82f74072524abe0140a8b4b3a61"
-        }
-    ]
+  "keepSettings": {
+    "type": 2,
+    "amount": 10
+  },
+  "auditFilename": "/home/td232009/next/2023pbl/main/2023pbl/audit.json",
+  "hashType": "md5",
+  "extension": ".log",
+  "files": [
+    {
+      "date": 1701870399336,
+      "name": "/home/td232009/next/2023pbl/main/2023pbl/File-2023-12-06.0.log",
+      "hash": "c410a82f74072524abe0140a8b4b3a61"
+    }
+  ]
 }

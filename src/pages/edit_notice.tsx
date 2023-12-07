@@ -1,26 +1,26 @@
-import * as React from 'react';
-import { useEffect, useState } from 'react';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Header from '@/component/big/header';
-import AddNewNotice from '@/component/big/add_new_notice';
-import { useRouter } from 'next/router';
-import { Button } from '@mui/material';
-import EditDialog from '@/component/big/edite_notice_dialog'; 
-import { formatDate } from '@/utils/date_utils';//自作関数
+import * as React from "react";
+import { useEffect, useState } from "react";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Header from "@/component/big/header";
+import AddNewNotice from "@/component/big/add_new_notice";
+import { useRouter } from "next/router";
+import { Button } from "@mui/material";
+import EditDialog from "@/component/big/edite_notice_dialog";
+import { formatDate } from "@/utils/date_utils"; //自作関数
 import styled from "styled-components";
-import BorderColorIcon from '@mui/icons-material/BorderColor';
-import DeleteIcon from '@mui/icons-material/Delete';
-import Head from 'next/head';
+import BorderColorIcon from "@mui/icons-material/BorderColor";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Head from "next/head";
 
 export interface Notice {
   notice_id: number;
-  id: number
+  id: number;
   title: string;
   start_date: Date;
   end_date: Date;
@@ -40,7 +40,7 @@ const NoticesPage = () => {
     const fetchNotices = async () => {
       try {
         const response = await fetch("/api/notice", {
-          method: 'GET',
+          method: "GET",
         });
 
         if (response.ok) {
@@ -62,16 +62,19 @@ const NoticesPage = () => {
 
     fetchNotices();
   }, []);
-  const handleDelete = async (noticeId: number) => {    //DELETE
+  const handleDelete = async (noticeId: number) => {
+    //DELETE
     try {
       const response = await fetch(`/api/notice`, {
-        method: 'DELETE',
+        method: "DELETE",
         body: JSON.stringify({ notice_id: noticeId }), // オブジェクトをJSON文字列に変換してbodyに含める
       });
 
       if (response.ok) {
         // Remove the deleted notice from the local state
-        setNotices((prevNotices) => prevNotices.filter((notice) => notice.id !== noticeId));
+        setNotices((prevNotices) =>
+          prevNotices.filter((notice) => notice.id !== noticeId),
+        );
         // Reset selectedNoticeId after successful deletion
         setSelectedNoticeId(null);
         // Show success message using Snackbar
@@ -85,7 +88,7 @@ const NoticesPage = () => {
         // console.log(typeof noticeId);
       }
     } catch (error) {
-      console.error('Error while deleting notice: ', error);
+      console.error("Error while deleting notice: ", error);
     }
   };
 
@@ -98,20 +101,17 @@ const NoticesPage = () => {
     setEditDialogOpen(true);
   };
 
- const handleEditNotice = async (editedNotice: Notice) => {
-  
+  const handleEditNotice = async (editedNotice: Notice) => {
     try {
       const response = await fetch(`/api/notice`, {
-        method: 'PUT',
+        method: "PUT",
         body: JSON.stringify(editedNotice),
       });
 
       if (response.ok) {
         // Update the local state with the edited notice
         setNotices((prevNotices) =>
-          prevNotices.map((n) =>
-            n.id === editedNotice.id ? editedNotice : n
-          )
+          prevNotices.map((n) => (n.id === editedNotice.id ? editedNotice : n)),
         );
 
         // Close the edit dialog
@@ -122,13 +122,13 @@ const NoticesPage = () => {
 
         window.location.reload();
       } else {
-        console.error('Error while editing notice');
+        console.error("Error while editing notice");
         // Log the response status and text for debugging
-        console.log('Response status:', response.status);
-        console.log('Response text:', await response.text());
+        console.log("Response status:", response.status);
+        console.log("Response text:", await response.text());
       }
     } catch (error) {
-      console.error('Error while editing notice: ', error);
+      console.error("Error while editing notice: ", error);
     }
   };
 
@@ -145,65 +145,87 @@ const NoticesPage = () => {
 
       <StyledContainer>
         <div
-          style={{display:'flex', alignItems:'center', flexDirection:'column', width:'100%'}}>
+          style={{
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+            width: "100%",
+          }}
+        >
           <h1>お知らせ</h1>
           <AddNewNotice />
         </div>
         {notices.map((notice) => (
-          <StyledAccordion 
-            key={notice.notice_id} >
+          <StyledAccordion key={notice.notice_id}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls={`panel${notice.id}-content`}
               id={`panel${notice.id}-header`}
             >
               <Typography>
-                <h2><b>{notice.title}</b></h2>
-                <p>{formatDate(notice.start_date)}から{formatDate(notice.end_date)}まで</p>
+                <h2>
+                  <b>{notice.title}</b>
+                </h2>
+                <p>
+                  {formatDate(notice.start_date)}から
+                  {formatDate(notice.end_date)}まで
+                </p>
               </Typography>
             </AccordionSummary>
-            
+
             <AccordionDetails>
               <Typography>
                 {/* Replace <p /> with actual newline characters (\n) */}
-                <pre style={{ whiteSpace: 'pre-wrap', margin: 0 }}>
-                  {notice.content.replace(/<p \/>/g, '\n')}
+                <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>
+                  {notice.content.replace(/<p \/>/g, "\n")}
                 </pre>
-                <Button 
+                <Button
                   variant="outlined"
                   onClick={() => handleEdit(notice)}
                   style={{
-                    background: '#FFF',  
-                    width: '101px', 
-                    marginTop: '20px', 
-                    marginRight: '10px'}}>
-                    <BorderColorIcon 
-                      style={{marginRight:'5px'}}/>
-                    修正
+                    background: "#FFF",
+                    width: "101px",
+                    marginTop: "20px",
+                    marginRight: "10px",
+                  }}
+                >
+                  <BorderColorIcon style={{ marginRight: "5px" }} />
+                  修正
                 </Button>
-                <Button 
+                <Button
                   variant="outlined"
                   onClick={() => handleDelete(notice.notice_id)}
                   style={{
-                    background: '#FFF',  
-                    width: '101px', 
-                    marginTop: '20px', 
-                    marginRight: '10px'}}>
-                    <DeleteIcon />
-                    削除
+                    background: "#FFF",
+                    width: "101px",
+                    marginTop: "20px",
+                    marginRight: "10px",
+                  }}
+                >
+                  <DeleteIcon />
+                  削除
                 </Button>
               </Typography>
             </AccordionDetails>
           </StyledAccordion>
         ))}
         {/* Snackbar for success message */}
-        <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleCloseSnackbar}>
-        <MuiAlert elevation={6} variant="filled" severity="success" onClose={handleCloseSnackbar}>
-          通知が削除されました！
-        </MuiAlert>
+        <Snackbar
+          open={snackbarOpen}
+          autoHideDuration={6000}
+          onClose={handleCloseSnackbar}
+        >
+          <MuiAlert
+            elevation={6}
+            variant="filled"
+            severity="success"
+            onClose={handleCloseSnackbar}
+          >
+            通知が削除されました！
+          </MuiAlert>
         </Snackbar>
 
-          {/* Edit Dialog */}
+        {/* Edit Dialog */}
         <EditDialog
           open={editDialogOpen}
           notice={editNotice}
@@ -219,7 +241,7 @@ const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #FFF;
+  background: #fff;
   /* 画面全体の背景色を白に変更 */
   height: 100vh; /* 画面の高さいっぱいに広がるように */
   margin: 0; /* マージンを0に設定 */
@@ -230,7 +252,7 @@ const StyledAccordion = styled(Accordion)`
   margin-bottom: 12px;
   margin-right: auto;
   margin-left: auto;
-  background: #F5F5DC;
+  background: #f5f5dc;
 
   @media screen and (max-width: 600px) {
     width: 80%; /* 가로 폭이 600px 이하일 때 스타일 변경 */

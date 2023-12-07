@@ -1,35 +1,34 @@
-import { useState } from 'react';
-import 'react-datepicker/dist/react-datepicker.css';
-import { useRouter } from 'next/router';
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Dialog, { DialogProps } from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import { Alert, TextField, Snackbar } from '@mui/material';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import ja from 'date-fns/locale/ja'
-import { addDays } from 'date-fns'; // import addDays from date-fns library
-import MuiAlert from '@mui/material/Alert';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import styled from 'styled-components';
-import Box from '@mui/material/Box';
-
+import { useState } from "react";
+import "react-datepicker/dist/react-datepicker.css";
+import { useRouter } from "next/router";
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Dialog, { DialogProps } from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import { Alert, TextField, Snackbar } from "@mui/material";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import ja from "date-fns/locale/ja";
+import { addDays } from "date-fns"; // import addDays from date-fns library
+import MuiAlert from "@mui/material/Alert";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import styled from "styled-components";
+import Box from "@mui/material/Box";
 
 const NewNotice = () => {
   const router = useRouter();
 
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [open, setOpen] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
-  const [maxWidth, setMaxWidth] = React.useState<DialogProps['maxWidth']>('sm');
+  const [maxWidth, setMaxWidth] = React.useState<DialogProps["maxWidth"]>("sm");
   const [titleError, setTitleError] = useState(false);
   const [contentError, setContentError] = useState(false);
   // const [endDateError, setEndDateError] = useState(false);
@@ -42,14 +41,14 @@ const NewNotice = () => {
   const handleSubmit = async () => {
     try {
       // 入力値が空であるか確認する
-      if (title.trim() === '' || content.trim() === '') {
-        setTitleError(title.trim() === '');
-        setContentError(content.trim() === '');
+      if (title.trim() === "" || content.trim() === "") {
+        setTitleError(title.trim() === "");
+        setContentError(content.trim() === "");
         return;
       }
 
-      const response = await fetch('/api/notice', {
-        method: 'POST',
+      const response = await fetch("/api/notice", {
+        method: "POST",
         body: JSON.stringify({
           title,
           content,
@@ -59,18 +58,18 @@ const NewNotice = () => {
       });
 
       if (response.ok) {
-        setSuccessMessage('お知らせが作成されました！');
+        setSuccessMessage("お知らせが作成されました！");
         setTimeout(() => {
           setSuccessMessage(null);
-        router.replace(router.asPath);
+          router.replace(router.asPath);
         }, 3000); // Auto close success message after 3 seconds
         handleClose();
         window.location.reload();
       } else {
-        console.error('Notice creation error');
+        console.error("Notice creation error");
       }
     } catch (error) {
-      console.error('Notice creation error: ', error);
+      console.error("Notice creation error: ", error);
     }
   };
 
@@ -91,31 +90,32 @@ const NewNotice = () => {
   };
 
   const StyledButton = styled(Button)`
-  width: 246px;
-  @media screen and (max-width: 600px) {
-    width: 70%; /* 가로 폭이 600px 이하일 때 스타일 변경 */
-  }
+    width: 246px;
+    @media screen and (max-width: 600px) {
+      width: 70%; /* 가로 폭이 600px 이하일 때 스타일 변경 */
+    }
   `;
   const StyledDiv = styled(Box)`
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
-  marginTop: 16px;
-  @media screen and (max-width: 600px) {
     display: flex;
-    flex-direction: column;
-    margin: 0 auto; /* 가로 폭이 600px 이하일 때 스타일 변경 */
-  }
+    flex-direction: row;
+    gap: 16px;
+    margintop: 16px;
+    @media screen and (max-width: 600px) {
+      display: flex;
+      flex-direction: column;
+      margin: 0 auto; /* 가로 폭이 600px 이하일 때 스타일 변경 */
+    }
   `;
   return (
     <>
       <React.Fragment>
         <StyledButton
-          variant="outlined" 
+          variant="outlined"
           onClick={handleClickOpen}
-          style={{marginBottom: '20px', fontSize: '1.0em'}}>
-            <AddCircleIcon style={{marginRight:'10px', }}/>
-            お知らせ追加
+          style={{ marginBottom: "20px", fontSize: "1.0em" }}
+        >
+          <AddCircleIcon style={{ marginRight: "10px" }} />
+          お知らせ追加
         </StyledButton>
         <Dialog
           open={open}
@@ -125,9 +125,7 @@ const NewNotice = () => {
         >
           <DialogTitle>お知らせ追加</DialogTitle>
           <DialogContent>
-            <DialogContentText>
-              お知らせを入力してください。
-            </DialogContentText>
+            <DialogContentText>お知らせを入力してください。</DialogContentText>
 
             <TextField
               required
@@ -142,7 +140,7 @@ const NewNotice = () => {
               }}
               margin="normal"
               error={titleError} // エラー状態の適用
-              helperText={titleError ? 'タイトルは必須入力です。' : ''}
+              helperText={titleError ? "タイトルは必須入力です。" : ""}
             />
 
             <TextField
@@ -160,33 +158,38 @@ const NewNotice = () => {
               }}
               margin="normal"
               error={contentError} // エラー状態の適用
-              helperText={contentError ? '内容は必須入力です。' : ''}
-
+              helperText={contentError ? "内容は必須入力です。" : ""}
             />
 
             <StyledDiv>
-            <LocalizationProvider dateAdapter={AdapterDateFns}  adapterLocale={ja}>
+              <LocalizationProvider
+                dateAdapter={AdapterDateFns}
+                adapterLocale={ja}
+              >
                 <DatePicker
                   label="開始日"
                   value={startDate}
                   onChange={handleStartDateChange}
                   sx={{ mt: 1 }}
-                  inputFormat='yyyy年MM月dd日'
-                  mask='____年__月__日'
+                  inputFormat="yyyy年MM月dd日"
+                  mask="____年__月__日"
                 />
-            </LocalizationProvider>
+              </LocalizationProvider>
 
-            <LocalizationProvider dateAdapter={AdapterDateFns}  adapterLocale={ja}>
+              <LocalizationProvider
+                dateAdapter={AdapterDateFns}
+                adapterLocale={ja}
+              >
                 <DatePicker
                   label="終了日"
                   value={endDate}
                   onChange={handleEndDateChange}
                   sx={{ mt: 1 }}
-                  inputFormat='yyyy年MM月dd日'
-                  mask='____年__月__日'
+                  inputFormat="yyyy年MM月dd日"
+                  mask="____年__月__日"
                   minDate={addDays(new Date(), 1)}
                 />
-            </LocalizationProvider>
+              </LocalizationProvider>
             </StyledDiv>
           </DialogContent>
           <DialogActions>
@@ -202,16 +205,17 @@ const NewNotice = () => {
         autoHideDuration={6000}
         onClose={handleSuccessClose}
         message={successMessage}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} >
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
         <MuiAlert
           elevation={6}
           variant="filled"
           severity="success"
-          onClose={handleSuccessClose}>
+          onClose={handleSuccessClose}
+        >
           お知らせが登録されました！
         </MuiAlert>
       </Snackbar>
-
     </>
   );
 };

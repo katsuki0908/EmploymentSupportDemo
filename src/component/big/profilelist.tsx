@@ -1,11 +1,11 @@
 //プロフィール
-import * as React from 'react';
-import { Box, Table, TableRow, TableBody, TableCell } from "@mui/material"
+import * as React from "react";
+import { Box, Table, TableRow, TableBody, TableCell } from "@mui/material";
 import { cource_table, student_table, user_table } from "@prisma/client";
 import { useState } from "react";
-import { useSession } from 'next-auth/react';
-import { ProfileProps } from '@/types/props';
-import styled from 'styled-components';
+import { useSession } from "next-auth/react";
+import { ProfileProps } from "@/types/props";
+import styled from "styled-components";
 
 type ExtendedProfile = student_table & {
   user?: user_table;
@@ -14,31 +14,31 @@ type ExtendedProfile = student_table & {
 
 export default function Profilelist(props: ProfileProps) {
   const { data: session } = useSession();
-  const [profile, SetProfile] = useState<ExtendedProfile | null>(null)
+  const [profile, SetProfile] = useState<ExtendedProfile | null>(null);
 
   //プロフィールデータ取得
   React.useEffect(() => {
     const url = `/api/profile?student_id=` + props.Data.student_id;
     fetch(url, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     })
       .then((response) => response.json())
       .then((data) => SetProfile(data));
   }, [session]);
-  
+
   const StyledTable = styled(Table)`
-  width: 450px;
-  margin-right: auto;
-  margin-left: auto;
-  @media screen and (max-width: 600px) {
-    width: 70%; /* 가로 폭이 600px 이하일 때 스타일 변경 */
-  }
-`;
-    return (
-        <Box sx={{width:'95vw'}}>
+    width: 450px;
+    margin-right: auto;
+    margin-left: auto;
+    @media screen and (max-width: 600px) {
+      width: 70%; /* 가로 폭이 600px 이하일 때 스타일 변경 */
+    }
+  `;
+  return (
+    <Box sx={{ width: "95vw" }}>
       <StyledTable>
         <TableBody>
           <TableRow>
@@ -88,5 +88,5 @@ export default function Profilelist(props: ProfileProps) {
         </TableBody>
       </StyledTable>
     </Box>
-  )
+  );
 }

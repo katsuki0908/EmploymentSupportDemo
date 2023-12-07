@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Box, Dialog, DialogActions, DialogTitle, DialogContent, Button } from "@mui/material";
+import {
+  Box,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  DialogContent,
+  Button,
+} from "@mui/material";
 import PageChangeButton from "../Atoms/page_change_button";
 
 export default function GoToLogInPageDialog() {
@@ -14,9 +21,7 @@ export default function GoToLogInPageDialog() {
         <DialogTitle>ユーザーが見つかりません</DialogTitle>
         <DialogContent>
           <p>もう一度、ログインしてください</p>
-          <PageChangeButton
-            router_path_name="/login"
-          />
+          <PageChangeButton router_path_name="/login" />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDialogClose} color="primary">
@@ -24,7 +29,6 @@ export default function GoToLogInPageDialog() {
           </Button>
         </DialogActions>
       </Dialog>
-
     </Box>
-  )
+  );
 }

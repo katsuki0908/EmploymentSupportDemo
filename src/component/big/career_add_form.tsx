@@ -1,10 +1,24 @@
-import React, { useState } from "react"
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Select, MenuItem, FormControl, InputLabel, TextField, SelectChangeEvent, Container, FormHelperText } from "@mui/material";
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import React, { useState } from "react";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  TextField,
+  SelectChangeEvent,
+  Container,
+  FormHelperText,
+} from "@mui/material";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { FormDialogProps } from "@/types/props";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Autocomplete } from "@mui/material";
 import { ConfirmDialog } from "../mid/confirm_dialog";
 
@@ -13,57 +27,64 @@ export default function CareerAddFormDialog(props: FormDialogProps) {
   const [confirm_dialog, setConfirm_dialog] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [formData, setFormData] = useState({
-    selection_action_id: '',//キャリア活動アクション選択
-    notes: '',           //備考
-    career_path_id: 0,    //会社名選択
+    selection_action_id: "", //キャリア活動アクション選択
+    notes: "", //備考
+    career_path_id: 0, //会社名選択
   });
-                                        
-  const [form_error,setform_error] = useState({
-    selection_action_id:false,
-    career_path_id:false,
-    selectedDate:false,
+
+  const [form_error, setform_error] = useState({
+    selection_action_id: false,
+    career_path_id: false,
+    selectedDate: false,
   });
-  
-    // formErrorの全てのプロパティをtrueに設定する関数
-    const setFormError = () => {
-      setform_error({
-        selection_action_id:true,
-    career_path_id:true,
-    selectedDate:true,
-      });
+
+  // formErrorの全てのプロパティをtrueに設定する関数
+  const setFormError = () => {
+    setform_error({
+      selection_action_id: true,
+      career_path_id: true,
+      selectedDate: true,
+    });
   };
 
   const resetFormError = () => {
     setform_error({
-      selection_action_id:false,
-  career_path_id:false,
-  selectedDate:false,
+      selection_action_id: false,
+      career_path_id: false,
+      selectedDate: false,
     });
-};
+  };
 
-
-  const handleClickOpen = () => {//ダイアログの開閉
+  const handleClickOpen = () => {
+    //ダイアログの開閉
     setOpen(true);
   };
 
   const handleConfirmDialogOpen = () => {
     setConfirm_dialog(true);
-  }
+  };
 
   const handleConfirmDialogClose = () => {
     setConfirm_dialog(false);
-  }
+  };
 
   const handleClose = () => {
     setOpen(false);
     resetFormError();
   };
 
-  const handleSubmit = async () => {//キャリア活動追加処理
-    const response = await fetch('/api/career', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ student_id: props.initialData.student_id, action_date: selectedDate, notes: formData.notes, career_path_id: formData.career_path_id, action_id: formData.selection_action_id })
+  const handleSubmit = async () => {
+    //キャリア活動追加処理
+    const response = await fetch("/api/career", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        student_id: props.initialData.student_id,
+        action_date: selectedDate,
+        notes: formData.notes,
+        career_path_id: formData.career_path_id,
+        action_id: formData.selection_action_id,
+      }),
     });
     console.log(formData);
     console.log(response);
@@ -74,7 +95,7 @@ export default function CareerAddFormDialog(props: FormDialogProps) {
     } else {
       // エラー処理
       console.error("フォームの送信に失敗しました。");
-      setFormError()
+      setFormError();
     }
     setConfirm_dialog(false);
   };
@@ -112,7 +133,11 @@ export default function CareerAddFormDialog(props: FormDialogProps) {
           追加
         </Button>
       </Container>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
         <DialogTitle id="form-dialog-title">キャリア活動入力</DialogTitle>
         <DialogContent sx={{ mb: 1 }}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -123,7 +148,9 @@ export default function CareerAddFormDialog(props: FormDialogProps) {
               slotProps={{
                 textField: {
                   error: form_error.selectedDate,
-                  helperText: form_error.selectedDate ? "活動日を選択してください" : "",
+                  helperText: form_error.selectedDate
+                    ? "活動日を選択してください"
+                    : "",
                 },
               }}
               sx={{ mt: 1 }}
@@ -135,26 +162,46 @@ export default function CareerAddFormDialog(props: FormDialogProps) {
               id="career_select"
               options={props.career_path_data}
               getOptionLabel={(option) => option.name} // ここでオブジェクトからラベル文字列を取得
-              renderInput={(params) => <TextField {...params} label="会社名選択（検索可）*" error={form_error.career_path_id} helperText={form_error.career_path_id ? "会社名を選択してください" : ""} />}
-              onChange={(event, value) => setFormData({ ...formData, career_path_id: value?.career_path_id || 0 })} // 選択されたオブジェクトの 'name' プロパティを使用
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="会社名選択（検索可）*"
+                  error={form_error.career_path_id}
+                  helperText={
+                    form_error.career_path_id ? "会社名を選択してください" : ""
+                  }
+                />
+              )}
+              onChange={(event, value) =>
+                setFormData({
+                  ...formData,
+                  career_path_id: value?.career_path_id || 0,
+                })
+              } // 選択されたオブジェクトの 'name' プロパティを使用
             />
           </FormControl>
-          <FormControl fullWidth margin="normal" error={form_error.selection_action_id}>
+          <FormControl
+            fullWidth
+            margin="normal"
+            error={form_error.selection_action_id}
+          >
             <InputLabel id="action_select">就活アクション選択*</InputLabel>
             <Select
               labelId="action_select"
               id="action_select"
               value={formData.selection_action_id.toString()}
               onChange={handleSelectChange}
-              inputProps={{ name: 'selection_action_id' }}
+              inputProps={{ name: "selection_action_id" }}
               label="就活アクション選択*"
             >
               {props.action_data?.map((action) => (
-                <MenuItem key={action.action_id} value={action.action_id}>{action.name}</MenuItem>
+                <MenuItem key={action.action_id} value={action.action_id}>
+                  {action.name}
+                </MenuItem>
               ))}
             </Select>
             {form_error.selection_action_id && (
-            <FormHelperText>就活アクションは必須です</FormHelperText>
+              <FormHelperText>就活アクションは必須です</FormHelperText>
             )}
           </FormControl>
           <TextField

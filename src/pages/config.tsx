@@ -10,27 +10,24 @@ export default function Config() {
   const { data: session } = useSession();
   const handleFileUpload = (file: File) => {
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append("file", file);
 
-    fetch('/api/upload', {
-      method: 'POST',
+    fetch("/api/upload", {
+      method: "POST",
       body: formData,
-    }).then(response => response.json())
-      .then(data => console.log(data))
-      .catch(error => console.error(error));
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
   };
 
-  if (session?.user.user_type !== 'admin') {
-    return (
-      <GoToLogInPageDialog />
-    );
+  if (session?.user.user_type !== "admin") {
+    return <GoToLogInPageDialog />;
   }
 
   return (
     <>
-      <Box
-        sx={{ height: '100vh', backgroundColor: 'secondary.main' }}
-      >
+      <Box sx={{ height: "100vh", backgroundColor: "secondary.main" }}>
         <Header />
         <CareerPathAddFormDialog />
         <Divider />
@@ -38,5 +35,5 @@ export default function Config() {
         <CsvUploader onFileUpload={handleFileUpload} />
       </Box>
     </>
-  )
+  );
 }

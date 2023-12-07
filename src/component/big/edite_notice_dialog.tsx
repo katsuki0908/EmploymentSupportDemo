@@ -1,18 +1,18 @@
-import * as React from 'react';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import { Notice } from '@/pages/edit_notice'; // Update the path based on your actual file structure
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import ja from 'date-fns/locale/ja'
-import { addDays } from 'date-fns'; // import addDays from date-fns library
-import { Box } from '@mui/material';
-import styled from 'styled-components';
+import * as React from "react";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import { Notice } from "@/pages/edit_notice"; // Update the path based on your actual file structure
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import ja from "date-fns/locale/ja";
+import { addDays } from "date-fns"; // import addDays from date-fns library
+import { Box } from "@mui/material";
+import styled from "styled-components";
 
 interface EditDialogProps {
   open: boolean;
@@ -21,17 +21,26 @@ interface EditDialogProps {
   onEdit: (editedNotice: Notice) => void;
 }
 
-const EditDialog: React.FC<EditDialogProps> = ({ open, notice, onClose, onEdit }) => {
+const EditDialog: React.FC<EditDialogProps> = ({
+  open,
+  notice,
+  onClose,
+  onEdit,
+}) => {
   const [editedNotice, setEditedNotice] = React.useState<Notice | null>(notice);
 
   React.useEffect(() => {
     setEditedNotice(notice);
   }, [notice]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | { name?: string; value: unknown }>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | { name?: string; value: unknown }
+    >,
+  ) => {
     const { name, value } = e.target || {};
 
-    setEditedNotice((prevNotice:any) => ({
+    setEditedNotice((prevNotice: any) => ({
       ...prevNotice,
       [name as string]: value,
     }));
@@ -45,68 +54,67 @@ const EditDialog: React.FC<EditDialogProps> = ({ open, notice, onClose, onEdit }
   };
 
   const handleStartDateChange = (date: Date | null) => {
-    setEditedNotice((prevNotice:any) => ({
+    setEditedNotice((prevNotice: any) => ({
       ...prevNotice,
       start_date: date,
     }));
   };
-  
+
   const handleEndDateChange = (date: Date | null) => {
-    setEditedNotice((prevNotice:any) => ({
+    setEditedNotice((prevNotice: any) => ({
       ...prevNotice,
       end_date: date,
     }));
   };
-  
 
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Edit Notice</DialogTitle>
       <DialogContent>
-      <TextField
-        label="Title"
-        name="title"
-        value={editedNotice?.title || ''}
-        onChange={handleInputChange}
-        fullWidth
-        margin="normal"
-        required 
-        error={!editedNotice?.title} // タイトルが空のときにエラー状態で表示
-        helperText={!editedNotice?.title ? "Title is required" : ""} // タイトルが空のときにヘルプメッセージを表示
-      />
+        <TextField
+          label="Title"
+          name="title"
+          value={editedNotice?.title || ""}
+          onChange={handleInputChange}
+          fullWidth
+          margin="normal"
+          required
+          error={!editedNotice?.title} // タイトルが空のときにエラー状態で表示
+          helperText={!editedNotice?.title ? "Title is required" : ""} // タイトルが空のときにヘルプメッセージを表示
+        />
 
-      <TextField
-        label="Content"
-        name="content"
-        value={editedNotice?.content || ''}
-        onChange={handleInputChange}
-        fullWidth
-        multiline
-        rows={4}
-        margin="normal"
-        required 
-        error={!editedNotice?.content} // 内容が空のときにエラー状態で表示
-        helperText={!editedNotice?.content ? "Content is required" : ""} // 内容が空のときにヘルプメッセージを表示
-      />
+        <TextField
+          label="Content"
+          name="content"
+          value={editedNotice?.content || ""}
+          onChange={handleInputChange}
+          fullWidth
+          multiline
+          rows={4}
+          margin="normal"
+          required
+          error={!editedNotice?.content} // 内容が空のときにエラー状態で表示
+          helperText={!editedNotice?.content ? "Content is required" : ""} // 内容が空のときにヘルプメッセージを表示
+        />
 
-          <StyledDiv > 
-          <LocalizationProvider dateAdapter={AdapterDateFns}  adapterLocale={ja}>
-              <DatePicker
-                label="開始日"
-                value={editedNotice?.start_date || null}
-                onChange={handleStartDateChange}
-                sx={{ mt: 1 }}
-              />
+        <StyledDiv>
+          <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ja}>
+            <DatePicker
+              label="開始日"
+              value={editedNotice?.start_date || null}
+              onChange={handleStartDateChange}
+              sx={{ mt: 1 }}
+            />
           </LocalizationProvider>
 
-          <LocalizationProvider dateAdapter={AdapterDateFns}  adapterLocale={ja}>
-              <DatePicker
-                label="終了日"
-                value={editedNotice?.end_date || null}
-                onChange={handleEndDateChange}
-                sx={{ mt: 1 }}
-                minDate={addDays(new Date(), 1)}
-              />
+          <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ja}>
+            <DatePicker
+              label="終了日"
+              value={editedNotice?.end_date || null}
+              onChange={handleEndDateChange}
+              sx={{ mt: 1 }}
+              minDate={addDays(new Date(), 1)}
+            />
           </LocalizationProvider>
         </StyledDiv>
         {/* Add other fields as needed */}
@@ -123,7 +131,7 @@ const StyledDiv = styled(Box)`
   display: flex;
   flex-direction: row;
   gap: 16px;
-  marginTop: 16px;
+  margintop: 16px;
   @media screen and (max-width: 600px) {
     display: flex;
     flex-direction: column;

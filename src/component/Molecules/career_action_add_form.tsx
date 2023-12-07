@@ -1,17 +1,25 @@
 //キャリアアクションの追加
-import React, { useState } from "react"
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from "@mui/material";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import React, { useState } from "react";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  TextField,
+} from "@mui/material";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { ConfirmDialog } from "../mid/confirm_dialog";
 
 export default function CareerActionAddFormDialog() {
   const [open, setOpen] = useState(false);
-  const [confirm_dialog,setconfirm_dialog] = useState(false);
+  const [confirm_dialog, setconfirm_dialog] = useState(false);
   const [formData, setFormData] = useState({
-    action_name: '',
+    action_name: "",
   });
 
-  const handleClickOpen = () => {//ダイアログの開閉
+  const handleClickOpen = () => {
+    //ダイアログの開閉
     setOpen(true);
   };
 
@@ -21,16 +29,17 @@ export default function CareerActionAddFormDialog() {
 
   const handleConfirmDialogOpen = () => {
     setconfirm_dialog(true);
-  }
+  };
 
   const handleConfirmDialogClose = () => {
     setconfirm_dialog(false);
-  }
+  };
 
-  const handleSubmit = async () => {//キャリア活動追加処理
-    const response = await fetch('/api/career_action', {
-      method: 'POST',
-      body: JSON.stringify({ name: formData.action_name })
+  const handleSubmit = async () => {
+    //キャリア活動追加処理
+    const response = await fetch("/api/career_action", {
+      method: "POST",
+      body: JSON.stringify({ name: formData.action_name }),
     });
     console.log(formData);
     console.log(response);
@@ -63,7 +72,11 @@ export default function CareerActionAddFormDialog() {
       >
         新規キャリアアクション追加
       </Button>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
         <DialogTitle id="form-dialog-title">キャリアアクション追加</DialogTitle>
         <DialogContent sx={{ mb: 1 }}>
           <TextField
@@ -85,11 +98,11 @@ export default function CareerActionAddFormDialog() {
             追加
           </Button>
           <ConfirmDialog
-          open={confirm_dialog}
-          onConfirm={handleSubmit}
-          onCancel={handleConfirmDialogClose}
-          title="確認"
-          message="本当に追加しますか？"
+            open={confirm_dialog}
+            onConfirm={handleSubmit}
+            onCancel={handleConfirmDialogClose}
+            title="確認"
+            message="本当に追加しますか？"
           />
         </DialogActions>
       </Dialog>
