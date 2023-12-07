@@ -100,9 +100,6 @@ const NoticesPage = () => {
     try {
       const response = await fetch(`/api/notice`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify(editedNotice),
       });
 

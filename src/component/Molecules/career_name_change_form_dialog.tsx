@@ -1,10 +1,12 @@
 import React, { useState } from "react"
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Container } from "@mui/material";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from "@mui/material";
 import { CareerNameDialogProps } from "@/types/props";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { ConfirmDialog } from "../mid/confirm_dialog";
 
 export default function CareerNameChangeFormDialog(props: CareerNameDialogProps) {
   const [open, setOpen] = useState(false);
+  const [confirm_dialog,setconfirm_dialog] = useState(false);
   const [formData, setFormData] = useState({
     notes: props.initialData.notes,
     company_name: '',
@@ -20,8 +22,15 @@ export default function CareerNameChangeFormDialog(props: CareerNameDialogProps)
     setOpen(false);
   };
 
-  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {//キャリア活動追加処理
-    event.preventDefault();
+  const handleConfirmDialogOpen = () => {
+    setconfirm_dialog(true);
+  }
+
+  const handleConfirmDialogClose = () => {
+    setconfirm_dialog(false);
+  }
+
+  const handleSubmit = async () => {//キャリア活動追加処理
     const response = await fetch('/api/others', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -104,9 +113,16 @@ export default function CareerNameChangeFormDialog(props: CareerNameDialogProps)
           <Button onClick={handleClose} color="primary">
             戻る
           </Button>
-          <Button onClick={handleSubmit} color="primary">
+          <Button onClick={handleConfirmDialogOpen} color="primary">
             追加
           </Button>
+          <ConfirmDialog
+          open={confirm_dialog}
+          onConfirm={handleSubmit}
+          onCancel={handleConfirmDialogClose}
+          title="確認"
+          message="本当に追加しますか？"
+          />
         </DialogActions>
       </Dialog>
     </div>

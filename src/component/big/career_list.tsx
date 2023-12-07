@@ -37,7 +37,7 @@ export default function Careerlist(props: FormDialogProps) {
       } catch (error) {
         console.error("Error while loading career data: ", error);
       }
-    };
+    }; 
     fetchData();
   }, []);
 

@@ -20,11 +20,10 @@ export default function SignIn({ csrfToken }: SignInProps) { //サインイン�
   const router = useRouter();
 
   React.useEffect(() => {
-    // セッションが存在し、ユーザーがログインしていればトップページに遷移する
+    // セッションが存在し、ユーザーがログインしていればトップページに遷移
     if (session?.user?.name) {
       router.push('/top'); // または任意のパス
-    }
-    else if (session?.user) {
+    } else if (session?.user) { // ログイン失敗時の処理
       setErrorMessage('ログイン失敗');
       setOpenErrorSnackbar(true);
     }
@@ -63,6 +62,7 @@ export default function SignIn({ csrfToken }: SignInProps) { //サインイン�
             height={200}
           />
         </Box>
+
         <Box
           component="form"
           noValidate method='post'

@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Select, MenuItem, FormControl, InputLabel, TextField, SelectChangeEvent, Container } from "@mui/material";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Select, MenuItem, FormControl, InputLabel, TextField, SelectChangeEvent, Container, FormHelperText } from "@mui/material";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -17,6 +17,30 @@ export default function CareerAddFormDialog(props: FormDialogProps) {
     notes: '',           //備考
     career_path_id: 0,    //会社名選択
   });
+                                        
+  const [form_error,setform_error] = useState({
+    selection_action_id:false,
+    career_path_id:false,
+    selectedDate:false,
+  });
+  
+    // formErrorの全てのプロパティをtrueに設定する関数
+    const setFormError = () => {
+      setform_error({
+        selection_action_id:true,
+    career_path_id:true,
+    selectedDate:true,
+      });
+  };
+
+  const resetFormError = () => {
+    setform_error({
+      selection_action_id:false,
+  career_path_id:false,
+  selectedDate:false,
+    });
+};
+
 
   const handleClickOpen = () => {//ダイアログの開閉
     setOpen(true);
@@ -32,6 +56,7 @@ export default function CareerAddFormDialog(props: FormDialogProps) {
 
   const handleClose = () => {
     setOpen(false);
+    resetFormError();
   };
 
   const handleSubmit = async () => {//キャリア活動追加処理
@@ -49,8 +74,9 @@ export default function CareerAddFormDialog(props: FormDialogProps) {
     } else {
       // エラー処理
       console.error("フォームの送信に失敗しました。");
+      setFormError()
     }
-    handleClose();
+    setConfirm_dialog(false);
   };
 
   const handleSelectChange = (event: SelectChangeEvent) => {
@@ -91,9 +117,15 @@ export default function CareerAddFormDialog(props: FormDialogProps) {
         <DialogContent sx={{ mb: 1 }}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
-              label="活動日"
+              label="活動日*"
               value={selectedDate}
               onChange={handleDateChange}
+              slotProps={{
+                textField: {
+                  error: form_error.selectedDate,
+                  helperText: form_error.selectedDate ? "活動日を選択してください" : "",
+                },
+              }}
               sx={{ mt: 1 }}
             />
           </LocalizationProvider>
@@ -103,24 +135,27 @@ export default function CareerAddFormDialog(props: FormDialogProps) {
               id="career_select"
               options={props.career_path_data}
               getOptionLabel={(option) => option.name} // ここでオブジェクトからラベル文字列を取得
-              renderInput={(params) => <TextField {...params} label="会社名選択（検索可）" />}
+              renderInput={(params) => <TextField {...params} label="会社名選択（検索可）*" error={form_error.career_path_id} helperText={form_error.career_path_id ? "会社名を選択してください" : ""} />}
               onChange={(event, value) => setFormData({ ...formData, career_path_id: value?.career_path_id || 0 })} // 選択されたオブジェクトの 'name' プロパティを使用
             />
           </FormControl>
-          <FormControl fullWidth margin="normal">
-            <InputLabel id="action_select">就活アクション選択</InputLabel>
+          <FormControl fullWidth margin="normal" error={form_error.selection_action_id}>
+            <InputLabel id="action_select">就活アクション選択*</InputLabel>
             <Select
               labelId="action_select"
               id="action_select"
               value={formData.selection_action_id.toString()}
               onChange={handleSelectChange}
               inputProps={{ name: 'selection_action_id' }}
-              label="就活アクション選択"
+              label="就活アクション選択*"
             >
               {props.action_data?.map((action) => (
                 <MenuItem key={action.action_id} value={action.action_id}>{action.name}</MenuItem>
               ))}
             </Select>
+            {form_error.selection_action_id && (
+            <FormHelperText>就活アクションは必須です</FormHelperText>
+            )}
           </FormControl>
           <TextField
             margin="dense"

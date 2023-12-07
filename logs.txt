@@ -35,3 +35,148 @@
 {"level":30,"time":"2023-12-06T12:53:09.693Z","message":"お知らせを取得しました"}
 {"level":30,"time":"2023-12-06T12:56:57.907Z","message":"お知らせを取得しました"}
 {"level":30,"time":"2023-12-06T12:56:58.356Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T13:47:06.292Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T13:47:06.719Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T13:47:06.958Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T13:47:07.364Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T13:48:13.213Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T13:48:13.613Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T13:48:31.262Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T13:48:31.675Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T15:55:06.288Z","message":"認証成功","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"}}
+{"level":30,"time":"2023-12-06T15:55:21.336Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T15:55:21.688Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T16:04:15.180Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T16:04:15.680Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T16:04:16.281Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T16:04:34.152Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T16:04:34.598Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T16:04:48.684Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T16:04:49.121Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T16:05:07.601Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T16:05:08.037Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T16:07:06.280Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T16:07:10.395Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T16:07:10.957Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T16:07:11.518Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T16:07:11.519Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T16:07:12.030Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T16:07:12.038Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T16:07:12.481Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T16:07:12.971Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T16:07:13.423Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T16:07:14.348Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T16:07:14.798Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T16:08:04.244Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T16:09:10.095Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T16:09:51.475Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T16:10:21.331Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T16:10:21.790Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T16:10:22.036Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T16:10:22.492Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T16:10:37.106Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T16:10:37.603Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T16:10:37.938Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T16:10:38.379Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T16:10:46.580Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T16:10:47.024Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T16:10:50.049Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T16:10:50.527Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T16:38:19.976Z","message":"求人票を取得しました"}
+{"level":30,"time":"2023-12-06T16:38:20.417Z","message":"求人票を取得しました"}
+{"level":30,"time":"2023-12-06T16:54:01.106Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T16:54:01.563Z","message":"お知らせを取得しました"}
+{"level":50,"time":"2023-12-06T18:04:06.128Z","message":"予期せぬエラーでキャリアの追加に失敗しました","error":{"name":"PrismaClientValidationError","clientVersion":"5.5.2"}}
+{"level":50,"time":"2023-12-06T18:05:16.045Z","message":"予期せぬエラーでキャリアの追加に失敗しました","error":{"name":"PrismaClientValidationError","clientVersion":"5.5.2"}}
+{"level":50,"time":"2023-12-06T18:10:37.014Z","message":"予期せぬエラーでキャリアの追加に失敗しました","error":{"name":"PrismaClientValidationError","clientVersion":"5.5.2"}}
+{"level":50,"time":"2023-12-06T18:10:51.671Z","message":"予期せぬエラーでキャリアの追加に失敗しました","error":{"name":"PrismaClientValidationError","clientVersion":"5.5.2"}}
+{"level":50,"time":"2023-12-06T18:15:46.406Z","message":"予期せぬエラーでキャリアの追加に失敗しました","error":{"name":"PrismaClientValidationError","clientVersion":"5.5.2"}}
+{"level":50,"time":"2023-12-06T18:16:48.400Z","message":"予期せぬエラーでキャリアの追加に失敗しました","error":{"name":"PrismaClientValidationError","clientVersion":"5.5.2"}}
+{"level":50,"time":"2023-12-06T18:17:57.112Z","message":"予期せぬエラーでキャリアの追加に失敗しました","error":{"name":"PrismaClientValidationError","clientVersion":"5.5.2"}}
+{"level":50,"time":"2023-12-06T18:31:53.231Z","message":"予期せぬエラーでキャリアの追加に失敗しました","error":{"name":"PrismaClientValidationError","clientVersion":"5.5.2"}}
+{"level":30,"time":"2023-12-06T18:41:22.828Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T19:22:01.778Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T19:22:04.773Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T19:22:05.104Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T19:22:23.175Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T19:22:23.620Z","message":"お知らせを取得しました"}
+{"level":50,"time":"2023-12-06T19:22:27.740Z","message":"予期せぬエラーでキャリアの追加に失敗しました","error":{"name":"PrismaClientValidationError","clientVersion":"5.5.2"}}
+{"level":50,"time":"2023-12-06T19:43:08.484Z","message":"予期せぬエラーでキャリアの追加に失敗しました","error":{"name":"PrismaClientValidationError","clientVersion":"5.5.2"}}
+{"level":30,"time":"2023-12-06T20:03:54.444Z","message":"認証成功","user":{"user_id":"admin","name":"田中　教授","furigana":"たなか　きょうじゅ","user_type":"admin"}}
+{"level":30,"time":"2023-12-06T20:03:56.629Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T20:03:57.091Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T20:04:05.820Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T20:04:06.874Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T20:09:04.440Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T20:09:29.681Z","message":"お知らせを更新しました","updatedData":{"notice_id":15,"title":"aa","content":"a","start_date":"2023-12-06T12:22:15.476Z","end_date":"2023-12-07T12:22:15.000Z","updated_at":"2023-12-06T20:09:29.606Z"}}
+{"level":30,"time":"2023-12-06T20:09:31.121Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T20:09:31.443Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T20:09:44.055Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T20:16:49.930Z","message":"認証成功","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"}}
+{"level":30,"time":"2023-12-06T20:16:51.892Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T20:16:52.231Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T20:17:00.155Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T20:17:00.592Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T20:17:01.045Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T20:17:01.286Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T20:17:01.765Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T20:17:03.572Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T20:17:04.030Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T20:18:29.053Z","message":"キャリアを更新しました","updatedData":{"career_action_id":18,"student_id":"TD232000","action_date":"2023-12-06T15:00:00.000Z","notes":"","updated_at":"2023-12-06T20:18:28.990Z","career_path_id":0,"action_id":1}}
+{"level":30,"time":"2023-12-06T20:18:30.485Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T20:18:30.918Z","message":"お知らせを取得しました"}
+{"level":50,"time":"2023-12-06T20:20:28.882Z","message":"予期せぬエラーでキャリアの追加に失敗しました","error":{"name":"PrismaClientValidationError","clientVersion":"5.5.2"}}
+{"level":50,"time":"2023-12-06T20:29:08.625Z","message":"予期せぬエラーでキャリアの追加に失敗しました","error":{"name":"PrismaClientValidationError","clientVersion":"5.5.2"}}
+{"level":50,"time":"2023-12-06T20:30:19.132Z","message":"予期せぬエラーでキャリアの追加に失敗しました","error":{"name":"PrismaClientValidationError","clientVersion":"5.5.2"}}
+{"level":50,"time":"2023-12-06T20:33:36.938Z","message":"予期せぬエラーでキャリアの追加に失敗しました","error":{"name":"PrismaClientValidationError","clientVersion":"5.5.2"}}
+{"level":50,"time":"2023-12-06T20:38:18.198Z","message":"予期せぬエラーでキャリアの追加に失敗しました","error":{"name":"PrismaClientValidationError","clientVersion":"5.5.2"}}
+{"level":30,"time":"2023-12-06T20:44:42.608Z","message":"を追加しました","updatedData":{"career_action_id":19,"student_id":"TD232000","action_date":"2023-12-06T15:00:00.000Z","notes":"","updated_at":"2023-12-06T20:44:42.540Z","career_path_id":0,"action_id":1}}
+{"level":30,"time":"2023-12-06T20:44:44.822Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T20:44:45.374Z","message":"お知らせを取得しました"}
+{"level":50,"time":"2023-12-06T20:46:43.534Z","message":"予期せぬエラーでキャリアの追加に失敗しました","error":{"name":"PrismaClientValidationError","clientVersion":"5.5.2"}}
+{"level":30,"time":"2023-12-06T20:49:10.160Z","message":"認証成功","user":[{"user_id":"TD202300","name":"山田　一郎","furigana":"やまだ　いちろう","user_type":"student"},{"user_id":"admin","name":"田中　教授","furigana":"たなか　きょうじゅ","user_type":"admin"},{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},{"user_id":"TD232001","name":"阿比留　幹大","furigana":"あびる　かんた","user_type":"student"}]}
+{"level":30,"time":"2023-12-06T20:49:38.330Z","message":"認証成功","user":[{"user_id":"TD202300","name":"山田　一郎","furigana":"やまだ　いちろう","user_type":"student"},{"user_id":"admin","name":"田中　教授","furigana":"たなか　きょうじゅ","user_type":"admin"},{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},{"user_id":"TD232001","name":"阿比留　幹大","furigana":"あびる　かんた","user_type":"student"}]}
+{"level":30,"time":"2023-12-06T20:51:32.270Z","message":"認証成功","user":[{"user_id":"TD202300","name":"山田　一郎","furigana":"やまだ　いちろう","user_type":"student"},{"user_id":"admin","name":"田中　教授","furigana":"たなか　きょうじゅ","user_type":"admin"},{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},{"user_id":"TD232001","name":"阿比留　幹大","furigana":"あびる　かんた","user_type":"student"}]}
+{"level":30,"time":"2023-12-06T20:55:34.830Z","message":"認証成功","user":[{"user_id":"TD202300","name":"山田　一郎","furigana":"やまだ　いちろう","user_type":"student"},{"user_id":"admin","name":"田中　教授","furigana":"たなか　きょうじゅ","user_type":"admin"},{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},{"user_id":"TD232001","name":"阿比留　幹大","furigana":"あびる　かんた","user_type":"student"}]}
+{"level":30,"time":"2023-12-06T20:56:43.960Z","message":"失敗","user":[{"user_id":"TD202300","name":"山田　一郎","furigana":"やまだ　いちろう","user_type":"student"},{"user_id":"admin","name":"田中　教授","furigana":"たなか　きょうじゅ","user_type":"admin"},{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},{"user_id":"TD232001","name":"阿比留　幹大","furigana":"あびる　かんた","user_type":"student"}]}
+{"level":30,"time":"2023-12-06T21:01:20.781Z","message":"認証成功","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"}}
+{"level":30,"time":"2023-12-06T21:01:23.185Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T21:01:23.547Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T21:04:24.326Z","message":"認証失敗","user":null}
+{"level":30,"time":"2023-12-06T21:12:24.199Z","message":"認証失敗","user":null}
+{"level":30,"time":"2023-12-06T21:12:33.941Z","message":"認証失敗","user":null}
+{"level":30,"time":"2023-12-06T21:15:23.196Z","message":"認証成功","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"}}
+{"level":30,"time":"2023-12-06T21:15:25.069Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T21:15:25.413Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T22:03:10.879Z","message":"認証成功","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"}}
+{"level":30,"time":"2023-12-06T22:03:12.571Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T22:03:12.898Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T22:03:18.734Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T22:03:19.090Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T22:03:25.081Z","message":"求人票を取得しました"}
+{"level":30,"time":"2023-12-06T22:03:25.519Z","message":"求人票を取得しました"}
+{"level":30,"time":"2023-12-06T22:03:37.551Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T22:03:38.014Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T22:03:38.532Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T22:03:43.342Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T22:03:43.740Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T22:03:46.718Z","message":"求人票を取得しました"}
+{"level":30,"time":"2023-12-06T22:03:47.133Z","message":"求人票を取得しました"}
+{"level":30,"time":"2023-12-06T22:03:50.270Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T22:03:50.728Z","message":"プロフィールを取得しました","getData":{"student_id":"TD232000","gender":"M","affiliation":"学部","graduation_year":2025,"face_photo":null,"updated_at":"2023-12-06T03:20:59.433Z","cource_id":3,"personal_address":"","personal_phone":"","personal_email":null,"emergency_address":"","emergency_phone":"","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"},"cource":{"cource_id":3,"name":"情報システムコース"}}}
+{"level":30,"time":"2023-12-06T22:03:54.427Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T22:03:54.901Z","message":"お知らせを取得しました"}
+{"level":50,"time":"2023-12-06T22:04:18.374Z","message":"予期せぬエラーでキャリアの追加に失敗しました","error":{"name":"PrismaClientValidationError","clientVersion":"5.5.2"}}
+{"level":30,"time":"2023-12-06T22:10:27.786Z","message":"認証成功","user":{"user_id":"admin","name":"田中　教授","furigana":"たなか　きょうじゅ","user_type":"admin"}}
+{"level":30,"time":"2023-12-06T22:10:29.876Z","message":"その他情報を取得しました"}
+{"level":30,"time":"2023-12-06T22:10:30.012Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T22:10:30.342Z","message":"その他情報を取得しました"}
+{"level":30,"time":"2023-12-06T22:10:30.404Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-06T22:10:40.117Z","message":"ユーザー情報を取得できませんでした","error":{"name":"PrismaClientValidationError","clientVersion":"5.5.2"}}
+{"level":30,"time":"2023-12-06T22:10:40.374Z","message":"ユーザー情報を取得できませんでした","error":{"name":"PrismaClientValidationError","clientVersion":"5.5.2"}}
+{"level":30,"time":"2023-12-07T15:24:03.943Z","message":"ログイン情報取得","user_info":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"}}
+{"level":30,"time":"2023-12-07T15:24:03.955Z","msg":"認証中","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"}}
+{"level":30,"time":"2023-12-07T15:28:13.699Z","message":"ログイン情報取得","user_info":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"}}
+{"level":30,"time":"2023-12-07T15:28:13.703Z","msg":"認証中","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"}}
+{"level":30,"time":"2023-12-07T15:28:33.303Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-07T15:28:33.631Z","message":"お知らせを取得しました"}
