@@ -37,7 +37,7 @@ export default function JoblistPutFormDialog(props: Joblist) {
         career_path_id: props.career_path_id || -1,
         notes: props.notes || '',
     });
-    
+
     // 送付日の設定
     const [submission_date, setSubmissionDate] = useState<Date | null>(
         props.submission_date ? new Date(props.submission_date) : null
@@ -134,22 +134,22 @@ export default function JoblistPutFormDialog(props: Joblist) {
         handleClose();
     };
 
-        // 必須入力項目の設定
-        const [formError, setFormError] = useState({
+    // 必須入力項目の設定
+    const [formError, setFormError] = useState({
+        application_format: false,
+        career_path_id: false,
+        start_date: false,
+        end_date: false,
+    });
+    // 必須入力項目の初期化関数
+    const resetFormError = () => {
+        setFormError({
             application_format: false,
             career_path_id: false,
             start_date: false,
             end_date: false,
         });
-        // 必須入力項目の初期化関数
-        const resetFormError = () => {
-            setFormError({
-                application_format: false,
-                career_path_id: false,
-                start_date: false,
-                end_date: false,
-            });
-        };
+    };
 
     return (
         <div>
@@ -170,7 +170,7 @@ export default function JoblistPutFormDialog(props: Joblist) {
                             onChange={(event, value) => {
                                 const careerPathId = value?.career_path_id !== undefined && value?.career_path_id >= 0 ? value.career_path_id : -1;
                                 setFormData({ ...formData, career_path_id: careerPathId });
-                            }}   
+                            }}
                         />
                     </FormControl>
                     <TextField

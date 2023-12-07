@@ -16,11 +16,9 @@ import {
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { FormDialogProps } from "@/types/props";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { Autocomplete } from "@mui/material";
 import { career_path_table } from "@prisma/client";
-import { useValueWithTimezone } from "@mui/x-date-pickers/internals/hooks/useValueWithTimezone";
 
 export default function JoblistAddFormDialog() {
     const [selection_career_name, setSelection_career_name] = useState<career_path_table[]>([]);
@@ -177,7 +175,7 @@ export default function JoblistAddFormDialog() {
                             onChange={(event, value) => {
                                 const careerPathId = value?.career_path_id !== undefined && value?.career_path_id >= 0 ? value.career_path_id : -1;
                                 setFormData({ ...formData, career_path_id: careerPathId });
-                            }}                            
+                            }}
                             renderInput={(params) => <TextField {...params} label="*会社名" error={formError.career_path_id} />}
                         />
                     </FormControl>

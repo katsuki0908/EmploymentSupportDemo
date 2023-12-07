@@ -1,21 +1,21 @@
-import React, {useState, forwardRef,useEffect} from "react";
-import {FormControl,Button,Stack,Collapse,TextField} from '@mui/material';
+import React, { useState, useEffect } from "react";
+import { FormControl, Button, Stack, Collapse, TextField } from '@mui/material';
 
-const editContact = async(
+const editContact = async (
     student_id: string,
     personal_address: string,
     personal_phone: string,
     emergency_address: string,
     emergency_phone: string,
 ) => {
-    const data = await fetch("/api/profile",{
-        method:'PUT',
-        body: JSON.stringify({student_id, personal_address,personal_phone,emergency_address,emergency_phone}),
+    const data = await fetch("/api/profile", {
+        method: 'PUT',
+        body: JSON.stringify({ student_id, personal_address, personal_phone, emergency_address, emergency_phone }),
     });
     return data.json();
 }
 
-export const EditContact = ({student_id}:any) => {
+export const EditContact = ({ student_id }: any) => {
     const [editing, setEditing] = useState(false)
     const [formData, setFormData] = useState({
         personal_address: "",
@@ -39,9 +39,9 @@ export const EditContact = ({student_id}:any) => {
             emergency_phone: false,
         });
     };
-    
+
     // DBに保存する関数を実行する関数
-    const handleSaveSubmit = async(event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleSaveSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault(); //ページのリロードをしない
         if (formError.personal_phone || formError.personal_address || formError.emergency_address || formError.emergency_phone) {
             // 要件を満たさない場合、保存を行わずに関数を終了する
@@ -58,19 +58,19 @@ export const EditContact = ({student_id}:any) => {
     }
 
     // 変更をキャンセルする場合
-    const handleCancelSubmit = async() => {
+    const handleCancelSubmit = async () => {
         getContactId();
         setEditing(false);
         resetFormError();
     }
 
-    const getContactId = async() => {
-        try{
-            const response = await fetch(`/api/profile?student_id=${student_id}` ,{
-                method:'GET',
+    const getContactId = async () => {
+        try {
+            const response = await fetch(`/api/profile?student_id=${student_id}`, {
+                method: 'GET',
             });
             // console.log(response);
-            if(response.ok){
+            if (response.ok) {
                 const data = await response.json();
                 const { personal_address, personal_phone, emergency_address, emergency_phone } = data;
                 setFormData({
@@ -80,13 +80,13 @@ export const EditContact = ({student_id}:any) => {
                     emergency_phone: emergency_phone || "",
                 });
             }
-        }catch (error){
+        } catch (error) {
             console.error("Error:Not Found User!")
         }
-    } 
+    }
     useEffect(() => {
         getContactId();
-    },[]);
+    }, []);
 
     const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -95,22 +95,22 @@ export const EditContact = ({student_id}:any) => {
         const isValidError = !regex.test(value)
 
         setFormData({
-          ...formData,
-          [name]: value,
+            ...formData,
+            [name]: value,
         });
         // 携帯電話番号が要件を満たしていない場合、エラーをセット
         setFormError(({
             ...formError,
             [name]: isValidError
         }));
-      };
+    };
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         // 住所の入力が文字を含むかどうか　空白ならErrorをtrue
         const isValidError = value.trim() === ""
         setFormData({
-        ...formData,
-        [name]: value,
+            ...formData,
+            [name]: value,
         });
         // 携帯電話番号が要件を満たしていない場合、エラーをセット
         setFormError(({
@@ -121,8 +121,8 @@ export const EditContact = ({student_id}:any) => {
 
     return (
         <div>
-            <Stack spacing={3} direction = "column" justifyContent="center" alignItems="center">
-                <Button onClick={() => {setEditing(true);}} type="submit" variant="contained" size="large">編集</Button>
+            <Stack spacing={3} direction="column" justifyContent="center" alignItems="center">
+                <Button onClick={() => { setEditing(true); }} type="submit" variant="contained" size="large">編集</Button>
                 <FormControl variant="standard">
                     <TextField
                         required
@@ -130,11 +130,11 @@ export const EditContact = ({student_id}:any) => {
                         id="personal_phone"
                         name="personal_phone"
                         label="本人-携帯電話番号"
-                        inputProps={{ maxLength: 13}}
+                        inputProps={{ maxLength: 13 }}
                         value={formData.personal_phone}
                         onChange={handlePhoneChange}
                         error={formError.personal_phone}
-                        helperText={formError.personal_phone ? "半角数字のみ入力してください":""}
+                        helperText={formError.personal_phone ? "半角数字のみ入力してください" : ""}
                     />
                     <TextField
                         required
@@ -142,11 +142,11 @@ export const EditContact = ({student_id}:any) => {
                         id="emergency_phone"
                         name="emergency_phone"
                         label="緊急-携帯電話番号"
-                        inputProps={{ maxLength: 13}}
+                        inputProps={{ maxLength: 13 }}
                         value={formData.emergency_phone}
                         onChange={handlePhoneChange}
                         error={formError.emergency_phone}
-                        helperText={formError.emergency_phone ? "半角数字のみ入力してください":""}
+                        helperText={formError.emergency_phone ? "半角数字のみ入力してください" : ""}
                     />
                     <TextField
                         required
@@ -157,7 +157,7 @@ export const EditContact = ({student_id}:any) => {
                         value={formData.personal_address}
                         onChange={handleInputChange}
                         error={formError.personal_address}
-                        helperText={formError.personal_address ? "住所を入力してください":""}
+                        helperText={formError.personal_address ? "住所を入力してください" : ""}
                     />
                     <TextField
                         required
@@ -168,7 +168,7 @@ export const EditContact = ({student_id}:any) => {
                         value={formData.emergency_address}
                         onChange={handleInputChange}
                         error={formError.emergency_address}
-                        helperText={formError.emergency_address ? "住所を入力してください":""}
+                        helperText={formError.emergency_address ? "住所を入力してください" : ""}
                     />
                 </FormControl>
                 <Collapse in={editing}>

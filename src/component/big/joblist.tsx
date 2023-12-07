@@ -13,11 +13,10 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import StarBorder from '@mui/icons-material/StarBorder';
 import Checkbox from '@mui/material/Checkbox';
 import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 import Button from '@mui/material/Button';
 import JoblistPutFormDialog from "@/component/big/joblist_put_dialog";
 import { formatDate } from '@/utils/date_utils';
-import { TextField, Box} from '@mui/material';
+import { TextField, Box } from '@mui/material';
 
 export type Joblist = {
     application_format: string;
@@ -28,11 +27,11 @@ export type Joblist = {
     notes: string;
     start_date: Date;
     submission_date: Date;
-    updated_at:Date;
+    updated_at: Date;
     visit_date: Date;
-  }
+}
 
-export default function Joblists(options) {
+export default function Joblists(props: { showCheckbox: boolean; showEditDeleteButtons: boolean; }) {
     // 求人票のデータを管理する変数・関数
     const [joblists, setJoblists] = useState<Joblist[]>([]);
 
@@ -42,12 +41,12 @@ export default function Joblists(options) {
         const fetchJoblists = async () => {
             try {
                 const response = await fetch(
-                    "api/joblist", 
+                    "api/joblist",
                     {
                         method: 'GET',
                     }
                 );
-                    // console.log(response);
+                // console.log(response);
                 if (response.ok) {
                     const data = await response.json();
                     setJoblists(data);
@@ -56,11 +55,8 @@ export default function Joblists(options) {
                 console.error("Error while loading data: ", error);
             }
         };
-
         fetchJoblists();
-
         // 求人票が1つも無かったらその旨を通知する
-
     }, []);
 
     // 求人票を削除する
@@ -74,9 +70,9 @@ export default function Joblists(options) {
                 // headers: {
                 //     'Content-Type': 'application/json'
                 // },
-                body: JSON.stringify({job_listing_id: id})
+                body: JSON.stringify({ job_listing_id: id })
             });
-            
+
             if (response.ok) {
                 window.location.reload();
             } else {
@@ -85,7 +81,7 @@ export default function Joblists(options) {
         } catch (error) {
             console.error("求人票の削除中にエラーが発生しました。HTTPステータスコード : ", error);
         }
-      };
+    };
 
     // Nested Listが展開されているかどうか
     const [open, setOpen] = useState<{ [id: number]: boolean }>({});
@@ -94,7 +90,7 @@ export default function Joblists(options) {
         setOpen(
             {
                 ...open,
-                [id] : !open[id]
+                [id]: !open[id]
             }
         );
     };
@@ -102,26 +98,26 @@ export default function Joblists(options) {
 
     // チェックボックスの動作
     const [selectedJoblists, setSelectedJoblists] = useState<number[]>([]);
-    
+
     const handleCheckboxChange = (id: number) => {
         const index = selectedJoblists.indexOf(id);
         // 求人票が選択されていなければ
         if (index === -1) {
             const updatedSelectedJoblists = [...selectedJoblists, id];
-            setSelectedJoblists( updatedSelectedJoblists );
+            setSelectedJoblists(updatedSelectedJoblists);
             setOpen(
                 {
                     ...open,
-                    [id] : false
+                    [id]: false
                 }
             );
         } else {    // 求人票が選択されていれば
-            const updatedSelectedJoblists = selectedJoblists.filter( (joblistId) => joblistId !== id );
-            setSelectedJoblists( updatedSelectedJoblists );
+            const updatedSelectedJoblists = selectedJoblists.filter((joblistId) => joblistId !== id);
+            setSelectedJoblists(updatedSelectedJoblists);
             setOpen(
                 {
                     ...open,
-                    [id] : false
+                    [id]: false
                 }
             );
         }
@@ -148,11 +144,11 @@ export default function Joblists(options) {
         <div>
             <h1>求人票</h1>
             <Box sx={{ margin: 2 }}>
-            <TextField
-                label="会社名で検索"
-                value={searchCompany}
-                onChange={handleSearch}
-            />
+                <TextField
+                    label="会社名で検索"
+                    value={searchCompany}
+                    onChange={handleSearch}
+                />
             </Box>
             {/* 掲載期間内の求人票をNested Listに表示する(掲載期間内かどうかはapiで判断) */}
             {filteredJoblists.map((joblist) => (
@@ -165,11 +161,11 @@ export default function Joblists(options) {
                     <ListItemButton onClick={() => handleClick(joblist.job_listing_id)}>
                         {/* チェックボックスありなら */}
                         {
-                            options.showCheckbox && 
+                            props.showCheckbox &&
                             (
-                                <Checkbox 
-                                    checked={selectedJoblists.includes(joblist.job_listing_id)} 
-                                    onChange={() => handleCheckboxChange(joblist.job_listing_id)} 
+                                <Checkbox
+                                    checked={selectedJoblists.includes(joblist.job_listing_id)}
+                                    onChange={() => handleCheckboxChange(joblist.job_listing_id)}
                                     inputProps={{ 'aria-label': 'controlled' }} //要らなそう?
                                 />
                             )
@@ -177,7 +173,7 @@ export default function Joblists(options) {
                         <ListItemIcon>
                             <BusinessIcon />
                         </ListItemIcon>
-                        <ListItemText primary = {joblist.career_path["name"]} />   {/* 進路候補の名前 */}
+                        <ListItemText primary={joblist.career_path["name"]} />   {/* 進路候補の名前 */}
                         {open ? <ExpandLess /> : <ExpandMore />}
                     </ListItemButton>
 
@@ -187,36 +183,36 @@ export default function Joblists(options) {
                         <List component="div" disablePadding>
                             {[
                                 "備考：" + joblist.notes,  // 備考
-                                "応募形式：" + joblist.application_format, 
+                                "応募形式：" + joblist.application_format,
                                 "更新日時：" + formatDate(joblist.updated_at),
-                                "送付日：" + formatDate(joblist.submission_date), 
+                                "送付日：" + formatDate(joblist.submission_date),
                                 "来学日：" + formatDate(joblist.visit_date)
                             ].map((star, index) => (
-                            <ListItem key={index} sx={{ pl: 4 }}>
-                                <ListItemIcon>
-                                    <StarBorder />
-                                </ListItemIcon>
-                                <ListItemText primary={star} />
-                            </ListItem>
+                                <ListItem key={index} sx={{ pl: 4 }}>
+                                    <ListItemIcon>
+                                        <StarBorder />
+                                    </ListItemIcon>
+                                    <ListItemText primary={star} />
+                                </ListItem>
                             ))}
                         </List>
 
                         {/* Edit and delete buttons */}
-                        {options.showEditDeleteButtons && (
+                        {props.showEditDeleteButtons && (
                             <ListItem sx={{ pl: 4 }}>
-                                <JoblistPutFormDialog 
-                                    application_format = {joblist.application_format}
-                                    career_path = {joblist.career_path}
-                                    career_path_id = {joblist.career_path_id}
-                                    end_date = {joblist.end_date}
-                                    job_listing_id = {joblist.job_listing_id}
-                                    notes = {joblist.notes}
-                                    start_date = {joblist.start_date}
-                                    submission_date = {joblist.submission_date}
-                                    updated_at = {joblist.updated_at}
-                                    visit_date = {joblist.visit_date}                
+                                <JoblistPutFormDialog
+                                    application_format={joblist.application_format}
+                                    career_path={joblist.career_path}
+                                    career_path_id={joblist.career_path_id}
+                                    end_date={joblist.end_date}
+                                    job_listing_id={joblist.job_listing_id}
+                                    notes={joblist.notes}
+                                    start_date={joblist.start_date}
+                                    submission_date={joblist.submission_date}
+                                    updated_at={joblist.updated_at}
+                                    visit_date={joblist.visit_date}
                                 />
-                                <Button 
+                                <Button
                                     variant='contained'
                                     color='error'
                                     onClick={() => handleDelete(joblist.job_listing_id)}
