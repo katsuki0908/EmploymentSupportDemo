@@ -9,7 +9,7 @@ import { action_table, career_path_table } from "@prisma/client";
 import GoToLogInPage from "@/component/Templates/go_to_login_page";
 import Head from "next/head";
 
-export default function () {
+export default function eitcareerpage() {
   const { data: session } = useSession(); //セッション情報取得
   const [selection_action, setSelection_action] = useState<action_table[]>([]);
   const [selection_career_name, setSelection_career_name] = useState<

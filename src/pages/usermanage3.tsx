@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import {
-  AppBar,
+  // AppBar,
   Button,
-  Container,
+  // Container,
   CssBaseline,
-  Toolbar,
+  // Toolbar,
   Typography,
-  TextField,
-  Checkbox,
+  // TextField,
+  // Checkbox,
   Select,
   MenuItem,
   FormControl,
@@ -36,7 +36,7 @@ interface Student {
 }
 
 const UserManage: React.FC = () => {
-  const { data: graduationYear } = useSession();
+  // const { data: graduationYear } = useSession();
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [searchResult, setSearchResult] = useState<Student[]>([]);
   const [selectedStudents, setSelectedStudents] = useState<Student[]>([]);

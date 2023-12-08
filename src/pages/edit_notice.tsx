@@ -47,7 +47,7 @@ const NoticesPage = () => {
           const data = await response.json();
 
           // Parse date strings into Date objects
-          const noticesWithParsedDates = data.map((notice: any) => ({
+          const noticesWithParsedDates = data.map((notice: Notice) => ({
             ...notice,
             start_date: new Date(notice.start_date),
             end_date: new Date(notice.end_date),

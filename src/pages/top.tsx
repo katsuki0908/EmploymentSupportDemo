@@ -4,11 +4,11 @@ import Header from "@/component/big/header";
 import NoticesPage from "@/component/big/notice";
 import { Box } from "@mui/material";
 import { useSession } from "next-auth/react";
-import GoToLogInPageDialog from "@/component/Molecules/go_to_login_page_dialog";
+// import GoToLogInPageDialog from "@/component/Molecules/go_to_login_page_dialog";
 import ErrorSnackbar from "@/component/mid/error_snack_bar";
 import Head from "next/head";
 
-const inter = Inter({ subsets: ["latin"] });
+// const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const { data: session } = useSession();

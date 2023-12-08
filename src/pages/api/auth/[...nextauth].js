@@ -13,9 +13,9 @@ export default NextAuth({
         password: { label: "password", type: "password" },
       },
       authorize: async (credentials) => {
-        const { uid, password } = credentials;
-        const token = process.env.token;
-        const api = process.env.api;
+        const { uid} = credentials;
+        // const token = process.env.token;
+        // const api = process.env.api;
 
         // データベースからユーザーを検索　福大ダミーapi起動
         const url = "http://localhost:3000/api/auth/auth?user_id=" + uid;

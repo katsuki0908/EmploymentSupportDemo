@@ -27,7 +27,7 @@ export type CareerPath = {
 
 export type Joblist = {
   application_format: string;
-  career_path: CareerPath; //JSON型の扱い型分からないので、any
+  career_path: CareerPath;
   career_path_id: number;
   end_date: Date;
   job_listing_id: number;
