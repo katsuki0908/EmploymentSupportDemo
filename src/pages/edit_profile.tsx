@@ -11,7 +11,7 @@ import Head from "next/head";
 // import PageChangeButton from "@/component/Atoms/page_change_button";
 import GoToLogInPage from "@/component/Templates/go_to_login_page";
 
-const EditProfilePage = () => {
+export default function EditProfilePage () {
   const { data: session } = useSession();
 
   if (!session?.user?.user_id) {
