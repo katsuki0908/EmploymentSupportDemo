@@ -21,7 +21,7 @@ const editContact = async (
   return data.json();
 };
 
-export const EditContact = ({ student_id }: any) => {
+export const EditContact = (props:{ student_id: string;}) => {
   const [editing, setEditing] = useState(false);
   const [formData, setFormData] = useState({
     personal_address: "",
@@ -61,7 +61,7 @@ export const EditContact = ({ student_id }: any) => {
       return;
     }
     await editContact(
-      student_id,
+      props.student_id,
       formData.personal_address,
       formData.personal_phone,
       formData.emergency_address,
@@ -79,7 +79,7 @@ export const EditContact = ({ student_id }: any) => {
 
   const getContactId = async () => {
     try {
-      const response = await fetch(`/api/profile?student_id=${student_id}`, {
+      const response = await fetch(`/api/profile?student_id=${props.student_id}`, {
         method: "GET",
       });
       // console.log(response);

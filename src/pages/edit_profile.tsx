@@ -1,29 +1,22 @@
 //プロフィール編集ページ
 import { useSession } from "next-auth/react";
-import { useState } from "react";
 import {
   Stack,
   Box,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
 } from "@mui/material";
 // import {ProfileTextField} from '../component/mid/profile_text_field';
 import { EditContact } from "../component/mid/contact_edit";
 import Header from "../component/big/header";
 import Head from "next/head";
 // import PageChangeButton from "@/component/Atoms/page_change_button";
-import Link from "next/link";
+import GoToLogInPage from "@/component/Templates/go_to_login_page";
 
 const EditProfilePage = () => {
   const { data: session } = useSession();
 
-  const [openDialog, setOpenDialog] = useState(true);
-  const handleDialogClose = () => {
-    setOpenDialog(false);
-  };
+  if (!session?.user?.user_id) {
+    return <GoToLogInPage />;
+  }
 
   return (
     <div>
@@ -42,28 +35,9 @@ const EditProfilePage = () => {
           justifyContent="center"
           alignItems="center"
         >
-          {session ? (
-            <EditContact student_id={session?.user.user_id} />
-          ) : (
-            <Dialog open={openDialog} onClose={handleDialogClose}>
-              <DialogTitle>ユーザーが見つかりません</DialogTitle>
-              <DialogContent>
-                <p>もう一度、ログインしてください</p>
-              </DialogContent>
-              <DialogActions>
-                <Link href="/login">
-                  <Button color="primary">ログイン</Button>
-                </Link>
-                <Button onClick={handleDialogClose} color="primary">
-                  閉じる
-                </Button>
-              </DialogActions>
-            </Dialog>
-          )}
+          <EditContact student_id={session?.user.user_id} />
         </Stack>
       </Box>
     </div>
   );
 };
-
-export default EditProfilePage;
