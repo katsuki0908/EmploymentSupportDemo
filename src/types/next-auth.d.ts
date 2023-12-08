@@ -21,6 +21,8 @@ declare module "next-auth/jwt" {
   }
 }
 
+console.log(User,DefaultUser,JWT,Session);
+
 // export interface CustomSession extends Session {
 //   user: {
 //     user_id?: string;

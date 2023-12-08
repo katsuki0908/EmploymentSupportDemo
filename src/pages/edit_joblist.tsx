@@ -4,7 +4,7 @@ import Joblists from "@/component/big/joblist";
 import JoblistAddFormDialog from "@/component/big/joblist_add_form";
 import Head from "next/head";
 import styled from "styled-components";
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 // import { Typography } from "@mui/material";
 export default function EditJoblistPage() {
   // const { data: session } = useSession();

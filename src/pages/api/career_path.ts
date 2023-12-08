@@ -1,6 +1,6 @@
 //キャリアパスのサーバー
 
-import { PrismaClient, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "@/consts/prisma";
 import logger from "../../../logger";

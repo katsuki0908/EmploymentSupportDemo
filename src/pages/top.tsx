@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Inter } from "next/font/google";
+// import { Inter } from "next/font/google";
 import Header from "@/component/big/header";
 import NoticesPage from "@/component/big/notice";
 import { Box } from "@mui/material";

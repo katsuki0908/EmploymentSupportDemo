@@ -31,7 +31,7 @@ const NoticesPage = () => {
   const [notices, setNotices] = useState<Notice[]>([]);
   const [selectedNoticeId, setSelectedNoticeId] = useState<number | null>(null);
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-  const router = useRouter();
+  // const router = useRouter();
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [editNotice, setEditNotice] = useState<Notice | null>(null);
 
@@ -77,6 +77,7 @@ const NoticesPage = () => {
         );
         // Reset selectedNoticeId after successful deletion
         setSelectedNoticeId(null);
+        console.log(selectedNoticeId);
         // Show success message using Snackbar
         setSnackbarOpen(true);
         // Reload the page

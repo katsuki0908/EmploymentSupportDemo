@@ -14,7 +14,7 @@ import {
   InputLabel,
   Table,
 } from "@mui/material";
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Header from "@/component/big/header";
 import styled from "styled-components";
@@ -37,7 +37,7 @@ interface Student {
 
 const UserManage: React.FC = () => {
   // const { data: graduationYear } = useSession();
-  const [searchKeyword, setSearchKeyword] = useState<string>("");
+  // const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [searchResult, setSearchResult] = useState<Student[]>([]);
   const [selectedStudents, setSelectedStudents] = useState<Student[]>([]);
   const [students, setStudents] = useState<Student[]>([]);
@@ -46,7 +46,7 @@ const UserManage: React.FC = () => {
   );
   const [course, setCourse] = useState<string>("");
   const [displayedUsers, setDisplayedStudents] = useState<Student[]>([]);
-  const [manage, setManages] = useState<Student[]>([]);
+  // const [manage, setManages] = useState<Student[]>([]);
   const graduationYearsOptions = generateGraduationYears();
 
   useEffect(() => {
@@ -161,6 +161,8 @@ const UserManage: React.FC = () => {
     }
   `;
 
+  console.log(selectedStudents)
+  
   const StyledTable = styled(Table)`
     width: 900px;
     margin-right: auto;
@@ -181,7 +183,7 @@ const UserManage: React.FC = () => {
 
         <Header />
         <StyledTypography>ユーザ管理</StyledTypography>
-        <StyledContainer component="main">
+        <StyledContainer>
           {/* 卒業年度の選択 */}
           <StyledFormControl fullWidth sx={{ mb: 2 }}>
             <InputLabel htmlFor="graduation_year">卒業年度</InputLabel>

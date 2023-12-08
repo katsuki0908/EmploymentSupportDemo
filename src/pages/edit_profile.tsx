@@ -14,7 +14,7 @@ import {
 import { EditContact } from "../component/mid/contact_edit";
 import Header from "../component/big/header";
 import Head from "next/head";
-import PageChangeButton from "@/component/Atoms/page_change_button";
+// import PageChangeButton from "@/component/Atoms/page_change_button";
 import Link from "next/link";
 
 const EditProfilePage = () => {
