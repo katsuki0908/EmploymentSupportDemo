@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Header from "@/component/big/header";
 import AddNewNotice from "@/component/big/add_new_notice";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import { Button } from "@mui/material";
 import EditDialog from "@/component/big/edite_notice_dialog";
 import { formatDate } from "@/utils/date_utils"; //自作関数

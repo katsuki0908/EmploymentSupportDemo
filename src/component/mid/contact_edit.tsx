@@ -21,7 +21,7 @@ const editContact = async (
   return data.json();
 };
 
-export const EditContact = ({ student_id }: any) => {
+export const EditContact = ({ student_id }: string) => {
   const [editing, setEditing] = useState(false);
   const [formData, setFormData] = useState({
     personal_address: "",
