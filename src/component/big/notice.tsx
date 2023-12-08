@@ -39,7 +39,7 @@ const NoticesPage = () => {
       <h1 style={{ marginBottom: "30px" }}>お知らせ</h1>
 
       {notices.map((notices) => (
-        <StyledAccordion >
+        <StyledAccordion key={notices.notice_id}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
