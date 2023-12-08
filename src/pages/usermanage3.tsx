@@ -97,6 +97,74 @@ const UserManage: React.FC = () => {
     return years;
   }
 
+  const StyledContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+  background: #FFF;
+  /* 画面全体の背景色を白に変更 */
+  height: 100vh; /* 画面の高さいっぱいに広がるように */
+  margin: 0; /* マージンを0に設定 */
+`;
+
+const StyledFormControl = styled(FormControl)`
+  width: 55%;
+  margin-bottom: 12px;
+  margin-right: auto;
+  margin-left: auto;
+  background: #FFF;
+
+  @media screen and (max-width: 600px) {
+    width: 80%; /* 가로 폭이 600px 이하일 때 스타일 변경 */
+  }
+`;
+
+const StyledTypography = styled(Typography)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 2em;
+  font-weight: 700;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 10px;
+  @media screen and (max-width: 600px) {
+    // width: 80%; /* 가로 폭이 600px 이하일 때 스타일 변경 */
+  }
+`;
+
+const StyledButton = styled(Button)`
+  display: flex;
+  align-items: center;
+  // font-size: 2em;
+  width: 101px;
+  hight: 33px;
+  background: #FFF;
+  color: #9D2328;
+  margin: 10px auto;
+  border: 1px #9D2328 solid;
+  @media screen and (max-width: 600px) {
+    
+  }
+`;
+
+const StyledButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between; /* Distribute buttons horizontally with space between them */
+  margin-bottom: 12px;
+  margin-right: auto;
+  margin-left: auto;
+  @media screen and (max-width: 600px) {
+  }
+`;
+
+const StyledTable = styled(Table)`
+  width: 900px;
+  margin-right: auto;
+  margin-left: auto;
+`;
+
+
   return (
     <>
     <Head>
@@ -230,71 +298,5 @@ const UserManage: React.FC = () => {
   );
 };
 
-const StyledContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  // align-items: center;
-  background: #FFF;
-  /* 画面全体の背景色を白に変更 */
-  height: 100vh; /* 画面の高さいっぱいに広がるように */
-  margin: 0; /* マージンを0に設定 */
-`;
-
-const StyledFormControl = styled(FormControl)`
-  width: 55%;
-  margin-bottom: 12px;
-  margin-right: auto;
-  margin-left: auto;
-  background: #FFF;
-
-  @media screen and (max-width: 600px) {
-    width: 80%; /* 가로 폭이 600px 이하일 때 스타일 변경 */
-  }
-`;
-
-const StyledTypography = styled(Typography)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 2em;
-  font-weight: 700;
-  margin-right: auto;
-  margin-left: auto;
-  margin-bottom: 10px;
-  @media screen and (max-width: 600px) {
-    // width: 80%; /* 가로 폭이 600px 이하일 때 스타일 변경 */
-  }
-`;
-
-const StyledButton = styled(Button)`
-  display: flex;
-  align-items: center;
-  // font-size: 2em;
-  width: 101px;
-  hight: 33px;
-  background: #FFF;
-  color: #9D2328;
-  margin: 10px auto;
-  border: 1px #9D2328 solid;
-  @media screen and (max-width: 600px) {
-    
-  }
-`;
-
-const StyledButtonContainer = styled.div`
-  display: flex;
-  justify-content: space-between; /* Distribute buttons horizontally with space between them */
-  margin-bottom: 12px;
-  margin-right: auto;
-  margin-left: auto;
-  @media screen and (max-width: 600px) {
-  }
-`;
-
-const StyledTable = styled(Table)`
-  width: 900px;
-  margin-right: auto;
-  margin-left: auto;
-`;
 
 export default UserManage;

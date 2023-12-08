@@ -4,9 +4,22 @@ import Header from "@/component/big/header";
 import Joblists from "@/component/big/joblist";
 import Box from '@mui/material/Box';
 import Head from "next/head";
+import styled from "styled-components";
+import { Typography } from "@mui/material";
 
 export default function EditJoblistPage() {
+    const StyledTypography = styled(Typography)`
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 2em;
+        font-weight: 700;
 
+        margin-bottom: 10px;
+        @media screen and (max-width: 600px) {
+            // width: 80%; /* 가로 폭이 600px 이하일 때 스타일 변경 */
+        }
+        `;
     return (
         <div>
            <Head>
@@ -17,6 +30,7 @@ export default function EditJoblistPage() {
             </Head>
             <Box sx={{height:'100vh'}}>
             <Header />
+            <StyledTypography>求人票編集</StyledTypography>
             <Joblists showCheckbox={false} />
             </Box>
         </div>
