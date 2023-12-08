@@ -41,7 +41,7 @@ const EditDialog: React.FC<EditDialogProps> = ({
     const { name, value } = e.target || {};
 
     setEditedNotice((prevNotice: any) => ({
-      ...prevNotice,
+      ...prevNotice as any,
       [name as string]: value,
     }));
   };
