@@ -79,6 +79,7 @@ export default NextAuth({
         (session.user.user_type = token.user_type);
       }
       return session;
+
     },
   },
 });
