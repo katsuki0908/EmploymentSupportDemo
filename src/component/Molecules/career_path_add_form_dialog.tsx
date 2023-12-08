@@ -29,10 +29,10 @@ export default function CareerPathAddFormDialog() {
     setOpen(false);
   };
 
-  const handleConfirmDialogOpen = () => {
-    //確認ダイアログの開閉
-    setconfirm_dialog(true);
-  };
+  // const handleConfirmDialogOpen = () => {
+  //   //確認ダイアログの開閉
+  //   setconfirm_dialog(true);
+  // };
 
   const handleConfirmDialogClose = () => {
     setconfirm_dialog(false);

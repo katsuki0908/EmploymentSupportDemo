@@ -11,7 +11,7 @@ import {
   Box,
   Typography,
   Divider,
-  Button,
+  // Button,
 } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import { styled } from "@mui/material/styles";
@@ -62,34 +62,34 @@ export default function OthersCareerlist(props: FormDialogProps) {
     });
   };
 
-  const handleDelete = async (careerActionId: number) => {
-    //削除処理
-    try {
-      const response = await fetch(`/api/career`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ career_action_id: careerActionId }),
-      });
+  // const handleDelete = async (careerActionId: number) => {
+  //   //削除処理
+  //   try {
+  //     const response = await fetch(`/api/career`, {
+  //       method: "DELETE",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ career_action_id: careerActionId }),
+  //     });
 
-      if (response.ok) {
-        // Remove the deleted career item from the state
-        setCareer((prevCareer) =>
-          prevCareer.filter(
-            (careerItem) => careerItem.career_action_id !== careerActionId,
-          ),
-        );
-      } else {
-        console.error(
-          "Error while deleting career data: HTTP status ",
-          response.status,
-        );
-      }
-    } catch (error) {
-      console.error("Error while deleting career data: ", error);
-    }
-  };
+  //     if (response.ok) {
+  //       // Remove the deleted career item from the state
+  //       setCareer((prevCareer) =>
+  //         prevCareer.filter(
+  //           (careerItem) => careerItem.career_action_id !== careerActionId,
+  //         ),
+  //       );
+  //     } else {
+  //       console.error(
+  //         "Error while deleting career data: HTTP status ",
+  //         response.status,
+  //       );
+  //     }
+  //   } catch (error) {
+  //     console.error("Error while deleting career data: ", error);
+  //   }
+  // };
 
   const CustomAccordion = styled(Accordion)({
     border: "1px solid #000000",

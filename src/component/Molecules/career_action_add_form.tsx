@@ -27,9 +27,9 @@ export default function CareerActionAddFormDialog() {
     setOpen(false);
   };
 
-  const handleConfirmDialogOpen = () => {
-    setconfirm_dialog(true);
-  };
+  // const handleConfirmDialogOpen = () => {
+  //   setconfirm_dialog(true);
+  // };
 
   const handleConfirmDialogClose = () => {
     setconfirm_dialog(false);

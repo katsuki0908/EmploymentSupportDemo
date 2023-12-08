@@ -18,9 +18,16 @@ import { formatDate } from "@/utils/date_utils";
 import { TextField, Box } from "@mui/material";
 import styled from "styled-components";
 
+export type CareerPath = {
+  career_path_id: number;
+  name: string;
+  furigana: string;
+  website?: string | null; // オプションのプロパティ
+};
+
 export type Joblist = {
   application_format: string;
-  career_path: any; //JSON型の扱い型分からないので、any
+  career_path: CareerPath; //JSON型の扱い型分からないので、any
   career_path_id: number;
   end_date: Date;
   job_listing_id: number;

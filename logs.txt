@@ -6039,3 +6039,18 @@
 {"level":30,"time":"2023-12-07T17:05:15.815Z","message":"お知らせを取得しました"}
 {"level":30,"time":"2023-12-07T17:05:24.812Z","message":"求人票を取得しました"}
 {"level":30,"time":"2023-12-07T17:05:25.226Z","message":"求人票を取得しました"}
+{"level":30,"time":"2023-12-08T05:11:43.782Z","message":"ログイン情報取得","user_info":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"}}
+{"level":30,"time":"2023-12-08T05:11:43.784Z","msg":"認証中","user":{"user_id":"TD232000","name":"佐藤　和樹","furigana":"さとう　かずき","user_type":"student"}}
+{"level":30,"time":"2023-12-08T05:11:54.266Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-08T05:11:54.532Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-08T05:12:06.441Z","message":"求人票を取得しました"}
+{"level":30,"time":"2023-12-08T05:12:06.741Z","message":"求人票を取得しました"}
+{"level":30,"time":"2023-12-08T05:12:41.084Z","message":"ログイン情報取得","user_info":{"user_id":"admin","name":"田中　教授","furigana":"たなか　きょうじゅ","user_type":"admin"}}
+{"level":30,"time":"2023-12-08T05:12:41.086Z","msg":"認証中","user":{"user_id":"admin","name":"田中　教授","furigana":"たなか　きょうじゅ","user_type":"admin"}}
+{"level":30,"time":"2023-12-08T05:12:42.051Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-08T05:12:42.329Z","message":"お知らせを取得しました"}
+{"level":30,"time":"2023-12-08T05:12:59.245Z","message":"求人票を取得しました"}
+{"level":30,"time":"2023-12-08T05:12:59.555Z","message":"求人票を取得しました"}
+{"level":30,"time":"2023-12-08T05:13:25.267Z","message":"求人票を追加しました","updatedData":{"job_listing_id":32,"application_format":"推薦","submission_date":"2023-12-08T05:12:58.000Z","visit_date":"2023-12-08T05:12:58.880Z","updated_at":"2023-12-08T05:13:25.222Z","career_path_id":0,"notes":"test","start_date":"2023-12-08T05:12:58.880Z","end_date":"2023-12-31T05:12:58.000Z"}}
+{"level":30,"time":"2023-12-08T05:13:26.204Z","message":"求人票を取得しました"}
+{"level":30,"time":"2023-12-08T05:13:26.499Z","message":"求人票を取得しました"}
