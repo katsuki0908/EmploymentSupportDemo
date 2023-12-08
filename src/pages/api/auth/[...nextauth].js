@@ -13,7 +13,7 @@ export default NextAuth({
         password: { label: "password", type: "password" },
       },
       authorize: async (credentials) => {
-        const { uid } = credentials;
+        const { uid} = credentials;
         // const token = process.env.token;
         // const api = process.env.api;
 
@@ -76,7 +76,7 @@ export default NextAuth({
       // セッション情報にユーザーIDを追加
       if (token) {
         (session.user.user_id = token.user_id),
-        (session.user.user_type = token.user_type);
+          (session.user.user_type = token.user_type);
       }
       return session;
     },
