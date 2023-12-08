@@ -13,7 +13,7 @@ export default function EditJoblistPage() {
             <Header />
             {/* 追加、編集、削除ボタン */}
             <JoblistAddFormDialog />
-            <Joblists showCheckbox={true} showEditDeleteButtons={true} />
+            <Joblists showCheckbox={false} showEditDeleteButtons={true} />
         </div>
     );
 }
