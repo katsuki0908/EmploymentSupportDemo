@@ -57,7 +57,7 @@ export default function Careerlist(props: FormDialogProps) {
       }
     };
     fetchData();
-  }, []);
+  }, [props.initialData.student_id]);
 
   const handleConfirmDialogOpen = () => {
     setConfirm_dialog(true);
