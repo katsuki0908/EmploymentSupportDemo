@@ -11,9 +11,9 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { TextField, Snackbar } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+// import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import ja from "date-fns/locale/ja";
-import { addDays } from "date-fns"; // import addDays from date-fns library
+// import { addDays } from "date-fns"; // import addDays from date-fns library
 import MuiAlert from "@mui/material/Alert";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import styled from "styled-components";
@@ -73,17 +73,17 @@ const NewNotice = () => {
     }
   };
 
-  const handleStartDateChange = (date: Date | null) => {
-    if (date !== null) {
-      setStartDate(date);
-    }
-  };
+  // const handleStartDateChange = (date: Date | null) => {
+  //   if (date !== null) {
+  //     setStartDate(date);
+  //   }
+  // };
 
-  const handleEndDateChange = (date: Date | null) => {
-    if (date !== null) {
-      setEndDate(date);
-    }
-  };
+  // const handleEndDateChange = (date: Date | null) => {
+  //   if (date !== null) {
+  //     setEndDate(date);
+  //   }
+  // };
 
   const handleClickOpen = () => {
     setOpen(true);
