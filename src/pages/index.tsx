@@ -1,6 +1,11 @@
-// import React, { useEffect } from "react";
-// import { useRouter } from "next/router";
-// import { Box, Container, Typography, useTheme } from "@mui/material";
-// import Image from "next/image";
+import React from 'react';
 
-// export default function Home() {}
+const HomePage = () => {
+  return (
+    <div>
+      {/* ページのコンテンツ */}
+    </div>
+  );
+};
+
+export default HomePage;
