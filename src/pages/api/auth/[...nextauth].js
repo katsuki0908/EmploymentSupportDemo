@@ -2,7 +2,7 @@
 import NextAuth from "next-auth";
 //import NextAuth from 'next-auth/next';
 import CredentialsProvider from "next-auth/providers/credentials";
-import logger from "../../../../logger";
+// import logger from "../../../../logger";
 
 export default NextAuth({
   providers: [
@@ -26,7 +26,7 @@ export default NextAuth({
           },
         });
         const user = await data.json();
-        logger.info({ msg: "認証中", user: user });
+        // logger.info({ msg: "認証中", user: user });
         // const response = await fetch("api",{
         //   method: 'POST',
         //   headers: {

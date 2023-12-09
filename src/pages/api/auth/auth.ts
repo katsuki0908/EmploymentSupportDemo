@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "@/consts/prisma";
-import logger from "../../../../logger";
+// import logger from "../../../../logger";
 
 export default async function hendler(
   req: NextApiRequest,
@@ -15,7 +15,7 @@ export default async function hendler(
         const user = await prisma.user_table.findUnique({
           where: { user_id },
         });
-        logger.info({ message: "ログイン情報取得", user_info: user });
+        // logger.info({ message: "ログイン情報取得", user_info: user });
         res.status(200).json(user);
       }
     } catch (error) {
