@@ -143,6 +143,7 @@ export default async function handler(
       const result = await prisma.notice_table.delete({
         where: { notice_id },
       });
+      console.log(result);
       // logger.info({ message: "お知らせを削除しました", updatedData: result });
       res.status(204).end();
     } catch (error) {
