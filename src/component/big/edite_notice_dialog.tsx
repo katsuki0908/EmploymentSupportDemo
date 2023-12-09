@@ -65,7 +65,10 @@ const EditDialog: React.FC<EditDialogProps> = ({
       if (date === null) return prevNotice; 
       return { ...prevNotice, start_date: date };
     });
+    console.log(_event);
   };
+
+  
 
   const handleEndDateChange = (date: Date | null) => {
     setEditedNotice(prevNotice => {
