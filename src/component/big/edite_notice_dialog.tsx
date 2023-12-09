@@ -48,94 +48,95 @@ const EditDialog: React.FC<EditDialogProps> = ({
         [name as string]: value,
       };
     });
-
-
-    const handleEditClick = () => {
-      if (editedNotice) {
-        onEdit(editedNotice);
-        onClose();
-      }
-    };
-
-    const handleStartDateChange = (date: Date | null) => {
-      setEditedNotice(prevNotice => {
-        if (prevNotice === null) return null;
-        // If date is null, return prevNotice without modifying it, or handle appropriately
-        if (date === null) return prevNotice;
-        return { ...prevNotice, start_date: date };
-      });
-    };
-
-    const handleEndDateChange = (date: Date | null) => {
-      setEditedNotice(prevNotice => {
-        if (prevNotice === null) return null;
-        // If date is null, return prevNotice without modifying it, or handle appropriately
-        if (date === null) return prevNotice;
-        return { ...prevNotice, end_date: date };
-      });
-    };
-
-    return (
-      <Dialog open={open} onClose={onClose}>
-        <DialogTitle>Edit Notice</DialogTitle>
-        <DialogContent>
-          <TextField
-            label="Title"
-            name="title"
-            value={editedNotice?.title || ""}
-            onChange={handleInputChange}
-            fullWidth
-            margin="normal"
-            required
-            error={!editedNotice?.title} // タイトルが空のときにエラー状態で表示
-            helperText={!editedNotice?.title ? "Title is required" : ""} // タイトルが空のときにヘルプメッセージを表示
-          />
-
-          <TextField
-            label="Content"
-            name="content"
-            value={editedNotice?.content || ""}
-            onChange={handleInputChange}
-            fullWidth
-            multiline
-            rows={4}
-            margin="normal"
-            required
-            error={!editedNotice?.content} // 内容が空のときにエラー状態で表示
-            helperText={!editedNotice?.content ? "Content is required" : ""} // 内容が空のときにヘルプメッセージを表示
-          />
-
-          <StyledDiv>
-            <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ja}>
-              <DatePicker
-                label="開始日"
-                value={editedNotice?.start_date || null}
-                onChange={handleStartDateChange}
-                sx={{ mt: 1 }}
-              />
-            </LocalizationProvider>
-
-            <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ja}>
-              <DatePicker
-                label="終了日"
-                value={editedNotice?.end_date || null}
-                onChange={handleEndDateChange}
-                sx={{ mt: 1 }}
-                minDate={addDays(new Date(), 1)}
-              />
-            </LocalizationProvider>
-          </StyledDiv>
-          {/* Add other fields as needed */}
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={onClose}>戻る</Button>
-          <Button onClick={handleEditClick}>保存</Button>
-        </DialogActions>
-      </Dialog>
-    );
   };
 
-  const StyledDiv = styled(Box)`
+
+  const handleEditClick = () => {
+    if (editedNotice) {
+      onEdit(editedNotice);
+      onClose();
+    }
+  };
+
+  const handleStartDateChange = (date: Date | null) => {
+    setEditedNotice(prevNotice => {
+      if (prevNotice === null) return null;
+      // If date is null, return prevNotice without modifying it, or handle appropriately
+      if (date === null) return prevNotice; 
+      return { ...prevNotice, start_date: date };
+    });
+  };
+
+  const handleEndDateChange = (date: Date | null) => {
+    setEditedNotice(prevNotice => {
+      if (prevNotice === null) return null;
+      // If date is null, return prevNotice without modifying it, or handle appropriately
+      if (date === null) return prevNotice; 
+      return { ...prevNotice, end_date: date };
+    });
+  };
+
+  return (
+    <Dialog open={open} onClose={onClose}>
+      <DialogTitle>Edit Notice</DialogTitle>
+      <DialogContent>
+        <TextField
+          label="Title"
+          name="title"
+          value={editedNotice?.title || ""}
+          onChange={handleInputChange}
+          fullWidth
+          margin="normal"
+          required
+          error={!editedNotice?.title} // タイトルが空のときにエラー状態で表示
+          helperText={!editedNotice?.title ? "Title is required" : ""} // タイトルが空のときにヘルプメッセージを表示
+        />
+
+        <TextField
+          label="Content"
+          name="content"
+          value={editedNotice?.content || ""}
+          onChange={handleInputChange}
+          fullWidth
+          multiline
+          rows={4}
+          margin="normal"
+          required
+          error={!editedNotice?.content} // 内容が空のときにエラー状態で表示
+          helperText={!editedNotice?.content ? "Content is required" : ""} // 内容が空のときにヘルプメッセージを表示
+        />
+
+        <StyledDiv>
+          <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ja}>
+            <DatePicker
+              label="開始日"
+              value={editedNotice?.start_date || null}
+              onChange={handleStartDateChange}
+              sx={{ mt: 1 }}
+            />
+          </LocalizationProvider>
+
+          <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ja}>
+            <DatePicker
+              label="終了日"
+              value={editedNotice?.end_date || null}
+              onChange={handleEndDateChange}
+              sx={{ mt: 1 }}
+              minDate={addDays(new Date(), 1)}
+            />
+          </LocalizationProvider>
+        </StyledDiv>
+        {/* Add other fields as needed */}
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose}>戻る</Button>
+        <Button onClick={handleEditClick}>保存</Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
+
+const StyledDiv = styled(Box)`
   display: flex;
   flex-direction: row;
   gap: 16px;
@@ -147,4 +148,4 @@ const EditDialog: React.FC<EditDialogProps> = ({
   }
 `;
 
-  export default EditDialog;
+export default EditDialog;
