@@ -29,7 +29,7 @@ export default function Home() {
       };
       checkNotification();
     }
-  }, []);
+  }, [session?.user.user_type]); 
 
   const handleCloseErrorSnackbar = () => {
     setOpenErrorSnackbar(false);

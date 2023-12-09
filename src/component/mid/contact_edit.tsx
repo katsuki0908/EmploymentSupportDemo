@@ -104,7 +104,7 @@ export const EditContact = (props:{ student_id: string;}) => {
   };
   useEffect(() => {
     getContactId();
-  }, [getContactId]); 
+  }, [getContactId, props.student_id]); 
 
   const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
