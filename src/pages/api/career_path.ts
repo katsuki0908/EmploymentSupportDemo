@@ -3,7 +3,7 @@
 import { Prisma } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "@/consts/prisma";
-import logger from "../../../logger";
+// import logger from "../../../logger";
 
 export default async function handler(
   req: NextApiRequest,
@@ -23,10 +23,10 @@ export default async function handler(
         res.status(200).json(result);
       }
     } catch (error) {
-      logger.info({
-        message: "キャリアパスを取得できませんでした",
-        error: error,
-      });
+      // logger.info({
+      //   message: "キャリアパスを取得できませんでした",
+      //   error: error,
+      // });
       res
         .status(500)
         .json({
@@ -49,25 +49,25 @@ export default async function handler(
         },
       });
 
-      logger.info({
-        message: "キャリアパスを更新しました",
-        updatedData: result,
-      });
+      // logger.info({
+      //   message: "キャリアパスを更新しました",
+      //   updatedData: result,
+      // });
       res
         .status(200)
         .json({ message: "キャリアパスを更新しました。", updatedData: result });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        logger.error({
-          message: "構文エラーでキャリアパスの更新に失敗しました",
-          error: error,
-        });
+        // logger.error({
+        //   message: "構文エラーでキャリアパスの更新に失敗しました",
+        //   error: error,
+        // });
         res.status(400).json({ error: "リクエストが無効です。" });
       } else {
-        logger.error({
-          message: "予期せぬエラーでキャリアパスの更新に失敗しました",
-          error: error,
-        });
+        // logger.error({
+        //   message: "予期せぬエラーでキャリアパスの更新に失敗しました",
+        //   error: error,
+        // });
         res
           .status(500)
           .json({
@@ -90,23 +90,23 @@ export default async function handler(
           website,
         },
       });
-      logger.info({
-        message: "キャリアパスを追加しました",
-        updatedData: result,
-      });
+      // logger.info({
+      //   message: "キャリアパスを追加しました",
+      //   updatedData: result,
+      // });
       res.status(201).json(result);
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        logger.error({
-          message: "構文エラーでキャリアパスの追加に失敗しました",
-          error: error,
-        });
+        // logger.error({
+        //   message: "構文エラーでキャリアパスの追加に失敗しました",
+        //   error: error,
+        // });
         res.status(400).json({ error: "リクエストが無効です。" });
       } else {
-        logger.error({
-          message: "予期せぬエラーでキャリアパスの追加に失敗しました",
-          error: error,
-        });
+        // logger.error({
+        //   message: "予期せぬエラーでキャリアパスの追加に失敗しました",
+        //   error: error,
+        // });
         res
           .status(500)
           .json({
@@ -118,10 +118,10 @@ export default async function handler(
 
   //削除は実装しない
   else {
-    logger.error({
-      message: "サポートされていないHTTPメソッドでのリクエストです。",
-      error: req.method,
-    });
+    // logger.error({
+    //   message: "サポートされていないHTTPメソッドでのリクエストです。",
+    //   error: req.method,
+    // });
     res.status(405).json({ error: "サポートされていないHTTPメソッドです。" });
   }
 }

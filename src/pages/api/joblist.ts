@@ -2,7 +2,7 @@
 
 import { PrismaClient, Prisma } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
-import logger from "../../../logger";
+// import logger from "../../../logger";
 
 export default async function handler(
   req: NextApiRequest,
@@ -43,11 +43,11 @@ export default async function handler(
         res.status(404).json({ message: "データが見つかりませんでした" });
       } else {
         // データがある場合
-        logger.info({ message: "求人票を取得しました" });
+        // logger.info({ message: "求人票を取得しました" });
         res.status(200).json(result);
       }
     } catch (error) {
-      logger.info({ message: "求人票を取得できませんでした", error: error });
+      // logger.info({ message: "求人票を取得できませんでした", error: error });
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         // Prismaが特定のエラーを検知した場合
         res.status(400).json({ error: "リクエストが無効です。" });
@@ -89,22 +89,22 @@ export default async function handler(
           end_date,
         },
       });
-      logger.info({ message: "求人票を更新しました", updatedData: result });
+      // logger.info({ message: "求人票を更新しました", updatedData: result });
       res
         .status(200)
         .json({ message: "データを更新しました。", updatedData: result });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        logger.error({
-          message: "構文エラーで求人票の更新に失敗しました",
-          error: error,
-        });
+        // logger.error({
+        //   message: "構文エラーで求人票の更新に失敗しました",
+        //   error: error,
+        // });
         res.status(400).json({ error: "リクエストが無効です。" });
       } else {
-        logger.error({
-          message: "構文エラーで求人票の更新に失敗しました",
-          error: error,
-        });
+        // logger.error({
+        //   message: "構文エラーで求人票の更新に失敗しました",
+        //   error: error,
+        // });
         res
           .status(500)
           .json({
@@ -143,20 +143,20 @@ export default async function handler(
           end_date,
         },
       });
-      logger.info({ message: "求人票を追加しました", updatedData: result });
+      // logger.info({ message: "求人票を追加しました", updatedData: result });
       res.status(201).json(result);
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        logger.error({
-          message: "求人票でお知らせの追加に失敗しました",
-          error: error,
-        });
+        // logger.error({
+        //   message: "求人票でお知らせの追加に失敗しました",
+        //   error: error,
+        // });
         res.status(400).json({ error: "リクエストが無効です。" });
       } else {
-        logger.error({
-          message: "予期せぬエラーで求人票の追加に失敗しました",
-          error: error,
-        });
+        // logger.error({
+        //   message: "予期せぬエラーで求人票の追加に失敗しました",
+        //   error: error,
+        // });
         res
           .status(500)
           .json({
@@ -177,20 +177,20 @@ export default async function handler(
       const result = await prisma.job_listing_table.delete({
         where: { job_listing_id },
       });
-      logger.info({ message: "求人票を削除しました", updatedData: result });
+      // logger.info({ message: "求人票を削除しました", updatedData: result });
       res.status(204).end();
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        logger.error({
-          message: "構文エラーで求人票の削除に失敗しました",
-          error: error,
-        });
+        // logger.error({
+        //   message: "構文エラーで求人票の削除に失敗しました",
+        //   error: error,
+        // });
         res.status(400).json({ error: "リクエストが無効です。" });
       } else {
-        logger.error({
-          message: "予期せぬエラーで求人票の削除に失敗しました",
-          error: error,
-        });
+        // logger.error({
+        //   message: "予期せぬエラーで求人票の削除に失敗しました",
+        //   error: error,
+        // });
         res
           .status(500)
           .json({
@@ -199,10 +199,10 @@ export default async function handler(
       }
     }
   } else {
-    logger.error({
-      message: "サポートされていないHTTPメソッドでのリクエストです。",
-      error: req.method,
-    });
+    // logger.error({
+    //   message: "サポートされていないHTTPメソッドでのリクエストです。",
+    //   error: req.method,
+    // });
     res.status(405).json({ error: "サポートされていないHTTPメソッドです。" });
   }
 }
