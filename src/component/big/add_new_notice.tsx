@@ -170,21 +170,21 @@ const NewNotice = () => {
                 dateAdapter={AdapterDateFns}
                 adapterLocale={ja}
               >
-                <DatePicker
+                {/* <DatePicker
                   label="開始日"
                   value={startDate}
                   onChange={handleStartDateChange}
                   sx={{ mt: 1 }}
                   inputFormat="yyyy年MM月dd日"
                   mask="____年__月__日"
-                />
+                /> */}
               </LocalizationProvider>
 
               <LocalizationProvider
                 dateAdapter={AdapterDateFns}
                 adapterLocale={ja}
               >
-                <DatePicker
+                {/* <DatePicker
                   label="終了日"
                   value={endDate}
                   onChange={handleEndDateChange}
@@ -192,7 +192,7 @@ const NewNotice = () => {
                   inputFormat="yyyy年MM月dd日"
                   mask="____年__月__日"
                   minDate={addDays(new Date(), 1)}
-                />
+                /> */}
               </LocalizationProvider>
             </StyledDiv>
           </DialogContent>
