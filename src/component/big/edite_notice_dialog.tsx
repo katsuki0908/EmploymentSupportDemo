@@ -13,6 +13,7 @@ import ja from "date-fns/locale/ja";
 import { addDays } from "date-fns"; // import addDays from date-fns library
 import { Box } from "@mui/material";
 import styled from "styled-components";
+import { notice_table } from "@prisma/client";
 
 interface EditDialogProps {
   open: boolean;
@@ -40,11 +41,15 @@ const EditDialog: React.FC<EditDialogProps> = ({
   ) => {
     const { name, value } = e.target || {};
 
-    setEditedNotice((prevNotice: any) => ({
-      ...prevNotice as any,
+    setEditedNotice(prevNotice => {
+      if (prevNotice === null) return null;
+      return{
+      ...prevNotice,
       [name as string]: value,
-    }));
+      }
+    });
   };
+
 
   const handleEditClick = () => {
     if (editedNotice) {
@@ -54,17 +59,21 @@ const EditDialog: React.FC<EditDialogProps> = ({
   };
 
   const handleStartDateChange = (date: Date | null) => {
-    setEditedNotice((prevNotice: any) => ({
-      ...prevNotice,
-      start_date: date,
-    }));
+    setEditedNotice(prevNotice => {
+      if (prevNotice === null) return null;
+      // If date is null, return prevNotice without modifying it, or handle appropriately
+      if (date === null) return prevNotice; 
+      return { ...prevNotice, start_date: date };
+    });
   };
 
   const handleEndDateChange = (date: Date | null) => {
-    setEditedNotice((prevNotice: any) => ({
-      ...prevNotice,
-      end_date: date,
-    }));
+    setEditedNotice(prevNotice => {
+      if (prevNotice === null) return null;
+      // If date is null, return prevNotice without modifying it, or handle appropriately
+      if (date === null) return prevNotice; 
+      return { ...prevNotice, end_date: date };
+    });
   };
 
   return (
