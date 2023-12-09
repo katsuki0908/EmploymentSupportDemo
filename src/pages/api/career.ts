@@ -112,7 +112,7 @@ export default async function handler(
         },
       });
       // logger.info({ message: "を追加しました", updatedData: result });
-      // res.status(201).json(result);
+      res.status(201).json(result);
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         // logger.error({
@@ -142,7 +142,7 @@ export default async function handler(
         where: { career_action_id },
       });
       // logger.info({ message: "キャリアを削除しました", updatedData: result });
-      res.status(204).end();
+      res.status(204).end(result);
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         // logger.error({

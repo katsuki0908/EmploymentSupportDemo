@@ -178,7 +178,7 @@ export default async function handler(
         where: { job_listing_id },
       });
       // logger.info({ message: "求人票を削除しました", updatedData: result });
-      res.status(204).end();
+      res.status(204).end(result);
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         // logger.error({

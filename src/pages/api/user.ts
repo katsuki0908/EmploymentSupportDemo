@@ -46,7 +46,7 @@ export default async function handler(
       }
     } catch (error) {
       // logger.info({
-        message: "ユーザー情報を取得できませんでした",
+        // message: "ユーザー情報を取得できませんでした",
       //   error: error,
       // });
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
