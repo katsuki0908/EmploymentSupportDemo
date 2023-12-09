@@ -24,8 +24,8 @@ const NewNotice = () => {
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate] = useState(new Date());
+  const [endDate] = useState(new Date());
   const [open, setOpen] = React.useState(false);
   const [fullWidth] = React.useState(true);
   const [maxWidth] = React.useState<DialogProps["maxWidth"]>("sm");
