@@ -10,6 +10,7 @@ export default async function handler(
 ) {
   const prisma = new PrismaClient();
   //トップページでの取得
+  console.log("aa");
   if (req.method === "GET") {
     const currentTimestamp = new Date(); // 現在の日時
     //**取得件数の指定 */
