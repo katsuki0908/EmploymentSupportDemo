@@ -21,7 +21,7 @@ const editContact = async (
   return data.json();
 };
 
-export const EditContact = (props:{ student_id: string;}) => {
+export const EditContact = (props: { student_id: string }) => {
   const [editing, setEditing] = useState(false);
   const [formData, setFormData] = useState({
     personal_address: "",
@@ -77,12 +77,12 @@ export const EditContact = (props:{ student_id: string;}) => {
     resetFormError();
   };
 
-  const getContactId = async () => {
+  // useCallback でラップした getContactId 関数
+  const getContactId = React.useCallback(async () => {
     try {
       const response = await fetch(`/api/profile?student_id=${props.student_id}`, {
         method: "GET",
       });
-      // console.log(response);
       if (response.ok) {
         const data = await response.json();
         const {
@@ -101,11 +101,12 @@ export const EditContact = (props:{ student_id: string;}) => {
     } catch (error) {
       console.error("Error:Not Found User!");
     }
-  };
+  }, [props.student_id]);
+
   useEffect(() => {
     getContactId();
-  }, [getContactId, props.student_id]); 
-
+  }, [getContactId, props.student_id]);
+  
   const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     // 携帯電話番号の入力が数字以外の文字を含むかどうか　数字以外ならErrorをtrue
