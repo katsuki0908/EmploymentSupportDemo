@@ -18,7 +18,7 @@ export default NextAuth({
         // const api = process.env.api;
 
         // データベースからユーザーを検索　福大ダミーapi起動
-        const url = "/api/auth/auth?user_id=" + uid;
+        const url = "http://pbldemo.vercel.app/api/auth/auth?user_id=" + uid;
         const data = await fetch(url, {
           method: "GET",
           headers: {
