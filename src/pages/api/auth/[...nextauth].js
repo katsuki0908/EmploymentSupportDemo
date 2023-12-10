@@ -61,6 +61,8 @@ export default NextAuth({
 
   secret: process.env.NEXT_AUTH_SECRET,
 
+  site:process.env.NEXTAUTH_URL,
+
   pages: {
     signIn: "/login",
   },
