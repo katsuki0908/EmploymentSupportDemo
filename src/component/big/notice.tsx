@@ -31,7 +31,7 @@ const NoticesPage = () => {
   }, []);
 
   if (notices.length === 0) {
-    return <>データがありません</>;
+    return <>読み込み中</>;
   }
 
   return (
