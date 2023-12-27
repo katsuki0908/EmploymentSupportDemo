@@ -20,7 +20,7 @@ export default async function handler(
           where: { student_id },
           include: {
             user: true,
-            cource: true,
+            course: true,
           },
         });
         if (!student) {
@@ -73,7 +73,7 @@ export default async function handler(
       affiliation,
       graduation_year,
       face_photo,
-      cource_id,
+      course_id,
       personal_address,
       personal_phone,
       personal_email,
@@ -88,7 +88,7 @@ export default async function handler(
           affiliation,
           graduation_year,
           face_photo,
-          cource_id,
+          course_id,
           personal_address,
           personal_phone,
           personal_email,

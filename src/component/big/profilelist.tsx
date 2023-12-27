@@ -1,7 +1,7 @@
 //プロフィール
 import * as React from "react";
 import { Box, Table, TableRow, TableBody, TableCell } from "@mui/material";
-import { cource_table, student_table, user_table } from "@prisma/client";
+import { course_table, student_table, user_table } from "@prisma/client";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { ProfileProps } from "@/types/props";
@@ -9,7 +9,7 @@ import styled from "styled-components";
 
 type ExtendedProfile = student_table & {
   user?: user_table;
-  cource?: cource_table;
+  course?: course_table;
 };
 
 export default function Profilelist(props: ProfileProps) {
@@ -63,7 +63,7 @@ export default function Profilelist(props: ProfileProps) {
           </TableRow>
           <TableRow>
             <TableCell>コース</TableCell>
-            <TableCell>{profile?.cource?.name}</TableCell>
+            <TableCell>{profile?.course?.name}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>住所</TableCell>
