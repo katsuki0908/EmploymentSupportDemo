@@ -27,7 +27,7 @@ model student_table {
   graduation_year   Int
   face_photo        String?
   updated_at        DateTime @default(now()) @updatedAt
-  course_id         Int
+  course_id         Int 
   personal_address  String?
   personal_phone    String?
   personal_email    String?
