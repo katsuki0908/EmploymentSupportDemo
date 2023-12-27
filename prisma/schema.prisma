@@ -27,7 +27,7 @@ model student_table {
   graduation_year   Int
   face_photo        String?
   updated_at        DateTime @default(now()) @updatedAt
-  cource_id         Int
+  course_id         Int
   personal_address  String?
   personal_phone    String?
   personal_email    String?
@@ -35,7 +35,7 @@ model student_table {
   emergency_phone   String?
 
   user   user_table   @relation(fields: [student_id], references: [user_id])
-  cource cource_table @relation(fields: [cource_id], references: [cource_id])
+  course course_table @relation(fields: [course_id], references: [course_id])
 
   instruction         instruction_table[]
   career_action_table career_action_table[]
@@ -59,8 +59,8 @@ model instruction_table {
   admin   admin_table   @relation(fields: [admin_id], references: [admin_id])
 }
 
-model cource_table {
-  cource_id Int    @id @default(autoincrement())
+model course_table {
+  course_id Int    @id @default(autoincrement())
   name      String
 
   student student_table[]
