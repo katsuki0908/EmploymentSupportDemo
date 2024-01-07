@@ -174,11 +174,13 @@ export default async function handler(
     // const { job_listing_id } = req.body;
 
     try {
+      console.log("a")
       const result = await prisma.job_listing_table.delete({
         where: { job_listing_id },
       });
+      console.log(result);
       // logger.info({ message: "求人票を削除しました", updatedData: result });
-      res.status(204).end(result);
+      res.status(204).end();
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         // logger.error({
@@ -191,11 +193,8 @@ export default async function handler(
         //   message: "予期せぬエラーで求人票の削除に失敗しました",
         //   error: error,
         // });
-        res
-          .status(500)
-          .json({
-            error: "求人票の削除に失敗しました。予期せぬエラーが発生しました。",
-          });
+        console.log(error);
+        res.status(500).json({ error: "求人票の削除に失敗しました。予期せぬエラーが発生しました。" });
       }
     }
   } else {

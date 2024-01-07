@@ -142,7 +142,7 @@ export default async function handler(
         where: { career_action_id },
       });
       // logger.info({ message: "キャリアを削除しました", updatedData: result });
-      res.status(204).end(result);
+      res.status(204).end();
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         // logger.error({
