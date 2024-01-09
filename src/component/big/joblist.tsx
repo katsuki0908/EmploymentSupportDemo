@@ -193,7 +193,7 @@ export default function Joblists(props: {
       </Box>
       {/* 掲載期間内の求人票をNested Listに表示する(掲載期間内かどうかはapiで判断) */}
       {filteredJoblists.map((joblist) => (
-        <StyledList key={joblist.job_listing_id} component="nav">
+        <StyledList key={joblist.job_listing_id}>
           {/* 外側のリスト */}
           <ListItemButton onClick={() => handleClick(joblist.job_listing_id)}>
             {/* チェックボックスありなら */}
