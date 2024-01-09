@@ -35,12 +35,6 @@ export default function Home() {
     setOpenErrorSnackbar(false);
   };
 
-  // if (!session?.user?.user_id) {
-  //   return (
-  //     <GoToLogInPage/>
-  //   );
-  // }
-
   return (
     <>
       <Head>
@@ -56,7 +50,9 @@ export default function Home() {
           errorMessage="未登録会社がキャリア活動に追加されています"
           open={openErrorSnackbar}
           handleClose={handleCloseErrorSnackbar}
-          router_path_name="/usermanage3"
+          router_path_name="/usermanage"
+          buttonMessage="ユーザー管理に移動"
+          button_flag={true}
         />
         <NoticesPage />
       </Box>
