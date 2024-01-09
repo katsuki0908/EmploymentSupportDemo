@@ -45,6 +45,7 @@ const UserManage: React.FC = () => {
   const router = useRouter();
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     handleSearch();
   }, [selectedYear, cource]);
 
