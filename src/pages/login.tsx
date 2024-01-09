@@ -16,20 +16,20 @@ interface SignInProps {
 }
 
 const StyledTextfild = styled(TextField)`
-width: 338px;
-margin-bottom: 12px;
-margin-right: auto;
-margin-left: auto;
+  width: 338px;
+  margin-bottom: 12px;
+  margin-right: auto;
+  margin-left: auto;
 
-@media screen and (max-width: 600px) {
-  width: 90%; /* 가로 폭이 600px 이하일 때 스타일 변경 */
-}
+  @media screen and (max-width: 600px) {
+    width: 90%; /* 가로 폭이 600px 이하일 때 스타일 변경 */
+  }
 `;
 const StyledButton = styled(Button)`
-width: 338px;
-@media screen and (max-width: 600px) {
-  width: 90%; /* 가로 폭이 600px 이하일 때 스타일 변경 */
-}
+  width: 338px;
+  @media screen and (max-width: 600px) {
+    width: 90%; /* 가로 폭이 600px 이하일 때 스타일 변경 */
+  }
 `;
 
 export default function SignIn({ csrfToken }: SignInProps) {
@@ -38,15 +38,15 @@ export default function SignIn({ csrfToken }: SignInProps) {
   const [openErrorSnackbar, setOpenErrorSnackbar] = React.useState(false); //スナックバーの状態を管理するステート
   const [errorMessage, setErrorMessage] = React.useState(""); //エラーメッセージの状態を管理するステート
   const { data: session } = useSession();
-  const [uid, setUid] = React.useState('');
-  const [password, setPassword] = React.useState(''); // パスワード用の状態
+  const [uid, setUid] = React.useState("");
+  const [password, setPassword] = React.useState(""); // パスワード用の状態
   const router = useRouter();
 
   React.useEffect(() => {
     // セッションが存在し、ユーザーがログインしていればトップページに遷移
     if (session?.user?.user_id) {
       router.push("/top"); // または任意のパス
-    } else if(session?.message == '認証失敗'){
+    } else if (session?.message == "認証失敗") {
       // ログイン失敗時の処理
       setErrorMessage(session.message);
       setOpenErrorSnackbar(true);
@@ -71,7 +71,7 @@ export default function SignIn({ csrfToken }: SignInProps) {
     event.preventDefault();
     if (!uid || !password) {
       // いずれかのフィールドが未入力の場合
-      setErrorMessage('学籍番号とパスワードを入力してください');
+      setErrorMessage("学籍番号とパスワードを入力してください");
       setOpenErrorSnackbar(true);
       return;
     }
@@ -84,7 +84,7 @@ export default function SignIn({ csrfToken }: SignInProps) {
     if (result?.error) {
       // エラー処理
       console.log("ログイン失敗:");
-      setErrorMessage('入力情報が間違っています')
+      setErrorMessage("入力情報が間違っています");
     } else {
       // ログイン成功時の処理
       console.log("ログイン成功");

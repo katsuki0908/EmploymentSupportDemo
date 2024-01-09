@@ -50,7 +50,6 @@
 //     });
 //   };
 
-
 //   const handleEditClick = () => {
 //     if (editedNotice) {
 //       onEdit(editedNotice);
@@ -62,19 +61,17 @@
 //     setEditedNotice(prevNotice => {
 //       if (prevNotice === null) return null;
 //       // If date is null, return prevNotice without modifying it, or handle appropriately
-//       if (date === null) return prevNotice; 
+//       if (date === null) return prevNotice;
 //       return { ...prevNotice, start_date: date };
 //     });
 //     console.log(_event);
 //   };
 
-  
-
 //   const handleEndDateChange = (date: Date | null) => {
 //     setEditedNotice(prevNotice => {
 //       if (prevNotice === null) return null;
 //       // If date is null, return prevNotice without modifying it, or handle appropriately
-//       if (date === null) return prevNotice; 
+//       if (date === null) return prevNotice;
 //       return { ...prevNotice, end_date: date };
 //     });
 //   };

@@ -27,7 +27,7 @@ export default function Profilelist(props: ProfileProps) {
     })
       .then((response) => response.json())
       .then((data) => SetProfile(data));
-  }, [session,props.Data.student_id]);
+  }, [session, props.Data.student_id]);
 
   const StyledTable = styled(Table)`
     width: 450px;

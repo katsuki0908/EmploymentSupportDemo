@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Container,
@@ -8,14 +8,13 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
-} from '@mui/material';
-import { useRouter } from 'next/router';
-import GraduationYearSelector from '@/component/mid/GraduationYearSelector'; // 追加: 新しいコンポーネントのimport
-import { useSession } from "next-auth/react"
-import Header from '@/component/big/header';
+} from "@mui/material";
+import { useRouter } from "next/router";
+import GraduationYearSelector from "@/component/mid/GraduationYearSelector"; // 追加: 新しいコンポーネントのimport
+import Header from "@/component/big/header";
 
-interface Name{
-    name:string;
+interface Name {
+  name: string;
 }
 
 interface Student {
@@ -33,44 +32,46 @@ const UserManage: React.FC = () => {
   // const { data: graduationYear } = useSession();
   // const [searchKeyword, setSearchKeyword] = useState<string>('');
   const [searchResult, setSearchResult] = useState<Student[]>([]);
-  const [selectedStudents, setSelectedStudents] = useState<Student[]>([]);
-  const [students, setStudents] = useState<Student[]>([]);
-  const [graduationYears, setGraduationYears] = useState<string[]>(generateGraduationYears());
-  const [cource, setCource] = useState<string>('');
+  const [, setSelectedStudents] = useState<Student[]>([]);
+  const [, setStudents] = useState<Student[]>([]);
+  const [, setGraduationYears] = useState<string[]>(
+    generateGraduationYears(),
+  );
+  const [cource, setCource] = useState<string>("");
   const [displayedUsers, setDisplayedStudents] = useState<Student[]>([]);
   // const [manage, setManages] = useState<Student[]>([]);
   // const graduationYearsOptions = generateGraduationYears();
-  const [selectedYear, setSelectedYear] = useState<string>(''); // 選択された年
+  const [selectedYear, setSelectedYear] = useState<string>(""); // 選択された年
   const router = useRouter();
-
 
   useEffect(() => {
     handleSearch();
-  }, []); 
-  
+  }, []);
+
   const handleSearch = async () => {
     try {
-
-      const courseQuery = cource ? `&cource_id=${cource}` : ''; // コースが選択されている場合のクエリ
-      const response = await fetch(`/api/user?graduation_year=${selectedYear}${courseQuery}`, {
-        method: 'GET',
-      });
+      const courseQuery = cource ? `&cource_id=${cource}` : ""; // コースが選択されている場合のクエリ
+      const response = await fetch(
+        `/api/user?graduation_year=${selectedYear}${courseQuery}`,
+        {
+          method: "GET",
+        },
+      );
       if (response.ok) {
         const studentsData: Student[] = await response.json();
         //const object = JSON.parse(studentsData[0].user)
         //console.log(studentsData[0]['user']['name']);
-        console.log(studentsData[0].user['name']);
+        console.log(studentsData[0].user["name"]);
         setStudents(studentsData);
         setSearchResult(studentsData);
         setDisplayedStudents(studentsData);
       } else {
-        throw new Error('データの取得に失敗しました');
+        throw new Error("データの取得に失敗しました");
       }
     } catch (error) {
-      console.error('データの取得エラー:', error);
+      console.error("データの取得エラー:", error);
     }
   };
-  
 
   const handleSelectAll = () => {
     setSelectedStudents([...searchResult]);
@@ -82,21 +83,23 @@ const UserManage: React.FC = () => {
 
   function generateGraduationYears() {
     const currentYear = new Date().getFullYear();
-    const years = Array.from({ length: 10 }, (_, index) => (currentYear - index + 2).toString());
+    const years = Array.from({ length: 10 }, (_, index) =>
+      (currentYear - index + 2).toString(),
+    );
     return years;
   }
 
   return (
     <React.Fragment>
       <CssBaseline />
-      <Header/>
+      <Header />
       <Container component="main" maxWidth="md" sx={{ mt: 4 }}>
         {/* 卒業年度の選択 */}
         <FormControl fullWidth sx={{ mb: 2 }}>
-        <GraduationYearSelector 
-        setGraduationYears={setGraduationYears}
-        setSelectedYear={setSelectedYear} // 選択された年を受け取るコールバック
-        />
+          <GraduationYearSelector
+            setGraduationYears={setGraduationYears}
+            setSelectedYear={setSelectedYear} // 選択された年を受け取るコールバック
+          />
         </FormControl>
 
         {/* コースの選択 */}
@@ -122,45 +125,68 @@ const UserManage: React.FC = () => {
 
         {/* ユーザー情報表示エリア */}
         <Typography variant="h5">ユーザー情報:</Typography>
-      <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '16px' }}>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>名前</th>
-            <th>性別</th>
-            <th>所属</th>
-            <th>卒業年度</th>
-            <th>コース</th>
-            <th>更新日</th>
-          </tr>
-        </thead>
-        <tbody>
-          {displayedUsers.map((student) => (
-            <tr key={student.student_id} style={{ borderBottom: '1px solid #ddd' }}>
-              <td>
-                <div
-                  style={{ textDecoration: 'underline', color: 'blue', cursor: 'pointer' }}
-                  onClick={() => router.push(`/usermanage/${student.student_id}/mypage`)}
-                >
-                  {student.student_id}
-                </div>
-              </td>
-              <td>{student.user.name}</td>
-              <td>{student.gender}</td>
-              <td>{student.affiliation}</td>
-              <td>{student.graduation_year}</td>
-              <td>{student.cource_id}</td>
-              <td>{student.updated_at}</td>
+        <table
+          style={{
+            width: "100%",
+            borderCollapse: "collapse",
+            marginTop: "16px",
+          }}
+        >
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>名前</th>
+              <th>性別</th>
+              <th>所属</th>
+              <th>卒業年度</th>
+              <th>コース</th>
+              <th>更新日</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {displayedUsers.map((student) => (
+              <tr
+                key={student.student_id}
+                style={{ borderBottom: "1px solid #ddd" }}
+              >
+                <td>
+                  <div
+                    style={{
+                      textDecoration: "underline",
+                      color: "blue",
+                      cursor: "pointer",
+                    }}
+                    onClick={() =>
+                      router.push(`/usermanage/${student.student_id}/mypage`)
+                    }
+                  >
+                    {student.student_id}
+                  </div>
+                </td>
+                <td>{student.user.name}</td>
+                <td>{student.gender}</td>
+                <td>{student.affiliation}</td>
+                <td>{student.graduation_year}</td>
+                <td>{student.cource_id}</td>
+                <td>{student.updated_at}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
         {/* ボタンエリア */}
-        <Button variant="contained" onClick={handleSelectAll} sx={{ mr: 2, mb: 2 }}>
+        <Button
+          variant="contained"
+          onClick={handleSelectAll}
+          sx={{ mr: 2, mb: 2 }}
+        >
           全選択
         </Button>
-        <Button variant="contained" onClick={handleDeselectAll} sx={{ mr: 2, mb: 2 }}>
+        <Button
+          variant="contained"
+          onClick={handleDeselectAll}
+          sx={{ mr: 2, mb: 2 }}
+        >
           選択解除
         </Button>
         {/*<Button variant="contained" onClick={handleExport} sx={{ mb: 2 }}>

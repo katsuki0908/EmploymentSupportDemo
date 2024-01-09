@@ -38,8 +38,11 @@ const ErrorSnackbar: React.FC<ErrorSnackbarProps> = ({
         <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
           {errorMessage}
           {button_flag && (
-          <PageChangeButton router_path_name={router_path_name} button_message={buttonMessage} />
-        )}
+            <PageChangeButton
+              router_path_name={router_path_name}
+              button_message={buttonMessage}
+            />
+          )}
         </Alert>
       </div>
     </Snackbar>

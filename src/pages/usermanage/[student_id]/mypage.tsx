@@ -10,17 +10,18 @@ import ProfileTabContents from "@/component/big/ProfileTabContents";
 import Head from "next/head";
 import styled from "styled-components";
 import { useParams } from "next/navigation";
-import { useRouter } from 'next/router';
-
+import { useRouter } from "next/router";
 
 export default function MyPage() {
   const [selectedTab, setSelectedTab] = useState(0);
   const { data: session } = useSession();
   const router = useRouter();
   const [selection_action, setSelection_action] = useState<action_table[]>([]);
-  const [selection_career_name, setSelection_career_name] = useState<career_path_table[]>([]);
-    // 動的ルーティングのパラメータを取得
-    const params = useParams();
+  const [selection_career_name, setSelection_career_name] = useState<
+    career_path_table[]
+  >([]);
+  // 動的ルーティングのパラメータを取得
+  const params = useParams();
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setSelectedTab(newValue);
   };
@@ -73,9 +74,9 @@ export default function MyPage() {
     }
   `;
 
-    if(session?.user.user_type == 'student'){
-      router.push('/login');
-    }
+  if (session?.user.user_type == "student") {
+    router.push("/login");
+  }
 
   return (
     <>
@@ -121,10 +122,10 @@ export default function MyPage() {
           )}
           {selectedTab === 1 && (
             <CareerTabContents
-              initialData={{ 
+              initialData={{
                 student_id: params.student_id,
-                user_type: session?.user.user_type
-            }}
+                user_type: session?.user.user_type,
+              }}
               action_data={selection_action}
               career_path_data={selection_career_name}
             />

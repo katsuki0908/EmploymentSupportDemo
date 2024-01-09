@@ -22,19 +22,19 @@ export default function CareerTabContents(props: FormDialogProps) {
 
   return (
     <>
-    { (props.initialData.user_type !== 'teacher') && (
-         <StyledButton
-         href="/edit_career"
-         endIcon={<AddCircleIcon />}
-         sx={{ mb: 1 }}
-       >
-         追加・修正・削除
-       </StyledButton>
-    )}
+      {props.initialData.user_type !== "teacher" && (
+        <StyledButton
+          href="/edit_career"
+          endIcon={<AddCircleIcon />}
+          sx={{ mb: 1 }}
+        >
+          追加・修正・削除
+        </StyledButton>
+      )}
       <Careerlist
-        initialData={{ 
+        initialData={{
           student_id: props.initialData.student_id,
-          user_type: props.initialData.user_type
+          user_type: props.initialData.user_type,
         }}
         action_data={props.action_data}
         career_path_data={props.career_path_data}

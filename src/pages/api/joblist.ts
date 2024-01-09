@@ -105,11 +105,9 @@ export default async function handler(
         //   message: "構文エラーで求人票の更新に失敗しました",
         //   error: error,
         // });
-        res
-          .status(500)
-          .json({
-            error: "データの更新に失敗しました。予期せぬエラーが発生しました。",
-          });
+        res.status(500).json({
+          error: "データの更新に失敗しました。予期せぬエラーが発生しました。",
+        });
       }
     }
   }
@@ -157,11 +155,9 @@ export default async function handler(
         //   message: "予期せぬエラーで求人票の追加に失敗しました",
         //   error: error,
         // });
-        res
-          .status(500)
-          .json({
-            error: "求人票の追加に失敗しました。予期せぬエラーが発生しました。",
-          });
+        res.status(500).json({
+          error: "求人票の追加に失敗しました。予期せぬエラーが発生しました。",
+        });
       }
     }
   }
@@ -174,7 +170,7 @@ export default async function handler(
     // const { job_listing_id } = req.body;
 
     try {
-      console.log("a")
+      console.log("a");
       const result = await prisma.job_listing_table.delete({
         where: { job_listing_id },
       });
@@ -194,7 +190,11 @@ export default async function handler(
         //   error: error,
         // });
         console.log(error);
-        res.status(500).json({ error: "求人票の削除に失敗しました。予期せぬエラーが発生しました。" });
+        res
+          .status(500)
+          .json({
+            error: "求人票の削除に失敗しました。予期せぬエラーが発生しました。",
+          });
       }
     }
   } else {

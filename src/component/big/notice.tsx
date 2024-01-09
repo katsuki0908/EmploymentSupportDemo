@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
-import { Box,CircularProgress } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { notice_table } from "@prisma/client";
@@ -32,18 +32,18 @@ const NoticesPage = () => {
   }, []);
 
   if (notices.length === 0) {
-    return(
+    return (
       <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center', 
-            alignItems: 'center', 
-            height: '100vh' 
-          }}
-        >
-          <CircularProgress />
-        </Box>  
-    )
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   }
 
   return (

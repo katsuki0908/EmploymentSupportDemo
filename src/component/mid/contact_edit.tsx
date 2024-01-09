@@ -80,9 +80,12 @@ export const EditContact = (props: { student_id: string }) => {
   // useCallback でラップした getContactId 関数
   const getContactId = React.useCallback(async () => {
     try {
-      const response = await fetch(`/api/profile?student_id=${props.student_id}`, {
-        method: "GET",
-      });
+      const response = await fetch(
+        `/api/profile?student_id=${props.student_id}`,
+        {
+          method: "GET",
+        },
+      );
       if (response.ok) {
         const data = await response.json();
         const {
@@ -106,7 +109,7 @@ export const EditContact = (props: { student_id: string }) => {
   useEffect(() => {
     getContactId();
   }, [getContactId, props.student_id]);
-  
+
   const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     // 携帯電話番号の入力が数字以外の文字を含むかどうか　数字以外ならErrorをtrue

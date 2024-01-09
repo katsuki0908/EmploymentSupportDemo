@@ -1,10 +1,10 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-import { ThemeProvider,Box,CircularProgress } from "@mui/material";
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { useSession, SessionProvider } from 'next-auth/react';
-import React from 'react';
+import { ThemeProvider, Box, CircularProgress } from "@mui/material";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import { useSession, SessionProvider } from "next-auth/react";
+import React from "react";
 import theme from "@/styles/theme";
 
 interface AuthProps {
@@ -19,7 +19,7 @@ export default function App({
     <ThemeProvider theme={theme}>
       <SessionProvider session={session}>
         <Auth>
-        <Component {...pageProps} />
+          <Component {...pageProps} />
         </Auth>
       </SessionProvider>
     </ThemeProvider>
@@ -33,31 +33,31 @@ function Auth({ children }: AuthProps) {
 
   useEffect(() => {
     // ローディング中か、ログインページにいる場合は何もしない
-    if (status === "loading" || router.pathname === '/login') {
+    if (status === "loading" || router.pathname === "/login") {
       return;
     }
 
     // ユーザーがいない場合はログインページにリダイレクト
     if (!isUser) {
-        router.push('/login');
+      router.push("/login");
     }
   }, [isUser, status, router]);
 
-  if (isUser || router.pathname === '/login') {
+  if (isUser || router.pathname === "/login") {
     return children; // セッションが有効、またはログインページの場合、子コンポーネントをレンダリング
   }
 
   // ローディング中の表示
   return (
     <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center', 
-            alignItems: 'center', 
-            height: '100vh' 
-          }}
-        >
-          <CircularProgress />
-        </Box>  
-  )
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
+      <CircularProgress />
+    </Box>
+  );
 }

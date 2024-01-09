@@ -1,13 +1,13 @@
 // GraduationYearSelector.tsx
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   FormControl,
   InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
-} from '@mui/material';
+} from "@mui/material";
 
 interface GraduationYearSelectorProps {
   setGraduationYears: React.Dispatch<React.SetStateAction<string[]>>;
@@ -15,10 +15,9 @@ interface GraduationYearSelectorProps {
 }
 
 const GraduationYearSelector: React.FC<GraduationYearSelectorProps> = ({
-  setGraduationYears,
   setSelectedYear,
 }) => {
-  const [selectedYear, setSelectedYearLocally] = useState<string>('');
+  const [selectedYear, setSelectedYearLocally] = useState<string>("");
 
   const years = generateGraduationYears();
 
@@ -54,7 +53,7 @@ const GraduationYearSelector: React.FC<GraduationYearSelectorProps> = ({
 function generateGraduationYears(): string[] {
   const currentYear = new Date().getFullYear();
   const years: string[] = Array.from({ length: 10 }, (_, index) =>
-    (currentYear - index + 2).toString()
+    (currentYear - index + 2).toString(),
   );
   return years;
 }

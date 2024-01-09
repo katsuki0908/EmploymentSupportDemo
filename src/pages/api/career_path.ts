@@ -27,11 +27,9 @@ export default async function handler(
       //   message: "キャリアパスを取得できませんでした",
       //   error: error,
       // });
-      res
-        .status(500)
-        .json({
-          error: "お知らせの取得に失敗しました。予期せぬエラーが発生しました。",
-        });
+      res.status(500).json({
+        error: "お知らせの取得に失敗しました。予期せぬエラーが発生しました。",
+      });
     }
   }
 
@@ -68,11 +66,9 @@ export default async function handler(
         //   message: "予期せぬエラーでキャリアパスの更新に失敗しました",
         //   error: error,
         // });
-        res
-          .status(500)
-          .json({
-            error: "データの更新に失敗しました。予期せぬエラーが発生しました。",
-          });
+        res.status(500).json({
+          error: "データの更新に失敗しました。予期せぬエラーが発生しました。",
+        });
       }
     }
   }
@@ -107,11 +103,9 @@ export default async function handler(
         //   message: "予期せぬエラーでキャリアパスの追加に失敗しました",
         //   error: error,
         // });
-        res
-          .status(500)
-          .json({
-            error: "データの追加に失敗しました。予期せぬエラーが発生しました。",
-          });
+        res.status(500).json({
+          error: "データの追加に失敗しました。予期せぬエラーが発生しました。",
+        });
       }
     }
   }

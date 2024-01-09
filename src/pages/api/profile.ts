@@ -54,11 +54,9 @@ export default async function handler(
         res.status(400).json({ error: "リクエストが無効です。" });
       } else {
         // その他のエラーの場合
-        res
-          .status(500)
-          .json({
-            error: "データの取得に失敗しました。予期せぬエラーが発生しました。",
-          });
+        res.status(500).json({
+          error: "データの取得に失敗しました。予期せぬエラーが発生しました。",
+        });
       }
     }
   }
@@ -115,12 +113,10 @@ export default async function handler(
         //   message: "予期せぬエラーでプロフィールの更新に失敗しました",
         //   error: error,
         // });
-        res
-          .status(500)
-          .json({
-            error:
-              "プロフィールの更新に失敗しました。予期せぬエラーが発生しました。",
-          });
+        res.status(500).json({
+          error:
+            "プロフィールの更新に失敗しました。予期せぬエラーが発生しました。",
+        });
       }
     }
   } else {

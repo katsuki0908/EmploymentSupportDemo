@@ -1,9 +1,6 @@
 //プロフィール編集ページ
 import { useSession } from "next-auth/react";
-import {
-  Stack,
-  Box,
-} from "@mui/material";
+import { Stack, Box } from "@mui/material";
 // import {ProfileTextField} from '../component/mid/profile_text_field';
 import { EditContact } from "../component/mid/contact_edit";
 import Header from "../component/big/header";
@@ -11,7 +8,7 @@ import Head from "next/head";
 // import PageChangeButton from "@/component/Atoms/page_change_button";
 import GoToLogInPage from "@/component/Templates/go_to_login_page";
 
-export default function EditProfilePage () {
+export default function EditProfilePage() {
   const { data: session } = useSession();
 
   if (!session?.user?.user_id) {
@@ -40,4 +37,4 @@ export default function EditProfilePage () {
       </Box>
     </div>
   );
-};
+}

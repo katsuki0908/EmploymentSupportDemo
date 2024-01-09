@@ -119,15 +119,15 @@ export default function Careerlist(props: FormDialogProps) {
     return (
       <Box
         sx={{
-          display: 'flex',
-          justifyContent: 'center', 
-          alignItems: 'center', 
-          height: '15vh' 
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "15vh",
         }}
       >
         <CircularProgress />
-      </Box>  
-)
+      </Box>
+    );
   }
 
   return (

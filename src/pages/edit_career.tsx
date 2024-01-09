@@ -6,7 +6,6 @@ import { Box, Typography } from "@mui/material";
 import Header from "@/component/big/header";
 import { useSession } from "next-auth/react";
 import { action_table, career_path_table } from "@prisma/client";
-import GoToLogInPage from "@/component/Templates/go_to_login_page";
 import Head from "next/head";
 
 export default function Eitcareerpage() {

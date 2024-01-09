@@ -61,16 +61,16 @@ export default NextAuth({
 
   secret: process.env.NEXT_AUTH_SECRET,
 
-  site:process.env.NEXTAUTH_URL,
+  site: process.env.NEXTAUTH_URL,
 
-  url: '/',
+  url: "/",
 
   pages: {
     signIn: "/login",
   },
 
   callbacks: {
-    async jwt({ token, user,account }) {
+    async jwt({ token, user, account }) {
       if (user) {
         token.user_id = user.user_id;
         token.user_type = user.user_type;
@@ -85,14 +85,15 @@ export default NextAuth({
         session.user.user_id = token.user_id;
         session.user.user_type = token.user_type;
         session.message = token.message;
-      }
-      else {
-        session.message = '認証失敗';
+      } else {
+        session.message = "認証失敗";
         // logger.info(auth_data.message,'認証メッセージ')
-      } 
+      }
       return session;
     },
     async redirect({ url, baseUrl }) {
       // ログイン後のリダイレクト先を指定
-      return url.startsWith(baseUrl) ? url : baseUrl + '/login';
-    },}});
+      return url.startsWith(baseUrl) ? url : baseUrl + "/login";
+    },
+  },
+});

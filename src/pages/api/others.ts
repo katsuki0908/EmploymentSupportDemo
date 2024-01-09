@@ -37,11 +37,9 @@ export default async function handler(
         res.status(400).json({ error: "リクエストが無効です。" });
       } else {
         // その他のエラーの場合
-        res
-          .status(500)
-          .json({
-            error: "データの取得に失敗しました。予期せぬエラーが発生しました。",
-          });
+        res.status(500).json({
+          error: "データの取得に失敗しました。予期せぬエラーが発生しました。",
+        });
       }
     }
   }
@@ -78,11 +76,9 @@ export default async function handler(
         //   message: "予期せぬエラーでキャリアパスへの更新に失敗しました",
         //   error: error,
         // });
-        res
-          .status(500)
-          .json({
-            error: "データの更新に失敗しました。予期せぬエラーが発生しました。",
-          });
+        res.status(500).json({
+          error: "データの更新に失敗しました。予期せぬエラーが発生しました。",
+        });
       }
     }
   }
@@ -126,11 +122,9 @@ export default async function handler(
         //   message: "予期せぬエラーでその他の情報の追加に失敗しました",
         //   error: error,
         // });
-        res
-          .status(500)
-          .json({
-            error: "データの追加に失敗しました。予期せぬエラーが発生しました。",
-          });
+        res.status(500).json({
+          error: "データの追加に失敗しました。予期せぬエラーが発生しました。",
+        });
       }
     }
   } else {

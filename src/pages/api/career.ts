@@ -39,12 +39,9 @@ export default async function handler(
         res.status(400).json({ error: "リクエストが無効です。" });
       } else {
         // その他のエラーの場合
-        res
-          .status(500)
-          .json({
-            error:
-              "キャリアの取得に失敗しました。予期せぬエラーが発生しました。",
-          });
+        res.status(500).json({
+          error: "キャリアの取得に失敗しました。予期せぬエラーが発生しました。",
+        });
       }
     }
   }
@@ -87,11 +84,9 @@ export default async function handler(
         //   message: "予期せぬエラーでキャリアの更新に失敗しました",
         //   error: error,
         // });
-        res
-          .status(500)
-          .json({
-            error: "データの更新に失敗しました。予期せぬエラーが発生しました。",
-          });
+        res.status(500).json({
+          error: "データの更新に失敗しました。予期せぬエラーが発生しました。",
+        });
       }
     }
   }
@@ -125,11 +120,9 @@ export default async function handler(
         //   message: "予期せぬエラーでキャリアの追加に失敗しました",
         //   error: error,
         // });
-        res
-          .status(500)
-          .json({
-            error: "データの追加に失敗しました。予期せぬエラーが発生しました。",
-          });
+        res.status(500).json({
+          error: "データの追加に失敗しました。予期せぬエラーが発生しました。",
+        });
       }
     }
   }
@@ -138,7 +131,7 @@ export default async function handler(
   else if (req.method === "DELETE") {
     const { career_action_id } = req.body;
     try {
-      const result = await prisma.career_action_table.delete({
+      await prisma.career_action_table.delete({
         where: { career_action_id },
       });
       // logger.info({ message: "キャリアを削除しました", updatedData: result });
@@ -155,11 +148,9 @@ export default async function handler(
         //   message: "予期せぬエラーでキャリアの削除に失敗しました",
         //   error: error,
         // });
-        res
-          .status(500)
-          .json({
-            error: "データの削除に失敗しました。予期せぬエラーが発生しました。",
-          });
+        res.status(500).json({
+          error: "データの削除に失敗しました。予期せぬエラーが発生しました。",
+        });
       }
     }
   } else {
