@@ -13,6 +13,7 @@ import {
   Typography,
   Divider,
   Button,
+  CircularProgress,
 } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import { styled } from "@mui/material/styles";
@@ -115,7 +116,18 @@ export default function Careerlist(props: FormDialogProps) {
   });
 
   if (career.length === 0) {
-    return <Box>データがありません</Box>;
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          height: '15vh' 
+        }}
+      >
+        <CircularProgress />
+      </Box>  
+)
   }
 
   return (
@@ -176,7 +188,7 @@ export default function Careerlist(props: FormDialogProps) {
                 <Typography>{career_item.career_path?.website}</Typography>
               </Grid>
 
-              {(props.initialData.student_id == "admin" ||
+              {(props.initialData.user_type == "teacher" ||
                 router.pathname == "/edit_career") && ( //編集ページでのみ表示
                 <Grid xs={4}>
                   {/* 編集用ダイアログ*/}
@@ -196,7 +208,7 @@ export default function Careerlist(props: FormDialogProps) {
                   />
                 </Grid>
               )}
-              {(props.initialData.student_id == "admin" ||
+              {(props.initialData.user_type == "teacher" ||
                 router.pathname == "/edit_career") && ( //編集ページでのみ表示
                 <Grid xs={4}>
                   {/* 削除ボタン*/}
