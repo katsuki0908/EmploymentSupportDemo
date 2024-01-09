@@ -16,7 +16,7 @@ CREATE TABLE "student_table" (
     "graduation_year" INTEGER NOT NULL,
     "face_photo" TEXT,
     "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "cource_id" INTEGER NOT NULL,
+    "course_id" INTEGER NOT NULL,
     "personal_address" TEXT,
     "personal_phone" TEXT,
     "personal_email" TEXT,
@@ -44,11 +44,11 @@ CREATE TABLE "instruction_table" (
 );
 
 -- CreateTable
-CREATE TABLE "cource_table" (
-    "cource_id" SERIAL NOT NULL,
+CREATE TABLE "course_table" (
+    "course_id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
 
-    CONSTRAINT "cource_table_pkey" PRIMARY KEY ("cource_id")
+    CONSTRAINT "course_table_pkey" PRIMARY KEY ("course_id")
 );
 
 -- CreateTable
@@ -96,8 +96,8 @@ CREATE TABLE "obog_table" (
 CREATE TABLE "job_listing_table" (
     "job_listing_id" SERIAL NOT NULL,
     "application_format" TEXT NOT NULL,
-    "submission_date" TIMESTAMP(3) NOT NULL,
-    "visit_date" TIMESTAMP(3) NOT NULL,
+    "submission_date" TIMESTAMP(3),
+    "visit_date" TIMESTAMP(3),
     "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "career_path_id" INTEGER NOT NULL,
     "notes" TEXT,
@@ -129,7 +129,7 @@ CREATE UNIQUE INDEX "career_path_table_name_key" ON "career_path_table"("name");
 ALTER TABLE "student_table" ADD CONSTRAINT "student_table_student_id_fkey" FOREIGN KEY ("student_id") REFERENCES "user_table"("user_id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "student_table" ADD CONSTRAINT "student_table_cource_id_fkey" FOREIGN KEY ("cource_id") REFERENCES "cource_table"("cource_id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "student_table" ADD CONSTRAINT "student_table_course_id_fkey" FOREIGN KEY ("course_id") REFERENCES "course_table"("course_id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "admin_table" ADD CONSTRAINT "admin_table_admin_id_fkey" FOREIGN KEY ("admin_id") REFERENCES "user_table"("user_id") ON DELETE RESTRICT ON UPDATE CASCADE;
