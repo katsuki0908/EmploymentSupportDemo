@@ -9,6 +9,7 @@ declare module "next-auth" {
       user_id?: string;
       user_type?: string;
     } & DefaultSession["user"];
+    message:string;
   }
 }
 
@@ -20,15 +21,3 @@ declare module "next-auth/jwt" {
     } & DefaultJWT;
   }
 }
-
-console.log(User,DefaultUser,JWT,Session);
-
-// export interface CustomSession extends Session {
-//   user: {
-//     user_id?: string;
-//     user_type?: string;
-//     name?: string;
-//     email?: string;
-//     image?: string;
-//   };
-// }
