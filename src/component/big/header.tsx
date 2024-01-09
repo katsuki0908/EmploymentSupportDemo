@@ -118,7 +118,7 @@ export default function Header() {
     },
     {
       text: "ユーザー管理",
-      url: "/usermanage3",
+      url: "/usermanage",
       icon: <EditNoteIcon sx={{ color: "#FFF" }} />,
     },
     {
