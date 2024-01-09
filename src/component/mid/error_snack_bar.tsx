@@ -12,6 +12,8 @@ interface ErrorSnackbarProps {
   open: boolean;
   handleClose: () => void;
   router_path_name?: string;
+  buttonMessage?: string;
+  button_flag: boolean;
 }
 const vertical = "top";
 const horizontal = "center";
@@ -21,6 +23,8 @@ const ErrorSnackbar: React.FC<ErrorSnackbarProps> = ({
   open,
   handleClose,
   router_path_name,
+  button_flag,
+  buttonMessage,
 }) => {
   return (
     <Snackbar
@@ -33,7 +37,9 @@ const ErrorSnackbar: React.FC<ErrorSnackbarProps> = ({
       <div>
         <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
           {errorMessage}
-          <PageChangeButton router_path_name={router_path_name} />
+          {button_flag && (
+          <PageChangeButton router_path_name={router_path_name} button_message={buttonMessage} />
+        )}
         </Alert>
       </div>
     </Snackbar>
