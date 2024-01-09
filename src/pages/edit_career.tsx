@@ -51,10 +51,6 @@ export default function Eitcareerpage() {
     fetchData();
   }, []);
 
-  if (!session?.user?.user_id) {
-    return <GoToLogInPage />;
-  }
-
   return (
     <>
       <Head>
