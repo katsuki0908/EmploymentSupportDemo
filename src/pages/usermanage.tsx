@@ -46,7 +46,7 @@ const UserManage: React.FC = () => {
 
   useEffect(() => {
     handleSearch();
-  }, []);
+  }, [selectedYear, cource]);
 
   const handleSearch = async () => {
     try {
