@@ -34,9 +34,7 @@ const UserManage: React.FC = () => {
   const [searchResult, setSearchResult] = useState<Student[]>([]);
   const [, setSelectedStudents] = useState<Student[]>([]);
   const [, setStudents] = useState<Student[]>([]);
-  const [, setGraduationYears] = useState<string[]>(
-    generateGraduationYears(),
-  );
+  const [, setGraduationYears] = useState<string[]>(generateGraduationYears());
   const [cource, setCource] = useState<string>("");
   const [displayedUsers, setDisplayedStudents] = useState<Student[]>([]);
   // const [manage, setManages] = useState<Student[]>([]);

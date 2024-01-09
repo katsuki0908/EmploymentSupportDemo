@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import { ConfirmDialog } from "../mid/confirm_dialog";
-import logger from "../../../logger";
+//import logger from "../../../logger";
 
 const FileUpload = () => {
   const [file, setFile] = useState<File | null>(null); // stateにFileまたはnull型を使用

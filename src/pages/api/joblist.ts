@@ -190,11 +190,9 @@ export default async function handler(
         //   error: error,
         // });
         console.log(error);
-        res
-          .status(500)
-          .json({
-            error: "求人票の削除に失敗しました。予期せぬエラーが発生しました。",
-          });
+        res.status(500).json({
+          error: "求人票の削除に失敗しました。予期せぬエラーが発生しました。",
+        });
       }
     }
   } else {
