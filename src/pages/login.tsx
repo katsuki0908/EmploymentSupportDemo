@@ -9,10 +9,28 @@ import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import Head from "next/head";
+import { signIn } from "next-auth/react";
 
 interface SignInProps {
   csrfToken: string;
 }
+
+const StyledTextfild = styled(TextField)`
+width: 338px;
+margin-bottom: 12px;
+margin-right: auto;
+margin-left: auto;
+
+@media screen and (max-width: 600px) {
+  width: 90%; /* 가로 폭이 600px 이하일 때 스타일 변경 */
+}
+`;
+const StyledButton = styled(Button)`
+width: 338px;
+@media screen and (max-width: 600px) {
+  width: 90%; /* 가로 폭이 600px 이하일 때 스타일 변경 */
+}
+`;
 
 export default function SignIn({ csrfToken }: SignInProps) {
   //サインインページ
@@ -20,15 +38,17 @@ export default function SignIn({ csrfToken }: SignInProps) {
   const [openErrorSnackbar, setOpenErrorSnackbar] = React.useState(false); //スナックバーの状態を管理するステート
   const [errorMessage, setErrorMessage] = React.useState(""); //エラーメッセージの状態を管理するステート
   const { data: session } = useSession();
+  const [uid, setUid] = React.useState('');
+  const [password, setPassword] = React.useState(''); // パスワード用の状態
   const router = useRouter();
 
   React.useEffect(() => {
     // セッションが存在し、ユーザーがログインしていればトップページに遷移
-    if (session?.user?.name) {
+    if (session?.user?.user_id) {
       router.push("/top"); // または任意のパス
-    } else if (session?.user) {
+    } else if(session?.message == '認証失敗'){
       // ログイン失敗時の処理
-      setErrorMessage("ログイン失敗");
+      setErrorMessage(session.message);
       setOpenErrorSnackbar(true);
     }
   }, [session, router]);
@@ -37,22 +57,41 @@ export default function SignIn({ csrfToken }: SignInProps) {
     setOpenErrorSnackbar(false);
   };
 
-  const StyledTextfild = styled(TextField)`
-    width: 338px;
-    margin-bottom: 12px;
-    margin-right: auto;
-    margin-left: auto;
+  // 入力フィールドの変更ハンドラ
+  const handleUidChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUid(event.target.value);
+  };
 
-    @media screen and (max-width: 600px) {
-      width: 90%; /* 가로 폭이 600px 이하일 때 스타일 변경 */
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  };
+
+  // フォーム送信ハンドラ
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!uid || !password) {
+      // いずれかのフィールドが未入力の場合
+      setErrorMessage('学籍番号とパスワードを入力してください');
+      setOpenErrorSnackbar(true);
+      return;
     }
-  `;
-  const StyledButton = styled(Button)`
-    width: 338px;
-    @media screen and (max-width: 600px) {
-      width: 90%; /* 가로 폭이 600px 이하일 때 스타일 변경 */
+    const result = await signIn("credentials", {
+      redirect: false, // ページ遷移を防ぐ
+      uid,
+      password,
+    });
+
+    if (result?.error) {
+      // エラー処理
+      console.log("ログイン失敗:");
+      setErrorMessage('入力情報が間違っています')
+    } else {
+      // ログイン成功時の処理
+      console.log("ログイン成功");
+      // 任意のページにリダイレクト
+      window.location.href = "/top";
     }
-  `;
+  };
 
   return (
     <>
@@ -115,8 +154,9 @@ export default function SignIn({ csrfToken }: SignInProps) {
         <Box
           component="form"
           noValidate
-          method="post"
-          action="/api/auth/callback/credentials"
+          // method="post"
+          // action="/api/auth/callback/credentials"
+          onSubmit={handleSubmit}
           sx={{
             mt: 20,
             width: "90%",
@@ -133,7 +173,8 @@ export default function SignIn({ csrfToken }: SignInProps) {
             label="学籍番号"
             name="uid"
             autoComplete="uid"
-            autoFocus
+            value={uid}
+            onChange={handleUidChange}
           />
           <StyledTextfild
             required
@@ -142,6 +183,8 @@ export default function SignIn({ csrfToken }: SignInProps) {
             type="password"
             id="password"
             variant="outlined"
+            value={password}
+            onChange={handlePasswordChange}
             sx={{ borderRadius: 10 }}
           />
           <StyledButton
@@ -165,6 +208,7 @@ export default function SignIn({ csrfToken }: SignInProps) {
             errorMessage={errorMessage}
             open={openErrorSnackbar}
             handleClose={handleCloseErrorSnackbar}
+            button_flag={false}
           />
         </Box>
       </Box>
